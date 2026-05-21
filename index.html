@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>隠れた実力者診断</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07091C;--card:#0F1630;--card2:#131B38;--border:#1D2E58;
+  --accent:#9DD4FF;--accent2:#C4AEFF;--gold:#FFD97A;--green:#7FEECC;
+  --t1:#F4F8FF;--t2:#C8DCF5;--t3:#7A96BB;--r:16px;--rs:11px;
+  --safe-top:env(safe-area-inset-top, 0px);
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;overflow-x:hidden;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;position:relative;padding-top:var(--safe-top);}
+ruby{ruby-align:center;}
+rt{font-size:0.55em;color:var(--t2);}
+
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d,3s) ease-in-out infinite var(--dl,0s);}
+@keyframes tw{0%,100%{opacity:var(--a,.1);transform:scale(1);}50%{opacity:var(--b,.7);transform:scale(1.4);}}
+.neb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+
+.scr{display:none;min-height:100vh;padding-bottom:calc(64px + var(--safe-bottom));position:relative;z-index:1;animation:fu .45s ease forwards;}
+.scr.on{display:block;}
+@keyframes fu{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* TOP */
+.top-hd{padding:60px 22px 32px;text-align:center;}
+.badge{display:inline-block;background:rgba(157,212,255,.1);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.14em;padding:5px 15px;border-radius:100px;margin-bottom:22px;border:1px solid rgba(157,212,255,.22);}
+.ttl{font-family:'DM Serif Display',serif;font-size:clamp(34px,9vw,52px);line-height:1.1;color:var(--t1);margin-bottom:6px;text-shadow:0 0 48px rgba(157,212,255,.2);}
+.ttl em{color:var(--accent);font-style:italic;}
+.ttl-ja{font-size:clamp(14px,3.8vw,20px);font-weight:300;color:var(--t2);letter-spacing:.12em;margin-bottom:26px;}
+.top-desc{max-width:300px;margin:0 auto 36px;font-size:13.5px;line-height:2.1;color:var(--t2);font-weight:300;}
+.cards{display:flex;gap:8px;padding:0 18px 32px;overflow-x:auto;scrollbar-width:none;}
+.cards::-webkit-scrollbar{display:none;}
+.card{flex:0 0 118px;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:16px 12px;text-align:center;}
+.card-ico{font-size:22px;margin-bottom:8px;}
+.card-lbl{font-size:10px;color:var(--t2);line-height:1.65;}
+.form-sec{padding:0 18px 22px;}
+.flbl{display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:8px;letter-spacing:.07em;}
+.finput{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:'Noto Sans JP',sans-serif;color:var(--t1);background:var(--card2);outline:none;transition:border-color .2s,box-shadow .2s;}
+.finput:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(157,212,255,.12);}
+.finput::placeholder{color:var(--t3);}
+.btn-p{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#07091C;border:none;border-radius:var(--rs);font-size:14px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;margin-top:12px;box-shadow:0 4px 20px rgba(157,212,255,.2);transition:transform .15s;}
+.btn-p:active{transform:scale(.98);}
+.top-note{text-align:center;font-size:10px;color:var(--t3);padding:0 18px;}
+
+/* QUIZ */
+.qhd{padding:18px 18px 0;position:sticky;top:0;background:var(--bg);z-index:10;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.qpr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.qpr-lbl{font-size:11px;color:var(--t2);font-weight:500;}
+.qpr-num{font-size:11px;color:var(--t3);}
+.pbar-bg{width:100%;height:4px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden;}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(157,212,255,.35);}
+.qbody{padding:28px 18px 20px;}
+.qnum{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.2em;margin-bottom:12px;}
+.qtxt{font-size:17px;font-weight:700;line-height:1.85;color:var(--t1);margin-bottom:22px;min-height:76px;}
+.qopts{display:flex;flex-direction:column;gap:8px;}
+.qopt{padding:14px 15px;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);font-size:13.5px;line-height:1.85;color:var(--t2);cursor:pointer;transition:all .2s;text-align:left;font-family:'Noto Sans JP',sans-serif;display:flex;align-items:flex-start;gap:10px;}
+.qopt.sel{border-color:var(--accent);background:rgba(157,212,255,.09);color:var(--t1);box-shadow:0 0 0 1px var(--accent);}
+.qlbl{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.07);color:var(--t3);font-size:10px;font-weight:700;flex-shrink:0;margin-top:4px;transition:background .2s,color .2s;}
+.qopt.sel .qlbl{background:var(--accent);color:#07091C;}
+.qnav{display:flex;gap:8px;padding:14px 18px 0;}
+.btn-bk{padding:12px 15px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s;flex:0 0 auto;}
+.btn-nx{flex:1;padding:12px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--rs);font-size:13px;font-weight:700;color:var(--t3);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s;pointer-events:none;}
+.btn-nx.on{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#07091C;border-color:transparent;pointer-events:all;box-shadow:0 4px 16px rgba(157,212,255,.18);}
+
+/* LOADING */
+#scr-load{display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:80px 24px;}
+#scr-load.on{display:flex;}
+.orb{width:76px;height:76px;border-radius:50%;position:relative;margin-bottom:36px;}
+.orb::before{content:'';position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(var(--accent),var(--accent2),var(--gold),var(--accent));animation:sp 1.8s linear infinite;}
+.orb::after{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--bg);}
+@keyframes sp{to{transform:rotate(360deg);}}
+.ld-ttl{font-size:18px;font-weight:700;color:var(--t1);margin-bottom:12px;}
+.ld-msg{font-size:12px;color:var(--t2);line-height:1.9;transition:opacity .4s;min-height:44px;font-weight:300;}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:24px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:dp 1.4s ease-in-out infinite;opacity:.3;}
+.dot:nth-child(2){animation-delay:.2s;}.dot:nth-child(3){animation-delay:.4s;}
+@keyframes dp{0%,80%,100%{opacity:.3;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
+
+/* RESULT */
+.res-hd{padding:44px 20px 16px;text-align:center;}
+.res-badge{display:inline-block;background:rgba(255,217,122,.1);color:var(--gold);font-size:9px;font-weight:700;letter-spacing:.15em;padding:4px 14px;border-radius:100px;margin-bottom:14px;border:1px solid rgba(255,217,122,.22);}
+.res-nlbl{font-size:11px;color:var(--t3);margin-bottom:4px;}
+.res-nick{font-size:18px;font-weight:700;color:var(--t1);}
+
+/* スクショ映えカード */
+.res-card{margin:18px 18px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px 22px;position:relative;overflow:hidden;}
+.res-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--gold));}
+.res-card-glow{position:absolute;width:200px;height:200px;border-radius:50%;filter:blur(60px);opacity:.12;top:-40px;right:-40px;background:var(--accent2);pointer-events:none;}
+.res-code{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.25em;margin-bottom:10px;opacity:.8;}
+.res-ico{font-size:52px;margin-bottom:14px;display:block;filter:drop-shadow(0 0 16px rgba(157,212,255,.3));}
+.res-name{font-family:'DM Serif Display',serif;font-size:clamp(26px,7vw,34px);color:var(--t1);line-height:1.15;margin-bottom:8px;text-shadow:0 0 24px rgba(157,212,255,.2);}
+.res-sub{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:18px;line-height:1.6;letter-spacing:.03em;}
+.res-divider{width:40px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;margin:0 0 18px;}
+.res-desc{font-size:13.5px;line-height:2.05;color:var(--t2);font-weight:300;}
+
+/* ヒント注釈 */
+.res-hint{margin:0 18px 18px;background:rgba(157,212,255,.06);border:1px solid rgba(157,212,255,.15);border-radius:var(--rs);padding:14px 16px;font-size:12px;color:var(--t2);line-height:1.8;font-weight:300;}
+.res-hint-ico{margin-right:6px;}
+
+/* BARS */
+.sec{padding:0 18px 18px;}
+.sec-ttl{font-size:11px;font-weight:700;color:var(--t2);margin-bottom:14px;letter-spacing:.08em;}
+.pbar{margin-bottom:20px;}
+.pbhd{display:flex;justify-content:space-between;margin-bottom:7px;}
+.pban{font-size:12px;color:var(--t1);font-weight:500;}
+.pbtr{height:8px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden;}
+.pbfl{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(.4,0,.2,1);width:0;}
+.pbfl-0{background:linear-gradient(90deg,#4AA8E8,var(--accent));}
+.pbfl-1{background:linear-gradient(90deg,#9A7AE8,var(--accent2));}
+.pbfl-2{background:linear-gradient(90deg,#E8B840,var(--gold));}
+.pbfl-3{background:linear-gradient(90deg,#40C898,var(--green));}
+.pbpr{display:flex;justify-content:space-between;margin-top:6px;}
+.pbpa{font-size:12px;font-weight:700;color:var(--t1);}
+.pbpb{font-size:11px;color:var(--t3);}
+
+/* SHARE */
+.share-lbl{font-size:10px;color:var(--t3);margin-bottom:12px;letter-spacing:.1em;}
+.sbtns{display:flex;flex-direction:column;gap:8px;}
+.sbtn{width:100%;padding:14px;border:none;border-radius:var(--rs);font-size:13px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .15s;}
+.sbtn:active{transform:scale(.98);}
+.sbtn-x{background:var(--t1);color:#07091C;}
+.sbtn-line{background:#06C755;color:#fff;}
+.sbtn-copy{background:var(--card);color:var(--t2);border:1px solid var(--border);}
+.btn-retry{width:100%;padding:13px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);font-size:12px;color:var(--t2);cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-top:8px;transition:all .2s;}
+.btn-retry:hover{color:var(--t1);border-color:var(--t2);}
+.res-footer{text-align:center;padding:0 18px 24px;font-size:10px;color:var(--t3);line-height:2;}
+.toast{position:fixed;bottom:calc(24px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(16px);background:var(--accent);color:#07091C;font-size:12px;font-weight:700;padding:8px 20px;border-radius:100px;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<div class="stars" id="stars">
+  <div class="neb" style="width:380px;height:380px;top:-80px;right:-60px;background:radial-gradient(#7EB8F7,transparent);opacity:.06;"></div>
+  <div class="neb" style="width:320px;height:320px;bottom:15%;left:-60px;background:radial-gradient(#A78BFA,transparent);opacity:.06;"></div>
+  <div class="neb" style="width:280px;height:280px;bottom:-40px;right:8%;background:radial-gradient(#FFD166,transparent);opacity:.05;"></div>
+</div>
+<div class="toast" id="toast">コピーしました！</div>
+
+<!-- TOP -->
+<div id="scr-top" class="scr on">
+  <div class="top-hd">
+    <div class="badge">POTENTIAL ANALYSIS · 12 QUESTIONS</div>
+    <h1 class="ttl">Hidden<br><em>Potential</em></h1>
+    <p class="ttl-ja"><ruby>隠<rt>かく</rt></ruby>れた<ruby>実力者<rt>じつりょくしゃ</rt></ruby><ruby>診断<rt>しんだん</rt></ruby></p>
+    <p class="top-desc">あなたがまだ<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>していないだけの<ruby>理由<rt>りゆう</rt></ruby>を、<br><ruby>独自<rt>どくじ</rt></ruby>のロジックで<ruby>解<rt>と</rt></ruby>き<ruby>明<rt>あ</rt></ruby>かします。<br><ruby>目立<rt>めだ</rt></ruby>たなくていい。あなたには<ruby>確<rt>たし</rt></ruby>かに、<br>人とは<ruby>違<rt>ちが</rt></ruby>う<ruby>力<rt>ちから</rt></ruby>が<ruby>眠<rt>ねむ</rt></ruby>っています。</p>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="card-ico">🌌</div><div class="card-lbl">4つの<br>ポテンシャル<ruby>軸<rt>じく</rt></ruby></div></div>
+    <div class="card"><div class="card-ico">🔍</div><div class="card-lbl">12<ruby>問<rt>もん</rt></ruby>で<br><ruby>深層分析<rt>しんそうぶんせき</rt></ruby></div></div>
+    <div class="card"><div class="card-ico">✨</div><div class="card-lbl">16の<br><ruby>実力者<rt>じつりょくしゃ</rt></ruby>タイプ</div></div>
+    <div class="card"><div class="card-ico">🔒</div><div class="card-lbl"><ruby>無料<rt>むりょう</rt></ruby>・<br><ruby>登録不要<rt>とうろくふよう</rt></ruby></div></div>
+  </div>
+  <div class="form-sec">
+    <label class="flbl" for="nkinput">ニックネームを<ruby>入力<rt>にゅうりょく</rt></ruby>してください</label>
+    <input type="text" id="nkinput" class="finput" placeholder="例：たろう、まゆ、K など" maxlength="20">
+    <button class="btn-p" onclick="startQuiz()"><ruby>自分<rt>じぶん</rt></ruby>のポテンシャルを<ruby>診断<rt>しんだん</rt></ruby>する →</button>
+  </div>
+  <p class="top-note"><ruby>所要時間<rt>しょようじかん</rt></ruby>：<ruby>約<rt>やく</rt></ruby>3<ruby>分<rt>ぷん</rt></ruby> ／ データは<ruby>外部<rt>がいぶ</rt></ruby>に<ruby>送信<rt>そうしん</rt></ruby>されません</p>
+</div>
+
+<!-- QUIZ -->
+<div id="scr-quiz" class="scr">
+  <div class="qhd">
+    <div class="qpr">
+      <span class="qpr-lbl"><ruby>診断中<rt>しんだんちゅう</rt></ruby>...</span>
+      <span class="qpr-num" id="pnum">1 / 12</span>
+    </div>
+    <div class="pbar-bg"><div class="pbar-fill" id="pbar" style="width:8.33%"></div></div>
+  </div>
+  <div class="qbody">
+    <div class="qnum" id="qnum">Q1</div>
+    <div class="qtxt" id="qtxt"></div>
+    <div class="qopts" id="qopts"></div>
+  </div>
+  <div class="qnav">
+    <button class="btn-bk" id="btnbk" onclick="goBack()">← <ruby>戻<rt>もど</rt></ruby>る</button>
+    <button class="btn-nx" id="btnnx" onclick="goNext()"><ruby>次<rt>つぎ</rt></ruby>へ →</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="scr-load" class="scr">
+  <div class="orb"></div>
+  <div class="ld-ttl">あなたを<ruby>分析<rt>ぶんせき</rt></ruby>しています</div>
+  <div class="ld-msg" id="ldmsg"><ruby>回答<rt>かいとう</rt></ruby>データを<ruby>深層分析中<rt>しんそうぶんせきちゅう</rt></ruby>...</div>
+  <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- RESULT -->
+<div id="scr-res" class="scr">
+  <div class="res-hd">
+    <div class="res-badge">ANALYSIS COMPLETE</div>
+    <p class="res-nlbl"><ruby>診断結果<rt>しんだんけっか</rt></ruby></p>
+    <p class="res-nick" id="resnick"></p>
+  </div>
+
+  <!-- スクショ映えカード -->
+  <div class="res-card">
+    <div class="res-card-glow"></div>
+    <div class="res-code" id="rescode"></div>
+    <span class="res-ico" id="resico"></span>
+    <h2 class="res-name" id="resname"></h2>
+    <p class="res-sub" id="ressub"></p>
+    <div class="res-divider"></div>
+    <p class="res-desc" id="resdesc"></p>
+  </div>
+
+  <!-- 自己理解ヒント -->
+  <div class="res-hint">
+    <span class="res-hint-ico">💡</span>この<ruby>診断<rt>しんだん</rt></ruby>は、あなたの<ruby>隠<rt>かく</rt></ruby>れた<ruby>可能性<rt>かのうせい</rt></ruby>を<ruby>発見<rt>はっけん</rt></ruby>するための<ruby>自己理解<rt>じこりかい</rt></ruby>のヒントです。<ruby>結果<rt>けっか</rt></ruby>はあなたのすべてではなく、あくまで<ruby>一<rt>ひと</rt></ruby>つの<ruby>視点<rt>してん</rt></ruby>として<ruby>受<rt>う</rt></ruby>け<ruby>取<rt>と</rt></ruby>ってください。
+  </div>
+
+  <div class="sec">
+    <div class="sec-ttl">📊 4つのポテンシャル<ruby>軸<rt>じく</rt></ruby></div>
+    <div class="pbar"><div class="pbhd"><span class="pban">① <ruby>影響力<rt>えいきょうりょく</rt></ruby>の<ruby>形<rt>かたち</rt></ruby></span></div><div class="pbtr"><div class="pbfl pbfl-0" id="b0"></div></div><div class="pbpr"><span class="pbpa" id="b0a"></span><span class="pbpb" id="b0b"></span></div></div>
+    <div class="pbar"><div class="pbhd"><span class="pban">② <ruby>脳内<rt>のうない</rt></ruby>スタンス</span></div><div class="pbtr"><div class="pbfl pbfl-1" id="b1"></div></div><div class="pbpr"><span class="pbpa" id="b1a"></span><span class="pbpb" id="b1b"></span></div></div>
+    <div class="pbar"><div class="pbhd"><span class="pban">③ スキルの<ruby>発揮<rt>はっき</rt></ruby></span></div><div class="pbtr"><div class="pbfl pbfl-2" id="b2"></div></div><div class="pbpr"><span class="pbpa" id="b2a"></span><span class="pbpb" id="b2b"></span></div></div>
+    <div class="pbar"><div class="pbhd"><span class="pban">④ <ruby>現在<rt>げんざい</rt></ruby>の<ruby>状態<rt>じょうたい</rt></ruby></span></div><div class="pbtr"><div class="pbfl pbfl-3" id="b3"></div></div><div class="pbpr"><span class="pbpa" id="b3a"></span><span class="pbpb" id="b3b"></span></div></div>
+  </div>
+
+  <div class="sec">
+    <div class="share-lbl">SHARE YOUR POTENTIAL</div>
+    <div class="sbtns">
+      <button class="sbtn sbtn-x" onclick="shareX()"><span style="font-size:15px;font-weight:900">𝕏</span> Xにシェアする</button>
+      <button class="sbtn sbtn-line" onclick="shareLine()"><span style="font-size:15px">💬</span> <ruby>友達<rt>ともだち</rt></ruby>のタイプも<ruby>診断<rt>しんだん</rt></ruby>してみて → LINEでシェア</button>
+      <button class="sbtn sbtn-copy" onclick="copyRes()"><span style="font-size:13px">📋</span> <ruby>結果<rt>けっか</rt></ruby>をコピー（インスタ<ruby>用<rt>よう</rt></ruby>）</button>
+    </div>
+    <button class="btn-retry" onclick="retryQuiz()">もう一<ruby>度<rt>ど</rt></ruby><ruby>診断<rt>しんだん</rt></ruby>する</button>
+  </div>
+  <div class="res-footer">© <ruby>隠<rt>かく</rt></ruby>れた<ruby>実力者<rt>じつりょくしゃ</rt></ruby><ruby>診断<rt>しんだん</rt></ruby> ／ あなたの<ruby>可能性<rt>かのうせい</rt></ruby>は、きっと<ruby>思<rt>おも</rt></ruby>っている以上に<ruby>大<rt>おお</rt></ruby>きい。</div>
+</div>
+
+<script>
+(function(){
+  const l=document.getElementById('stars');
+  for(let i=0;i<110;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=Math.random()*2.2+0.4;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*4+2).toFixed(1)}s;--dl:-${(Math.random()*6).toFixed(1)}s;--a:${(Math.random()*0.1+0.03).toFixed(2)};--b:${(Math.random()*0.5+0.3).toFixed(2)};`;
+    l.appendChild(s);
+  }
+})();
+
+const QS=[
+  {t:`<ruby>グループ<rt>ぐるーぷ</rt></ruby>作業<rt></rt>のとき、なぜかあなたが一番<ruby>動<rt>うご</rt></ruby>いていた、という<ruby>経験<rt>けいけん</rt></ruby>は？`,ax:0,o:[
+    {t:`よくある。でも<ruby>終<rt>お</rt></ruby>わっても<ruby>誰<rt>だれ</rt></ruby>も<ruby>気<rt>き</rt></ruby>づいてくれない`,s:3},
+    {t:`たまにある。<ruby>気<rt>き</rt></ruby>づいたら<ruby>自分<rt>じぶん</rt></ruby>だけ<ruby>必死<rt>ひっし</rt></ruby>になっていた`,s:2},
+    {t:`あまりない。<ruby>自分<rt>じぶん</rt></ruby>より<ruby>動<rt>うご</rt></ruby>いている人がいつもいる`,s:1},
+    {t:`そういう<ruby>経験<rt>けいけん</rt></ruby>自体、あまり<ruby>思<rt>おも</rt></ruby>い<ruby>浮<rt>う</rt></ruby>かばない`,s:0}
+  ]},
+  {t:`「なんであの人が<ruby>評価<rt>ひょうか</rt></ruby>されてるんだろう」と<ruby>思<rt>おも</rt></ruby>ったことある？`,ax:0,o:[
+    {t:`<ruby>正直<rt>しょうじき</rt></ruby>、けっこうある`,s:3},
+    {t:`たまにある。でもすぐ「<ruby>自分<rt>じぶん</rt></ruby>が<ruby>悪<rt>わる</rt></ruby>いのかも」と<ruby>思<rt>おも</rt></ruby>い<ruby>直<rt>なお</rt></ruby>す`,s:2},
+    {t:`あまりない。<ruby>評価<rt>ひょうか</rt></ruby>されてる人はちゃんとすごいと<ruby>思<rt>おも</rt></ruby>う`,s:1},
+    {t:`<ruby>他人<rt>たにん</rt></ruby>の<ruby>評価<rt>ひょうか</rt></ruby>をあまり<ruby>気<rt>き</rt></ruby>にしない`,s:0}
+  ]},
+  {t:`<ruby>誰<rt>だれ</rt></ruby>かに<ruby>頼<rt>たよ</rt></ruby>られたとき、<ruby>内心<rt>ないしん</rt></ruby>どう<ruby>感<rt>かん</rt></ruby>じる？`,ax:0,o:[
+    {t:`うれしいけど、「<ruby>自分<rt>じぶん</rt></ruby>でいいのかな」と<ruby>不安<rt>ふあん</rt></ruby>になる`,s:3},
+    {t:`<ruby>素直<rt>すなお</rt></ruby>にうれしい。ちゃんと<ruby>応<rt>こた</rt></ruby>えたいと<ruby>思<rt>おも</rt></ruby>う`,s:2},
+    {t:`<ruby>正直<rt>しょうじき</rt></ruby>、<ruby>少<rt>すこ</rt></ruby>し<ruby>面倒<rt>めんどう</rt></ruby>だと<ruby>感<rt>かん</rt></ruby>じることがある`,s:1},
+    {t:`<ruby>頼<rt>たよ</rt></ruby>られることがあまりない<ruby>気<rt>き</rt></ruby>がする`,s:0}
+  ]},
+  {t:`「<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せばできるのに」と<ruby>思<rt>おも</rt></ruby>う<ruby>場面<rt>ばめん</rt></ruby>、ある？`,ax:3,o:[
+    {t:`よくある。なんとなく<ruby>力<rt>ちから</rt></ruby>をセーブしてる<ruby>感<rt>かん</rt></ruby>じがする`,s:3},
+    {t:`たまにある。もっとやれたなと<ruby>後<rt>あと</rt></ruby>で<ruby>気<rt>き</rt></ruby>づく`,s:2},
+    {t:`あまりない。いつも<ruby>全力<rt>ぜんりょく</rt></ruby>でやってる（つもり）`,s:1},
+    {t:`<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せてるのかどうか、よくわからない`,s:0}
+  ]},
+  {t:`「あなたって<ruby>実<rt>じつ</rt></ruby>はすごいよね」と<ruby>言<rt>い</rt></ruby>われたとき、どう<ruby>感<rt>かん</rt></ruby>じる？`,ax:3,o:[
+    {t:`<ruby>素直<rt>すなお</rt></ruby>にうれしいけど、てれて<ruby>否定<rt>ひてい</rt></ruby>してしまう`,s:3},
+    {t:`<ruby>正直<rt>しょうじき</rt></ruby>「そうかな」と<ruby>半信半疑<rt>はんしんはんぎ</rt></ruby>になる`,s:2},
+    {t:`「お<ruby>世辞<rt>せじ</rt></ruby>だな」と<ruby>思<rt>おも</rt></ruby>ってしまう`,s:1},
+    {t:`「<ruby>全然<rt>ぜんぜん</rt></ruby>そんなことない」と<ruby>思<rt>おも</rt></ruby>う`,s:0}
+  ]},
+  {t:`うまくいったとき、「なんでうまくいったかよくわからない」と<ruby>感<rt>かん</rt></ruby>じたことある？`,ax:1,o:[
+    {t:`よくある。<ruby>気<rt>き</rt></ruby>づいたら<ruby>終<rt>お</rt></ruby>わってた<ruby>感<rt>かん</rt></ruby>じ`,s:0},
+    {t:`たまにある。<ruby>後<rt>あと</rt></ruby>から<ruby>振<rt>ふ</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>って「あ、そういうことか」となる`,s:1},
+    {t:`あまりない。<ruby>理由<rt>りゆう</rt></ruby>はだいたいわかる`,s:2},
+    {t:`うまくいった<ruby>経験<rt>けいけん</rt></ruby>自体があまり<ruby>思<rt>おも</rt></ruby>い<ruby>浮<rt>う</rt></ruby>かばない`,s:3}
+  ]},
+  {t:`<ruby>怒<rt>いか</rt></ruby>りを<ruby>感<rt>かん</rt></ruby>じるとしたら、それはどんなとき？`,ax:1,o:[
+    {t:`<ruby>頑張<rt>がんば</rt></ruby>っている人が<ruby>報<rt>むく</rt></ruby>われていないとき`,s:0},
+    {t:`<ruby>自分<rt>じぶん</rt></ruby>が<ruby>不当<rt>ふとう</rt></ruby>に<ruby>評価<rt>ひょうか</rt></ruby>されたと<ruby>感<rt>かん</rt></ruby>じたとき`,s:1},
+    {t:`<ruby>理不尽<rt>りふじん</rt></ruby>なルールや<ruby>理由<rt>りゆう</rt></ruby>のないことを<ruby>強制<rt>きょうせい</rt></ruby>されたとき`,s:2},
+    {t:`あまり<ruby>怒<rt>いか</rt></ruby>りを<ruby>感<rt>かん</rt></ruby>じない、または<ruby>怒<rt>おこ</rt></ruby>り<ruby>方<rt>かた</rt></ruby>がわからない`,s:3}
+  ]},
+  {t:`<ruby>自分<rt>じぶん</rt></ruby>の<ruby>得意<rt>とくい</rt></ruby>なことについて、<ruby>周<rt>まわ</rt></ruby>りはどれくらい<ruby>知<rt>し</rt></ruby>っている？`,ax:3,o:[
+    {t:`ほとんど<ruby>知<rt>し</rt></ruby>らない。わざわざアピールしていない`,s:3},
+    {t:`<ruby>仲<rt>なか</rt></ruby>のいい人は<ruby>少<rt>すこ</rt></ruby>し<ruby>知<rt>し</rt></ruby>ってる<ruby>程度<rt>ていど</rt></ruby>`,s:2},
+    {t:`けっこう<ruby>知<rt>し</rt></ruby>ってもらっている`,s:1},
+    {t:`<ruby>自分<rt>じぶん</rt></ruby>の<ruby>得意<rt>とくい</rt></ruby>なことがまだよくわからない`,s:0}
+  ]},
+  {t:`もし<ruby>明日<rt>あした</rt></ruby>から「<ruby>全力<rt>ぜんりょく</rt></ruby>を<ruby>出<rt>だ</rt></ruby>していい」と<ruby>許可<rt>きょか</rt></ruby>が<ruby>出<rt>で</rt></ruby>たとしたら？`,ax:3,o:[
+    {t:`<ruby>少<rt>すこ</rt></ruby>し<ruby>怖<rt>こわ</rt></ruby>い。どうなるかわからない`,s:3},
+    {t:`やってみたい。でも<ruby>続<rt>つづ</rt></ruby>けられるか<ruby>不安<rt>ふあん</rt></ruby>`,s:2},
+    {t:`<ruby>今<rt>いま</rt></ruby>でも<ruby>全力<rt>ぜんりょく</rt></ruby>のつもりだから、あまり<ruby>変<rt>か</rt></ruby>わらない<ruby>気<rt>き</rt></ruby>がする`,s:1},
+    {t:`<ruby>何<rt>なに</rt></ruby>から<ruby>始<rt>はじ</rt></ruby>めればいいかわからない`,s:0}
+  ]},
+  {t:`<ruby>自分<rt>じぶん</rt></ruby>のことを「<ruby>実<rt>じつ</rt></ruby>は〇〇なんじゃないか」と<ruby>思<rt>おも</rt></ruby>うことがある？`,ax:2,o:[
+    {t:`ある。でもそれを<ruby>証明<rt>しょうめい</rt></ruby>する<ruby>機会<rt>きかい</rt></ruby>がまだ<ruby>来<rt>き</rt></ruby>ていない`,s:3},
+    {t:`たまに<ruby>思<rt>おも</rt></ruby>うけど、すぐ「そんなことない」と<ruby>打<rt>う</rt></ruby>ち<ruby>消<rt>け</rt></ruby>す`,s:2},
+    {t:`あまりない。<ruby>自分<rt>じぶん</rt></ruby>のことはだいたいわかってる`,s:1},
+    {t:`そもそも<ruby>自分<rt>じぶん</rt></ruby>のことがよくわからない`,s:0}
+  ]},
+  {t:`「あのとき<ruby>本気<rt>ほんき</rt></ruby>でやってたら、<ruby>違<rt>ちが</rt></ruby>う<ruby>結果<rt>けっか</rt></ruby>だったかも」と<ruby>思<rt>おも</rt></ruby>う<ruby>経験<rt>けいけん</rt></ruby>は？`,ax:2,o:[
+    {t:`けっこうある。あの<ruby>場面<rt>ばめん</rt></ruby>で<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せなかった<ruby>理由<rt>りゆう</rt></ruby>がある`,s:3},
+    {t:`たまにある。でも<ruby>後悔<rt>こうかい</rt></ruby>というより「<ruby>次<rt>つぎ</rt></ruby>はやろう」と<ruby>思<rt>おも</rt></ruby>う`,s:2},
+    {t:`あまりない。やれることはやってきた`,s:1},
+    {t:`そういう<ruby>場面<rt>ばめん</rt></ruby>があったかどうか、よく<ruby>覚<rt>おぼ</rt></ruby>えていない`,s:0}
+  ]},
+  {t:`「もっとやれたはずなのに」と<ruby>思<rt>おも</rt></ruby>うのは、どんな<ruby>場面<rt>ばめん</rt></ruby>が<ruby>多<rt>おお</rt></ruby>い？`,ax:2,o:[
+    {t:`<ruby>本当<rt>ほんとう</rt></ruby>は<ruby>準備<rt>じゅんび</rt></ruby>できてたのに、やらなかったとき`,s:3},
+    {t:`いいアイデアがあったのに、<ruby>言<rt>い</rt></ruby>わなかったとき`,s:2},
+    {t:`<ruby>緊張<rt>きんちょう</rt></ruby>して、<ruby>本来<rt>ほんらい</rt></ruby>の<ruby>力<rt>ちから</rt></ruby>が<ruby>出<rt>だ</rt></ruby>せなかったとき`,s:1},
+    {t:`「やれた」という<ruby>感覚<rt>かんかく</rt></ruby>自体があまりない`,s:0}
+  ]},
+];
+
+const TYPES={
+  "GCSO":{icon:"🌙",name:"設計者",sub:"静かに場を動かす、見えない司令塔",desc:"あなたは表舞台に立たなくても、気づけばチームの流れを決めている人です。それは才能でも偶然でもなく、誰より冷静に全体を見ているから。「なんであの人が評価されるんだろう」と思った経験がある人ほど、実は本物の実力を持っています。本気を出したとき、あなたは誰より速く「正解」にたどり着く人です。"},
+  "GCSF":{icon:"⚡",name:"影の功労者",sub:"見えない場所で、誰より本気を出してきた人",desc:"あなたはすでに全力で動いている。でも周りがそれに気づいていないだけです。縁の下で支え、冷静に判断し、誰にも言わずやり切る。それができる人間は、本当は少ない。あなたの努力は無駄になっていない。必ず「あのとき動いていた人」として、誰かの記憶に残っています。"},
+  "GCLO":{icon:"🎯",name:"先見者",sub:"まだ誰も気づいていないゴールを、すでに見ている",desc:"あなたは周りより先を見ている。でもそれを口に出すタイミングを測っているだけです。冷静な判断力と、チームを動かす影響力を持ちながら、まだ本気を出していない。その組み合わせは、正しい場所で使われたとき、誰も想像しなかった結果を生み出します。"},
+  "GCLF":{icon:"🔥",name:"指揮官",sub:"本気を出したら、誰も止められない",desc:"あなたはすでに、場を動かす力を持って全力で走っている。冷静さと行動力を両立できる人間は、実はほとんどいない。「なんでこんなに動けるんだろう」と不思議に思うことがあるなら、それがあなたの本来の姿です。その力は本物です。あとは信じて使い続けるだけ。"},
+  "GHSO":{icon:"🌿",name:"守護者",sub:"熱さを内側に秘めて、仲間を守り続ける人",desc:"あなたは感情が豊かで、誰かのために動ける人間です。でもその熱さをあまり外に出さず、縁の下でチームを守ってきた。その組み合わせは、実は最も信頼される人間のパターンです。あなたがいる場所は確かにあたたかくなっています。"},
+  "GHSF":{icon:"💥",name:"起爆剤",sub:"感じたことを全力で行動に変える、本物の熱量",desc:"あなたは「動いた後に結果がついてくる」タイプです。考えるより先に体が動き、気づいたらチームを動かしていた経験があるはず。その純粋な熱量は、技術より先に人の心を動かす。感情を動力に変えられるのは、あなたの感情が本物だからです。"},
+  "GHLO":{icon:"🌊",name:"革命家",sub:"空気を読んで、場をまるごとひっくり返す人",desc:"あなたが来ると、なぜか場の流れが変わる。それは偶然じゃなく、あなたが無意識に全体を観察して動いているからです。熱さがあって、人を動かす力があって、まだ本気を出していない。その三つが揃っているあなたは、覚醒したとき誰も予想しない変化を起こせる人です。"},
+  "GHLF":{icon:"🌋",name:"解放者",sub:"すべてを出し切ったとき、誰も追いつけない",desc:"あなたはすでに全力で、チームの中心で動いている。その熱量と行動力は、本物です。「こんなに動いていいのか」と思うことがあるなら、それがあなたの本来のエンジンです。ブレーキを外したあなたを止められる人はいない。その力で動き続けることが、あなたの使命です。"},
+  "ICSO":{icon:"🏔️",name:"職人",sub:"一人で深く、誰も到達できない場所まで行ける人",desc:"あなたは群れなくても、誰より深く考えられる人間です。一人でコツコツ積み上げてきたものが、今のあなたの底力になっている。「自分の得意なことを周りが知らない」という人ほど、実は本物の技術を持っています。その静かな実力は、正しい場所で使われたとき、必ず光ります。"},
+  "ICSF":{icon:"🗺️",name:"孤高の達人",sub:"誰にも知られていないが、すでに高みにいる",desc:"あなたはすでに、相当なところまで来ている。ただ誰にも見せていないだけです。一人で冷静に判断し、縁の下で全力を出してきた。その積み重ねは嘘をつかない。「実はもっとできるんじゃないか」という感覚があるなら、それは正しい。あなたはまだ本当の力を出していません。"},
+  "ICLO":{icon:"🌠",name:"先駆者",sub:"自分のペースで、誰も踏み込まなかった道を進む",desc:"あなたは自分のやり方で、誰も見ていないゴールに向かっている。まだ本気を出していないのに、すでに周りより先を見ている。その独立心と冷静な判断力は、唯一無二の強みです。本気を出したとき、あなたは「他の誰にも作れないもの」を生み出す人です。"},
+  "ICLF":{icon:"💎",name:"天才肌",sub:"型にはまらず、一人で世界を変えてしまう人",desc:"あなたは自分のスタイルで、すでに全力を出している。それは「協調性がない」のではなく、「自分のやり方が正しいから」です。一人で冷静に動き、先頭に立つ。その組み合わせで本気を出したとき、あなたは誰にも真似できない成果を出します。"},
+  "IHSO":{icon:"🌱",name:"原石",sub:"磨かれるのを静かに待っている、本物の才能",desc:"今は光っていないかもしれない。でもそれは「まだ磨かれていないから」です。感情豊かで、誰かを支えたい気持ちがあって、でもまだ本気を出せていない。その三つが揃っているあなたは、正しい環境に出会ったとき、誰より速く成長する人です。今はまだ序章です。"},
+  "IHSF":{icon:"🎆",name:"縁の下の情熱家",sub:"熱さを内に秘めて、すでに全力で支えている",desc:"あなたはすでに、誰かのために全力を出している。でもその熱さを外に出さないから、気づかれないだけです。縁の下で全力を出し続けられる人間は、本当は少ない。あなたの存在で、確かに誰かが救われています。その力は本物です。もっと誇っていい。"},
+  "IHLO":{icon:"🔮",name:"規格外",sub:"今の環境が、あなたに追いついていないだけ",desc:"あなたは今の環境に合っていないだけです。一人で動き、感情で決断し、先頭に立つ力を持ちながら、まだ本気を出していない。その組み合わせは、正しい場所に出会ったとき爆発的な力になります。「自分はなんか違う」という感覚は正しい。あなたはまだ本当の場所に立っていないだけです。"},
+  "IHLF":{icon:"🌅",name:"夜明け前の実力者",sub:"今が一番暗い。だから次は、確実に明るくなる",desc:"今、自分の力がわからなくて当然です。でもここまで読んでくれたあなたには、「もっとなれる」という感覚が確かにある。その感覚は嘘じゃない。一人で感情と向き合い、先頭に立つ覚悟を持ちながら、全力で走ってきた。夜明け前が一番暗いように、今がどん底なら次は上がるだけです。"},
+};
+
+const AXIS_LABELS=[
+  ['集団型（GROUP）','個人型（SOLO）'],
+  ['冷静型（COOL）','熱血型（HOT）'],
+  ['縁の下型（SUPPORT）','先頭型（LEAD）'],
+  ['温存型（RESERVE）','全開型（FULL）'],
+];
+
+let curQ=0,ans=new Array(12).fill(null),nick='',resData=null;
+
+function startQuiz(){
+  nick=document.getElementById('nkinput').value.trim()||'あなた';
+  curQ=0;ans=new Array(12).fill(null);
+  renderQ();showScr('scr-quiz');
+}
+
+function renderQ(){
+  const q=QS[curQ];
+  document.getElementById('qnum').textContent=`Q${curQ+1}`;
+  document.getElementById('qtxt').innerHTML=q.t;
+  document.getElementById('pnum').textContent=`${curQ+1} / 12`;
+  document.getElementById('pbar').style.width=`${((curQ+1)/12)*100}%`;
+  const el=document.getElementById('qopts');el.innerHTML='';
+  ['A','B','C','D'].forEach((lbl,i)=>{
+    const b=document.createElement('button');
+    b.className='qopt'+(ans[curQ]===i?' sel':'');
+    b.innerHTML=`<span class="qlbl">${lbl}</span><span>${q.o[i].t}</span>`;
+    b.onclick=()=>selOpt(i);
+    el.appendChild(b);
+  });
+  const nx=document.getElementById('btnnx');
+  nx.classList.toggle('on',ans[curQ]!==null);
+  nx.textContent=curQ===11?'診断する ✓':'次へ →';
+  document.getElementById('btnbk').style.visibility=curQ===0?'hidden':'visible';
+}
+
+function selOpt(i){
+  ans[curQ]=i;
+  document.querySelectorAll('.qopt').forEach((b,idx)=>b.classList.toggle('sel',idx===i));
+  const nx=document.getElementById('btnnx');
+  nx.classList.add('on');
+  nx.textContent=curQ===11?'診断する ✓':'次へ →';
+  setTimeout(()=>{if(ans[curQ]!==null)goNext();},380);
+}
+
+function goNext(){
+  if(ans[curQ]===null)return;
+  if(curQ<11){curQ++;renderQ();window.scrollTo(0,0);}
+  else startLoad();
+}
+
+function goBack(){
+  if(curQ>0){curQ--;renderQ();window.scrollTo(0,0);}
+}
+
+function calcResult(){
+  const sc=[0,0,0,0],ct=[0,0,0,0];
+  QS.forEach((q,i)=>{if(ans[i]!==null){sc[q.ax]+=q.o[ans[i]].s;ct[q.ax]++;}});
+  const raw=sc.map((s,i)=>s/(ct[i]*3));
+  const cross=[raw[2]*0.04-raw[3]*0.03,raw[0]*0.03-raw[2]*0.04,raw[1]*0.04+raw[3]*0.03,raw[0]*0.03+raw[1]*0.04];
+  const hash=ans.reduce((a,v,i)=>a+(v||0)*(i+1)*7,0);
+  const noise=(hash%100)/1000;
+  const fin=raw.map((p,i)=>Math.min(0.97,Math.max(0.03,p+cross[i]+((hash*(i+3))%17)/1000+noise)));
+  const key=[fin[0]>=.5?'G':'I',fin[1]>=.5?'C':'H',fin[2]>=.5?'S':'L',fin[3]>=.5?'O':'F'].join('');
+  return{key,pct:fin.map(p=>Math.round(p*100)),fin};
+}
+
+const LDMSGS=["回答データを深層分析中...","あなたの隠れたポテンシャルを抽出中...","4つの軸でプロファイルを構築中...","あなただけの診断結果を生成中..."];
+
+function startLoad(){
+  showScr('scr-load');
+  let idx=0;
+  const el=document.getElementById('ldmsg');
+  const iv=setInterval(()=>{
+    idx++;
+    if(idx<LDMSGS.length){el.style.opacity='0';setTimeout(()=>{el.textContent=LDMSGS[idx];el.style.opacity='1';},300);}
+  },750);
+  setTimeout(()=>{clearInterval(iv);resData=calcResult();showResult();},3200);
+}
+
+function showResult(){
+  const{key,pct}=resData;
+  const tp=TYPES[key]||TYPES['IHLF'];
+  document.getElementById('resnick').textContent=`${nick} さんの診断結果`;
+  document.getElementById('rescode').textContent=key;
+  document.getElementById('resico').textContent=tp.icon;
+  document.getElementById('resname').textContent=tp.name;
+  document.getElementById('ressub').textContent=tp.sub;
+  document.getElementById('resdesc').textContent=tp.desc;
+  showScr('scr-res');
+  setTimeout(()=>{
+    pct.forEach((p,i)=>{
+      const isH=p>=50;
+      document.getElementById(`b${i}`).style.width=`${p}%`;
+      document.getElementById(`b${i}a`).textContent=`${AXIS_LABELS[i][0]} ${isH?p:100-p}%`;
+      document.getElementById(`b${i}b`).textContent=`${AXIS_LABELS[i][1]} ${isH?100-p:p}%`;
+    });
+  },150);
+}
+
+function buildText(){
+  const{key,pct}=resData;
+  const tp=TYPES[key]||TYPES['IHLF'];
+  return `${tp.icon} 私のタイプは【${tp.name}】(${key})だった\n\n"${tp.sub}"\n\n影響力 ${pct[0]}% ／ 脳内 ${pct[1]}%\nスキル ${pct[2]}% ／ 状態 ${pct[3]}%\n\nあなたのタイプも診断してみて👇\n#隠れた実力者診断 #ポテンシャル診断`;
+}
+
+function shareX(){window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(buildText())}`,'_blank');}
+function shareLine(){
+  const tp=TYPES[resData.key]||TYPES['IHLF'];
+  const lineText=`${tp.icon}私のタイプは【${tp.name}】だった！\nあなたのタイプも診断してみて👇\n#隠れた実力者診断`;
+  window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}&text=${encodeURIComponent(lineText)}`,'_blank');
+}
+function copyRes(){
+  navigator.clipboard.writeText(buildText()).then(()=>{
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2200);
+  });
+}
+function retryQuiz(){
+  curQ=0;ans=new Array(12).fill(null);resData=null;
+  document.getElementById('nkinput').value='';
+  showScr('scr-top');window.scrollTo(0,0);
+}
+function showScr(id){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0,0);
+}
+document.getElementById('nkinput').addEventListener('keydown',e=>{if(e.key==='Enter')startQuiz();});
+</script>
+</body>
+</html>
