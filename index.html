@@ -10,8 +10,8 @@
   --bg:#07091C;--card:#0F1630;--card2:#131B38;--border:#1D2E58;
   --accent:#9DD4FF;--accent2:#C4AEFF;--gold:#FFD97A;--green:#7FEECC;
   --t1:#F4F8FF;--t2:#C8DCF5;--t3:#7A96BB;--r:16px;--rs:11px;
-  --safe-top:env(safe-area-inset-top, 0px);
-  --safe-bottom:env(safe-area-inset-bottom, 0px);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{width:100%;overflow-x:hidden;}
@@ -88,21 +88,18 @@ rt{font-size:0.55em;color:var(--t2);}
 .res-badge{display:inline-block;background:rgba(255,217,122,.1);color:var(--gold);font-size:9px;font-weight:700;letter-spacing:.15em;padding:4px 14px;border-radius:100px;margin-bottom:14px;border:1px solid rgba(255,217,122,.22);}
 .res-nlbl{font-size:11px;color:var(--t3);margin-bottom:4px;}
 .res-nick{font-size:18px;font-weight:700;color:var(--t1);}
-
-/* スクショ映えカード */
 .res-card{margin:18px 18px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px 22px;position:relative;overflow:hidden;}
 .res-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--gold));}
 .res-card-glow{position:absolute;width:200px;height:200px;border-radius:50%;filter:blur(60px);opacity:.12;top:-40px;right:-40px;background:var(--accent2);pointer-events:none;}
-.res-code{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.25em;margin-bottom:10px;opacity:.8;}
-.res-ico{font-size:52px;margin-bottom:14px;display:block;filter:drop-shadow(0 0 16px rgba(157,212,255,.3));}
-.res-name{font-family:'DM Serif Display',serif;font-size:clamp(26px,7vw,34px);color:var(--t1);line-height:1.15;margin-bottom:8px;text-shadow:0 0 24px rgba(157,212,255,.2);}
+.res-top-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.res-ico{font-size:48px;display:block;filter:drop-shadow(0 0 16px rgba(157,212,255,.3));flex-shrink:0;}
+.res-top-info{display:flex;flex-direction:column;gap:4px;}
+.res-name{font-family:'DM Serif Display',serif;font-size:clamp(22px,6vw,30px);color:var(--t1);line-height:1.2;text-shadow:0 0 24px rgba(157,212,255,.2);}
+.res-code-inline{font-size:clamp(18px,5vw,26px);font-weight:700;color:var(--accent);letter-spacing:.1em;font-family:'DM Serif Display',serif;}
 .res-sub{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:18px;line-height:1.6;letter-spacing:.03em;}
 .res-divider{width:40px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;margin:0 0 18px;}
 .res-desc{font-size:13.5px;line-height:2.05;color:var(--t2);font-weight:300;}
-
-/* ヒント注釈 */
 .res-hint{margin:0 18px 18px;background:rgba(157,212,255,.06);border:1px solid rgba(157,212,255,.15);border-radius:var(--rs);padding:14px 16px;font-size:12px;color:var(--t2);line-height:1.8;font-weight:300;}
-.res-hint-ico{margin-right:6px;}
 
 /* BARS */
 .sec{padding:0 18px 18px;}
@@ -120,6 +117,64 @@ rt{font-size:0.55em;color:var(--t2);}
 .pbpa{font-size:12px;font-weight:700;color:var(--t1);}
 .pbpb{font-size:11px;color:var(--t3);}
 
+/* DETAIL SECTIONS */
+.det-sec{margin:0 18px 16px;}
+.det-sec-ttl{font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.08em;margin-bottom:12px;}
+
+/* 詳細分析 */
+.analysis-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;}
+.analysis-overview{font-size:13.5px;line-height:2.05;color:var(--t2);font-weight:300;}
+.analysis-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s cubic-bezier(.4,0,.2,1),opacity .4s ease;}
+.analysis-body.open{max-height:1200px;opacity:1;}
+.analysis-para{font-size:13px;line-height:2.05;color:var(--t2);font-weight:300;margin-top:14px;}
+.btn-more{display:flex;align-items:center;gap:6px;margin-top:16px;background:none;border:none;color:var(--accent);font-size:12px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;padding:0;letter-spacing:.04em;}
+.btn-more-icon{font-size:10px;transition:transform .3s;}
+.btn-more.open .btn-more-icon{transform:rotate(180deg);}
+
+/* 強み・弱み */
+.sw-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:10px;position:relative;overflow:hidden;}
+.sw-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.sw-card.str::before{background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.sw-card.wk::before{background:linear-gradient(180deg,#F4A261,#E76F51);}
+.sw-card-ttl{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:14px;}
+.sw-card.str .sw-card-ttl{color:var(--accent);}
+.sw-card.wk .sw-card-ttl{color:#F4A261;}
+.sw-item{margin-bottom:14px;}
+.sw-item:last-child{margin-bottom:0;}
+.sw-item-hd{display:flex;align-items:baseline;gap:8px;margin-bottom:5px;}
+.sw-item-name{font-size:13px;font-weight:700;color:var(--t1);}
+.sw-item-en{font-size:10px;color:var(--t3);font-weight:400;letter-spacing:.05em;}
+.sw-item-body{font-size:12.5px;line-height:1.9;color:var(--t2);font-weight:300;}
+
+/* 社会あるある */
+.scene-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:10px;}
+.scene-lbl{display:flex;align-items:center;gap:7px;margin-bottom:10px;}
+.scene-ico{font-size:15px;}
+.scene-name{font-size:10px;font-weight:700;color:var(--t2);letter-spacing:.1em;}
+.scene-txt{font-size:13px;line-height:1.95;color:var(--t2);font-weight:300;}
+
+/* 課金ロック */
+.lock-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px 20px;text-align:center;margin-bottom:10px;}
+.lock-ico{font-size:28px;margin-bottom:12px;display:block;}
+.lock-ttl{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:8px;}
+.lock-desc{font-size:12px;color:var(--t2);line-height:1.8;font-weight:300;margin-bottom:18px;}
+.lock-btn{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,var(--gold),#F4A261);color:#07091C;border:none;border-radius:100px;font-size:13px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(255,217,122,.25);}
+
+/* 相性診断 */
+.compat-free{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:10px;position:relative;overflow:hidden;}
+.compat-free::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.compat-rank{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;}
+.compat-name{font-size:16px;font-weight:700;color:var(--t1);margin-bottom:4px;}
+.compat-code{font-size:11px;color:var(--t3);margin-bottom:12px;}
+.compat-reason{font-size:13px;line-height:1.95;color:var(--t2);font-weight:300;margin-bottom:12px;}
+.compat-role-lbl{font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:.08em;margin-bottom:6px;}
+.compat-role{font-size:12.5px;line-height:1.85;color:var(--t2);font-weight:300;}
+.compat-bad{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:10px;position:relative;overflow:hidden;}
+.compat-bad::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#F4A261,#E76F51);}
+.compat-rank.bad-rank{color:#F4A261;}
+.compat-role-lbl.bad-role-lbl{color:#F4A261;}
+.compat-sec-sub{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.1em;margin:14px 0 10px;}
+
 /* SHARE */
 .share-lbl{font-size:10px;color:var(--t3);margin-bottom:12px;letter-spacing:.1em;}
 .sbtns{display:flex;flex-direction:column;gap:8px;}
@@ -127,7 +182,7 @@ rt{font-size:0.55em;color:var(--t2);}
 .sbtn:active{transform:scale(.98);}
 .sbtn-x{background:var(--t1);color:#07091C;}
 .sbtn-line{background:#06C755;color:#fff;}
-.sbtn-copy{background:var(--card);color:var(--t2);border:1px solid var(--border);}
+.sbtn-copy{background:linear-gradient(135deg,#833AB4,#C13584,#E1306C,#F77737);color:#fff;}
 .btn-retry{width:100%;padding:13px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);font-size:12px;color:var(--t2);cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-top:8px;transition:all .2s;}
 .btn-retry:hover{color:var(--t1);border-color:var(--t2);}
 .res-footer{text-align:center;padding:0 18px 24px;font-size:10px;color:var(--t3);line-height:2;}
@@ -200,23 +255,20 @@ rt{font-size:0.55em;color:var(--t2);}
     <p class="res-nlbl"><ruby>診断結果<rt>しんだんけっか</rt></ruby></p>
     <p class="res-nick" id="resnick"></p>
   </div>
-
-  <!-- スクショ映えカード -->
   <div class="res-card">
     <div class="res-card-glow"></div>
-    <div class="res-code" id="rescode"></div>
-    <span class="res-ico" id="resico"></span>
-    <h2 class="res-name" id="resname"></h2>
+    <div class="res-top-row">
+      <span class="res-ico" id="resico"></span>
+      <div class="res-top-info">
+        <span class="res-name" id="resname"></span>
+        <span class="res-code-inline" id="rescode"></span>
+      </div>
+    </div>
     <p class="res-sub" id="ressub"></p>
     <div class="res-divider"></div>
     <p class="res-desc" id="resdesc"></p>
   </div>
-
-  <!-- 自己理解ヒント -->
-  <div class="res-hint">
-    <span class="res-hint-ico">💡</span>この<ruby>診断<rt>しんだん</rt></ruby>は、あなたの<ruby>隠<rt>かく</rt></ruby>れた<ruby>可能性<rt>かのうせい</rt></ruby>を<ruby>発見<rt>はっけん</rt></ruby>するための<ruby>自己理解<rt>じこりかい</rt></ruby>のヒントです。<ruby>結果<rt>けっか</rt></ruby>はあなたのすべてではなく、あくまで<ruby>一<rt>ひと</rt></ruby>つの<ruby>視点<rt>してん</rt></ruby>として<ruby>受<rt>う</rt></ruby>け<ruby>取<rt>と</rt></ruby>ってください。
-  </div>
-
+  <div class="res-hint">💡 この<ruby>診断<rt>しんだん</rt></ruby>は、あなたの<ruby>隠<rt>かく</rt></ruby>れた<ruby>可能性<rt>かのうせい</rt></ruby>を<ruby>発見<rt>はっけん</rt></ruby>するための<ruby>自己理解<rt>じこりかい</rt></ruby>のヒントです。<ruby>結果<rt>けっか</rt></ruby>はあくまで<ruby>一<rt>ひと</rt></ruby>つの<ruby>視点<rt>してん</rt></ruby>として<ruby>受<rt>う</rt></ruby>け<ruby>取<rt>と</rt></ruby>ってください。</div>
   <div class="sec">
     <div class="sec-ttl">📊 4つのポテンシャル<ruby>軸<rt>じく</rt></ruby></div>
     <div class="pbar"><div class="pbhd"><span class="pban">① <ruby>影響力<rt>えいきょうりょく</rt></ruby>の<ruby>形<rt>かたち</rt></ruby></span></div><div class="pbtr"><div class="pbfl pbfl-0" id="b0"></div></div><div class="pbpr"><span class="pbpa" id="b0a"></span><span class="pbpb" id="b0b"></span></div></div>
@@ -225,16 +277,71 @@ rt{font-size:0.55em;color:var(--t2);}
     <div class="pbar"><div class="pbhd"><span class="pban">④ <ruby>現在<rt>げんざい</rt></ruby>の<ruby>状態<rt>じょうたい</rt></ruby></span></div><div class="pbtr"><div class="pbfl pbfl-3" id="b3"></div></div><div class="pbpr"><span class="pbpa" id="b3a"></span><span class="pbpb" id="b3b"></span></div></div>
   </div>
 
+  <!-- 社会あるある（無料） -->
+  <div class="det-sec">
+    <div class="det-sec-ttl">📖 社会あるある</div>
+    <div class="scene-card">
+      <div class="scene-lbl"><span class="scene-ico">🏫</span><span class="scene-name">SCHOOL</span></div>
+      <p class="scene-txt" id="det-school"></p>
+    </div>
+    <div class="scene-card">
+      <div class="scene-lbl"><span class="scene-ico">💼</span><span class="scene-name">WORK</span></div>
+      <p class="scene-txt" id="det-work"></p>
+    </div>
+    <div class="scene-card">
+      <div class="scene-lbl"><span class="scene-ico">🌙</span><span class="scene-name">DAILY LIFE</span></div>
+      <p class="scene-txt" id="det-daily"></p>
+    </div>
+  </div>
+
+  <!-- 詳細分析 -->
+  <div class="det-sec">
+    <div class="det-sec-ttl">🔍 <ruby>詳細<rt>しょうさい</rt></ruby><ruby>分析<rt>ぶんせき</rt></ruby></div>
+    <div class="analysis-card">
+      <p class="analysis-overview" id="det-overview"></p>
+      <div class="analysis-body" id="det-body"></div>
+      <button class="btn-more" id="btn-more" onclick="toggleMore()">
+        <span id="btn-more-txt">もっと見る</span>
+        <span class="btn-more-icon">▼</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 強み・弱み -->
+  <div class="det-sec">
+    <div class="det-sec-ttl">💪 <ruby>強<rt>つよ</rt></ruby>み・<ruby>弱<rt>よわ</rt></ruby>み</div>
+    <div class="sw-card str">
+      <div class="sw-card-ttl">STRENGTHS</div>
+      <div id="det-strengths"></div>
+    </div>
+    <div class="sw-card wk">
+      <div class="sw-card-ttl">WEAKNESSES</div>
+      <div id="det-weaknesses"></div>
+    </div>
+  </div>
+
+  <!-- 相性診断 -->
+  <div class="det-sec">
+    <div class="det-sec-ttl">💫 相性診断</div>
+    <div class="compat-free" id="compat-good-1"></div>
+    <div class="compat-free" id="compat-good-2"></div>
+    <div class="compat-free" id="compat-good-3"></div>
+    <div class="compat-sec-sub">😓 苦手な相性</div>
+    <div class="compat-bad" id="compat-bad-1"></div>
+    <div class="compat-bad" id="compat-bad-2"></div>
+    <div class="compat-bad" id="compat-bad-3"></div>
+  </div>
+
   <div class="sec">
     <div class="share-lbl">SHARE YOUR POTENTIAL</div>
     <div class="sbtns">
       <button class="sbtn sbtn-x" onclick="shareX()"><span style="font-size:15px;font-weight:900">𝕏</span> Xにシェアする</button>
-      <button class="sbtn sbtn-line" onclick="shareLine()"><span style="font-size:15px">💬</span> <ruby>友達<rt>ともだち</rt></ruby>のタイプも<ruby>診断<rt>しんだん</rt></ruby>してみて → LINEでシェア</button>
-      <button class="sbtn sbtn-copy" onclick="copyRes()"><span style="font-size:13px">📋</span> <ruby>結果<rt>けっか</rt></ruby>をコピー（インスタ<ruby>用<rt>よう</rt></ruby>）</button>
+      <button class="sbtn sbtn-line" onclick="shareLine()"><span style="font-size:15px">💬</span> 友達のタイプも診断してみて → LINEでシェア</button>
+      <button class="sbtn sbtn-copy" onclick="copyRes()"><span style="font-size:13px">📷</span> 結果をコピー（インスタ用）</button>
     </div>
     <button class="btn-retry" onclick="retryQuiz()">もう一<ruby>度<rt>ど</rt></ruby><ruby>診断<rt>しんだん</rt></ruby>する</button>
   </div>
-  <div class="res-footer">© <ruby>隠<rt>かく</rt></ruby>れた<ruby>実力者<rt>じつりょくしゃ</rt></ruby><ruby>診断<rt>しんだん</rt></ruby> ／ あなたの<ruby>可能性<rt>かのうせい</rt></ruby>は、きっと<ruby>思<rt>おも</rt></ruby>っている以上に<ruby>大<rt>おお</rt></ruby>きい。</div>
+  <div class="res-footer">© <ruby>隠<rt>かく</rt></ruby>れた<ruby>実力者<rt>じつりょくしゃ</rt></ruby><ruby>診断<rt>しんだん</rt></ruby> ／ あなたの可能性は、きっと思っている以上に大きい。</div>
 </div>
 
 <script>
@@ -249,97 +356,98 @@ rt{font-size:0.55em;color:var(--t2);}
 })();
 
 const QS=[
-  {t:`<ruby>グループ<rt>ぐるーぷ</rt></ruby>作業<rt></rt>のとき、なぜかあなたが一番<ruby>動<rt>うご</rt></ruby>いていた、という<ruby>経験<rt>けいけん</rt></ruby>は？`,ax:0,o:[
-    {t:`よくある。でも<ruby>終<rt>お</rt></ruby>わっても<ruby>誰<rt>だれ</rt></ruby>も<ruby>気<rt>き</rt></ruby>づいてくれない`,s:3},
-    {t:`たまにある。<ruby>気<rt>き</rt></ruby>づいたら<ruby>自分<rt>じぶん</rt></ruby>だけ<ruby>必死<rt>ひっし</rt></ruby>になっていた`,s:2},
-    {t:`あまりない。<ruby>自分<rt>じぶん</rt></ruby>より<ruby>動<rt>うご</rt></ruby>いている人がいつもいる`,s:1},
-    {t:`そういう<ruby>経験<rt>けいけん</rt></ruby>自体、あまり<ruby>思<rt>おも</rt></ruby>い<ruby>浮<rt>う</rt></ruby>かばない`,s:0}
+  {t:`<ruby>グループ<rt>ぐるーぷ</rt></ruby><ruby>作業<rt>さぎょう</rt></ruby>のとき、なぜかあなたが一番<ruby>動<rt>うご</rt></ruby>いていた、という<ruby>経験<rt>けいけん</rt></ruby>は？`,ax:0,o:[
+    {t:`よくある。でも<ruby>誰<rt>だれ</rt></ruby>にも<ruby>気<rt>き</rt></ruby>づかれない`,s:3},
+    {t:`たまにある。<ruby>気<rt>き</rt></ruby>づいたら<ruby>自分<rt>じぶん</rt></ruby>だけ<ruby>必死<rt>ひっし</rt></ruby>だった`,s:2},
+    {t:`あまりない。いつも<ruby>周<rt>まわ</rt></ruby>りの<ruby>方<rt>ほう</rt></ruby>が<ruby>動<rt>うご</rt></ruby>いてる`,s:1},
+    {t:`そういう<ruby>経験<rt>けいけん</rt></ruby>がない`,s:0}
   ]},
   {t:`「なんであの人が<ruby>評価<rt>ひょうか</rt></ruby>されてるんだろう」と<ruby>思<rt>おも</rt></ruby>ったことある？`,ax:0,o:[
-    {t:`<ruby>正直<rt>しょうじき</rt></ruby>、けっこうある`,s:3},
-    {t:`たまにある。でもすぐ「<ruby>自分<rt>じぶん</rt></ruby>が<ruby>悪<rt>わる</rt></ruby>いのかも」と<ruby>思<rt>おも</rt></ruby>い<ruby>直<rt>なお</rt></ruby>す`,s:2},
-    {t:`あまりない。<ruby>評価<rt>ひょうか</rt></ruby>されてる人はちゃんとすごいと<ruby>思<rt>おも</rt></ruby>う`,s:1},
+    {t:`けっこうある`,s:3},
+    {t:`たまにある。でもすぐ<ruby>自分<rt>じぶん</rt></ruby>が<ruby>悪<rt>わる</rt></ruby>いのかもと<ruby>思<rt>おも</rt></ruby>い<ruby>直<rt>なお</rt></ruby>す`,s:2},
+    {t:`あまりない。<ruby>評価<rt>ひょうか</rt></ruby>されてる人はちゃんとすごい`,s:1},
     {t:`<ruby>他人<rt>たにん</rt></ruby>の<ruby>評価<rt>ひょうか</rt></ruby>をあまり<ruby>気<rt>き</rt></ruby>にしない`,s:0}
   ]},
   {t:`<ruby>誰<rt>だれ</rt></ruby>かに<ruby>頼<rt>たよ</rt></ruby>られたとき、<ruby>内心<rt>ないしん</rt></ruby>どう<ruby>感<rt>かん</rt></ruby>じる？`,ax:0,o:[
-    {t:`うれしいけど、「<ruby>自分<rt>じぶん</rt></ruby>でいいのかな」と<ruby>不安<rt>ふあん</rt></ruby>になる`,s:3},
+    {t:`うれしいけど、<ruby>自分<rt>じぶん</rt></ruby>でいいのかなと<ruby>不安<rt>ふあん</rt></ruby>になる`,s:3},
     {t:`<ruby>素直<rt>すなお</rt></ruby>にうれしい。ちゃんと<ruby>応<rt>こた</rt></ruby>えたいと<ruby>思<rt>おも</rt></ruby>う`,s:2},
     {t:`<ruby>正直<rt>しょうじき</rt></ruby>、<ruby>少<rt>すこ</rt></ruby>し<ruby>面倒<rt>めんどう</rt></ruby>だと<ruby>感<rt>かん</rt></ruby>じることがある`,s:1},
-    {t:`<ruby>頼<rt>たよ</rt></ruby>られることがあまりない<ruby>気<rt>き</rt></ruby>がする`,s:0}
+    {t:`<ruby>頼<rt>たよ</rt></ruby>られることがあまりない`,s:0}
   ]},
   {t:`「<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せばできるのに」と<ruby>思<rt>おも</rt></ruby>う<ruby>場面<rt>ばめん</rt></ruby>、ある？`,ax:3,o:[
-    {t:`よくある。なんとなく<ruby>力<rt>ちから</rt></ruby>をセーブしてる<ruby>感<rt>かん</rt></ruby>じがする`,s:3},
-    {t:`たまにある。もっとやれたなと<ruby>後<rt>あと</rt></ruby>で<ruby>気<rt>き</rt></ruby>づく`,s:2},
-    {t:`あまりない。いつも<ruby>全力<rt>ぜんりょく</rt></ruby>でやってる（つもり）`,s:1},
-    {t:`<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せてるのかどうか、よくわからない`,s:0}
+    {t:`よくある。<ruby>力<rt>ちから</rt></ruby>をセーブしてる<ruby>感覚<rt>かんかく</rt></ruby>がある`,s:3},
+    {t:`たまにある。<ruby>後<rt>あと</rt></ruby>から「もっとやれた」と<ruby>気<rt>き</rt></ruby>づく`,s:2},
+    {t:`あまりない。いつも<ruby>全力<rt>ぜんりょく</rt></ruby>のつもり`,s:1},
+    {t:`<ruby>本気<rt>ほんき</rt></ruby>かどうか、<ruby>自分<rt>じぶん</rt></ruby>でもわからない`,s:0}
   ]},
   {t:`「あなたって<ruby>実<rt>じつ</rt></ruby>はすごいよね」と<ruby>言<rt>い</rt></ruby>われたとき、どう<ruby>感<rt>かん</rt></ruby>じる？`,ax:3,o:[
-    {t:`<ruby>素直<rt>すなお</rt></ruby>にうれしいけど、てれて<ruby>否定<rt>ひてい</rt></ruby>してしまう`,s:3},
-    {t:`<ruby>正直<rt>しょうじき</rt></ruby>「そうかな」と<ruby>半信半疑<rt>はんしんはんぎ</rt></ruby>になる`,s:2},
+    {t:`うれしいけど、てれて<ruby>否定<rt>ひてい</rt></ruby>してしまう`,s:3},
+    {t:`「そうかな」と<ruby>半信半疑<rt>はんしんはんぎ</rt></ruby>になる`,s:2},
     {t:`「お<ruby>世辞<rt>せじ</rt></ruby>だな」と<ruby>思<rt>おも</rt></ruby>ってしまう`,s:1},
     {t:`「<ruby>全然<rt>ぜんぜん</rt></ruby>そんなことない」と<ruby>思<rt>おも</rt></ruby>う`,s:0}
   ]},
   {t:`うまくいったとき、「なんでうまくいったかよくわからない」と<ruby>感<rt>かん</rt></ruby>じたことある？`,ax:1,o:[
     {t:`よくある。<ruby>気<rt>き</rt></ruby>づいたら<ruby>終<rt>お</rt></ruby>わってた<ruby>感<rt>かん</rt></ruby>じ`,s:0},
-    {t:`たまにある。<ruby>後<rt>あと</rt></ruby>から<ruby>振<rt>ふ</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>って「あ、そういうことか」となる`,s:1},
+    {t:`たまにある。<ruby>後<rt>あと</rt></ruby>から<ruby>理由<rt>りゆう</rt></ruby>がわかる`,s:1},
     {t:`あまりない。<ruby>理由<rt>りゆう</rt></ruby>はだいたいわかる`,s:2},
-    {t:`うまくいった<ruby>経験<rt>けいけん</rt></ruby>自体があまり<ruby>思<rt>おも</rt></ruby>い<ruby>浮<rt>う</rt></ruby>かばない`,s:3}
+    {t:`うまくいった<ruby>経験<rt>けいけん</rt></ruby>自体があまりない`,s:3}
   ]},
   {t:`<ruby>怒<rt>いか</rt></ruby>りを<ruby>感<rt>かん</rt></ruby>じるとしたら、それはどんなとき？`,ax:1,o:[
-    {t:`<ruby>頑張<rt>がんば</rt></ruby>っている人が<ruby>報<rt>むく</rt></ruby>われていないとき`,s:0},
-    {t:`<ruby>自分<rt>じぶん</rt></ruby>が<ruby>不当<rt>ふとう</rt></ruby>に<ruby>評価<rt>ひょうか</rt></ruby>されたと<ruby>感<rt>かん</rt></ruby>じたとき`,s:1},
-    {t:`<ruby>理不尽<rt>りふじん</rt></ruby>なルールや<ruby>理由<rt>りゆう</rt></ruby>のないことを<ruby>強制<rt>きょうせい</rt></ruby>されたとき`,s:2},
-    {t:`あまり<ruby>怒<rt>いか</rt></ruby>りを<ruby>感<rt>かん</rt></ruby>じない、または<ruby>怒<rt>おこ</rt></ruby>り<ruby>方<rt>かた</rt></ruby>がわからない`,s:3}
+    {t:`<ruby>頑張<rt>がんば</rt></ruby>ってる人が<ruby>報<rt>むく</rt></ruby>われないとき`,s:0},
+    {t:`<ruby>自分<rt>じぶん</rt></ruby>が<ruby>不当<rt>ふとう</rt></ruby>に<ruby>評価<rt>ひょうか</rt></ruby>されたとき`,s:1},
+    {t:`<ruby>理不尽<rt>りふじん</rt></ruby>なことを<ruby>強制<rt>きょうせい</rt></ruby>されたとき`,s:2},
+    {t:`あまり<ruby>怒<rt>いか</rt></ruby>りを<ruby>感<rt>かん</rt></ruby>じない`,s:3}
   ]},
   {t:`<ruby>自分<rt>じぶん</rt></ruby>の<ruby>得意<rt>とくい</rt></ruby>なことについて、<ruby>周<rt>まわ</rt></ruby>りはどれくらい<ruby>知<rt>し</rt></ruby>っている？`,ax:3,o:[
-    {t:`ほとんど<ruby>知<rt>し</rt></ruby>らない。わざわざアピールしていない`,s:3},
+    {t:`ほとんど<ruby>知<rt>し</rt></ruby>らない。アピールしていない`,s:3},
     {t:`<ruby>仲<rt>なか</rt></ruby>のいい人は<ruby>少<rt>すこ</rt></ruby>し<ruby>知<rt>し</rt></ruby>ってる<ruby>程度<rt>ていど</rt></ruby>`,s:2},
     {t:`けっこう<ruby>知<rt>し</rt></ruby>ってもらっている`,s:1},
-    {t:`<ruby>自分<rt>じぶん</rt></ruby>の<ruby>得意<rt>とくい</rt></ruby>なことがまだよくわからない`,s:0}
+    {t:`<ruby>自分<rt>じぶん</rt></ruby>の<ruby>得意<rt>とくい</rt></ruby>なことがまだわからない`,s:0}
   ]},
   {t:`もし<ruby>明日<rt>あした</rt></ruby>から「<ruby>全力<rt>ぜんりょく</rt></ruby>を<ruby>出<rt>だ</rt></ruby>していい」と<ruby>許可<rt>きょか</rt></ruby>が<ruby>出<rt>で</rt></ruby>たとしたら？`,ax:3,o:[
     {t:`<ruby>少<rt>すこ</rt></ruby>し<ruby>怖<rt>こわ</rt></ruby>い。どうなるかわからない`,s:3},
     {t:`やってみたい。でも<ruby>続<rt>つづ</rt></ruby>けられるか<ruby>不安<rt>ふあん</rt></ruby>`,s:2},
-    {t:`<ruby>今<rt>いま</rt></ruby>でも<ruby>全力<rt>ぜんりょく</rt></ruby>のつもりだから、あまり<ruby>変<rt>か</rt></ruby>わらない<ruby>気<rt>き</rt></ruby>がする`,s:1},
+    {t:`<ruby>今<rt>いま</rt></ruby>でも<ruby>全力<rt>ぜんりょく</rt></ruby>のつもりだから<ruby>変<rt>か</rt></ruby>わらない<ruby>気<rt>き</rt></ruby>がする`,s:1},
     {t:`<ruby>何<rt>なに</rt></ruby>から<ruby>始<rt>はじ</rt></ruby>めればいいかわからない`,s:0}
   ]},
   {t:`<ruby>自分<rt>じぶん</rt></ruby>のことを「<ruby>実<rt>じつ</rt></ruby>は〇〇なんじゃないか」と<ruby>思<rt>おも</rt></ruby>うことがある？`,ax:2,o:[
-    {t:`ある。でもそれを<ruby>証明<rt>しょうめい</rt></ruby>する<ruby>機会<rt>きかい</rt></ruby>がまだ<ruby>来<rt>き</rt></ruby>ていない`,s:3},
-    {t:`たまに<ruby>思<rt>おも</rt></ruby>うけど、すぐ「そんなことない」と<ruby>打<rt>う</rt></ruby>ち<ruby>消<rt>け</rt></ruby>す`,s:2},
+    {t:`ある。でも<ruby>証明<rt>しょうめい</rt></ruby>する<ruby>機会<rt>きかい</rt></ruby>がまだ<ruby>来<rt>き</rt></ruby>ていない`,s:3},
+    {t:`たまに<ruby>思<rt>おも</rt></ruby>うけど、すぐ<ruby>打<rt>う</rt></ruby>ち<ruby>消<rt>け</rt></ruby>す`,s:2},
     {t:`あまりない。<ruby>自分<rt>じぶん</rt></ruby>のことはだいたいわかってる`,s:1},
     {t:`そもそも<ruby>自分<rt>じぶん</rt></ruby>のことがよくわからない`,s:0}
   ]},
   {t:`「あのとき<ruby>本気<rt>ほんき</rt></ruby>でやってたら、<ruby>違<rt>ちが</rt></ruby>う<ruby>結果<rt>けっか</rt></ruby>だったかも」と<ruby>思<rt>おも</rt></ruby>う<ruby>経験<rt>けいけん</rt></ruby>は？`,ax:2,o:[
-    {t:`けっこうある。あの<ruby>場面<rt>ばめん</rt></ruby>で<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せなかった<ruby>理由<rt>りゆう</rt></ruby>がある`,s:3},
-    {t:`たまにある。でも<ruby>後悔<rt>こうかい</rt></ruby>というより「<ruby>次<rt>つぎ</rt></ruby>はやろう」と<ruby>思<rt>おも</rt></ruby>う`,s:2},
+    {t:`けっこうある。<ruby>本気<rt>ほんき</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せなかった<ruby>理由<rt>りゆう</rt></ruby>がある`,s:3},
+    {t:`たまにある。<ruby>後悔<rt>こうかい</rt></ruby>より「<ruby>次<rt>つぎ</rt></ruby>はやろう」と<ruby>思<rt>おも</rt></ruby>う`,s:2},
     {t:`あまりない。やれることはやってきた`,s:1},
-    {t:`そういう<ruby>場面<rt>ばめん</rt></ruby>があったかどうか、よく<ruby>覚<rt>おぼ</rt></ruby>えていない`,s:0}
+    {t:`そういう<ruby>場面<rt>ばめん</rt></ruby>があったかどうか<ruby>覚<rt>おぼ</rt></ruby>えていない`,s:0}
   ]},
   {t:`「もっとやれたはずなのに」と<ruby>思<rt>おも</rt></ruby>うのは、どんな<ruby>場面<rt>ばめん</rt></ruby>が<ruby>多<rt>おお</rt></ruby>い？`,ax:2,o:[
-    {t:`<ruby>本当<rt>ほんとう</rt></ruby>は<ruby>準備<rt>じゅんび</rt></ruby>できてたのに、やらなかったとき`,s:3},
+    {t:`<ruby>準備<rt>じゅんび</rt></ruby>できてたのに、やらなかったとき`,s:3},
     {t:`いいアイデアがあったのに、<ruby>言<rt>い</rt></ruby>わなかったとき`,s:2},
     {t:`<ruby>緊張<rt>きんちょう</rt></ruby>して、<ruby>本来<rt>ほんらい</rt></ruby>の<ruby>力<rt>ちから</rt></ruby>が<ruby>出<rt>だ</rt></ruby>せなかったとき`,s:1},
     {t:`「やれた」という<ruby>感覚<rt>かんかく</rt></ruby>自体があまりない`,s:0}
   ]},
 ];
 
+
 const TYPES={
-  "GCSO":{icon:"🌙",name:"設計者",sub:"静かに場を動かす、見えない司令塔",desc:"あなたは表舞台に立たなくても、気づけばチームの流れを決めている人です。それは才能でも偶然でもなく、誰より冷静に全体を見ているから。「なんであの人が評価されるんだろう」と思った経験がある人ほど、実は本物の実力を持っています。本気を出したとき、あなたは誰より速く「正解」にたどり着く人です。"},
-  "GCSF":{icon:"⚡",name:"影の功労者",sub:"見えない場所で、誰より本気を出してきた人",desc:"あなたはすでに全力で動いている。でも周りがそれに気づいていないだけです。縁の下で支え、冷静に判断し、誰にも言わずやり切る。それができる人間は、本当は少ない。あなたの努力は無駄になっていない。必ず「あのとき動いていた人」として、誰かの記憶に残っています。"},
-  "GCLO":{icon:"🎯",name:"先見者",sub:"まだ誰も気づいていないゴールを、すでに見ている",desc:"あなたは周りより先を見ている。でもそれを口に出すタイミングを測っているだけです。冷静な判断力と、チームを動かす影響力を持ちながら、まだ本気を出していない。その組み合わせは、正しい場所で使われたとき、誰も想像しなかった結果を生み出します。"},
-  "GCLF":{icon:"🔥",name:"指揮官",sub:"本気を出したら、誰も止められない",desc:"あなたはすでに、場を動かす力を持って全力で走っている。冷静さと行動力を両立できる人間は、実はほとんどいない。「なんでこんなに動けるんだろう」と不思議に思うことがあるなら、それがあなたの本来の姿です。その力は本物です。あとは信じて使い続けるだけ。"},
-  "GHSO":{icon:"🌿",name:"守護者",sub:"熱さを内側に秘めて、仲間を守り続ける人",desc:"あなたは感情が豊かで、誰かのために動ける人間です。でもその熱さをあまり外に出さず、縁の下でチームを守ってきた。その組み合わせは、実は最も信頼される人間のパターンです。あなたがいる場所は確かにあたたかくなっています。"},
-  "GHSF":{icon:"💥",name:"起爆剤",sub:"感じたことを全力で行動に変える、本物の熱量",desc:"あなたは「動いた後に結果がついてくる」タイプです。考えるより先に体が動き、気づいたらチームを動かしていた経験があるはず。その純粋な熱量は、技術より先に人の心を動かす。感情を動力に変えられるのは、あなたの感情が本物だからです。"},
-  "GHLO":{icon:"🌊",name:"革命家",sub:"空気を読んで、場をまるごとひっくり返す人",desc:"あなたが来ると、なぜか場の流れが変わる。それは偶然じゃなく、あなたが無意識に全体を観察して動いているからです。熱さがあって、人を動かす力があって、まだ本気を出していない。その三つが揃っているあなたは、覚醒したとき誰も予想しない変化を起こせる人です。"},
-  "GHLF":{icon:"🌋",name:"解放者",sub:"すべてを出し切ったとき、誰も追いつけない",desc:"あなたはすでに全力で、チームの中心で動いている。その熱量と行動力は、本物です。「こんなに動いていいのか」と思うことがあるなら、それがあなたの本来のエンジンです。ブレーキを外したあなたを止められる人はいない。その力で動き続けることが、あなたの使命です。"},
-  "ICSO":{icon:"🏔️",name:"職人",sub:"一人で深く、誰も到達できない場所まで行ける人",desc:"あなたは群れなくても、誰より深く考えられる人間です。一人でコツコツ積み上げてきたものが、今のあなたの底力になっている。「自分の得意なことを周りが知らない」という人ほど、実は本物の技術を持っています。その静かな実力は、正しい場所で使われたとき、必ず光ります。"},
-  "ICSF":{icon:"🗺️",name:"孤高の達人",sub:"誰にも知られていないが、すでに高みにいる",desc:"あなたはすでに、相当なところまで来ている。ただ誰にも見せていないだけです。一人で冷静に判断し、縁の下で全力を出してきた。その積み重ねは嘘をつかない。「実はもっとできるんじゃないか」という感覚があるなら、それは正しい。あなたはまだ本当の力を出していません。"},
-  "ICLO":{icon:"🌠",name:"先駆者",sub:"自分のペースで、誰も踏み込まなかった道を進む",desc:"あなたは自分のやり方で、誰も見ていないゴールに向かっている。まだ本気を出していないのに、すでに周りより先を見ている。その独立心と冷静な判断力は、唯一無二の強みです。本気を出したとき、あなたは「他の誰にも作れないもの」を生み出す人です。"},
-  "ICLF":{icon:"💎",name:"天才肌",sub:"型にはまらず、一人で世界を変えてしまう人",desc:"あなたは自分のスタイルで、すでに全力を出している。それは「協調性がない」のではなく、「自分のやり方が正しいから」です。一人で冷静に動き、先頭に立つ。その組み合わせで本気を出したとき、あなたは誰にも真似できない成果を出します。"},
-  "IHSO":{icon:"🌱",name:"原石",sub:"磨かれるのを静かに待っている、本物の才能",desc:"今は光っていないかもしれない。でもそれは「まだ磨かれていないから」です。感情豊かで、誰かを支えたい気持ちがあって、でもまだ本気を出せていない。その三つが揃っているあなたは、正しい環境に出会ったとき、誰より速く成長する人です。今はまだ序章です。"},
-  "IHSF":{icon:"🎆",name:"縁の下の情熱家",sub:"熱さを内に秘めて、すでに全力で支えている",desc:"あなたはすでに、誰かのために全力を出している。でもその熱さを外に出さないから、気づかれないだけです。縁の下で全力を出し続けられる人間は、本当は少ない。あなたの存在で、確かに誰かが救われています。その力は本物です。もっと誇っていい。"},
-  "IHLO":{icon:"🔮",name:"規格外",sub:"今の環境が、あなたに追いついていないだけ",desc:"あなたは今の環境に合っていないだけです。一人で動き、感情で決断し、先頭に立つ力を持ちながら、まだ本気を出していない。その組み合わせは、正しい場所に出会ったとき爆発的な力になります。「自分はなんか違う」という感覚は正しい。あなたはまだ本当の場所に立っていないだけです。"},
-  "IHLF":{icon:"🌅",name:"夜明け前の実力者",sub:"今が一番暗い。だから次は、確実に明るくなる",desc:"今、自分の力がわからなくて当然です。でもここまで読んでくれたあなたには、「もっとなれる」という感覚が確かにある。その感覚は嘘じゃない。一人で感情と向き合い、先頭に立つ覚悟を持ちながら、全力で走ってきた。夜明け前が一番暗いように、今がどん底なら次は上がるだけです。"},
+  "GCSO":{icon:"🌙",name:"設計者",sub:"静かに場を動かす、見えない司令塔",desc:"あなたは表舞台に立たなくても、気づけばチームの流れを決めている人です。それは才能でも偶然でもなく、誰より冷静に全体を見ているから。「なんであの人が評価されるんだろう」と思った経験がある人ほど、実は本物の実力を持っています。本気を出したとき、あなたは誰より速く「正解」にたどり着く人です。",overview:"設計者は、表舞台に立たなくても自然と場の流れを決めてしまう人です。集団の中にいながら、誰よりも冷静に全体を俯瞰し、「今何が必要か」を瞬時に把握できます。自分から声高に主張することは少ないですが、気づけばチームの方向性はあなたが引いたレールの上を走っています。まだ本気を出していないのに、すでにそれだけの影響力を持っている。それが設計者の本質です。",analysis:["設計者が最も得意とするのは、「全体像を先に見ること」です。他の人がまだ目の前のタスクに集中している段階で、あなたはすでに3手先・5手先を読んでいます。それは天才的な直感というより、情報を静かに集めて論理的に組み立てる習慣が身についているからです。","ただ、その思考はほとんど外に出ません。「言っても伝わらないかも」「まだ早いかも」という判断が先に働き、頭の中で完成した設計図を誰にも見せないまま行動に移してしまいます。結果としてチームはうまく動くのに、なぜうまくいったのか誰も説明できない、という状況が生まれます。評価されにくいのはそのためです。","また、設計者は感情的な衝突を本能的に避けます。対立を好まないのではなく、「その衝突がチームにとって非効率だ」と論理的に判断しているからです。そのため表面上は穏やかで協調的に見えますが、内側では常に全体最適の計算が走っています。これは非常に高度な社会性ですが、同時に「本音を言わない人」と誤解されるリスクも抱えています。","自己評価が低い傾向があるのも、設計者の特徴です。理想の設計図が頭にあるだけに、現実との差が常に見えてしまいます。「まだ足りない」「もっとできるはず」という感覚が抜けず、本当はすでに十分な力を持っているのに、自分ではそれを認識できていません。"],strengths:[{title:"全体設計力",en:"System Thinking",body:"場全体の流れを俯瞰し、誰が何をすべきかを自然に把握できる。明示的にリーダーでなくても、実質的にチームの方向性を決めている。"},{title:"冷静な判断力",en:"Calm Decision Making",body:"感情的になりやすい場面でも、論理と全体最適を基準に動ける。パニックになっている場をひとつの発言で落ち着かせることができる。"},{title:"静かな実行力",en:"Silent Execution",body:"宣言せずに動き、気づいたら結果を出している。プロセスより成果で示すタイプ。"}],weaknesses:[{title:"言語化の遅さ",en:"Delayed Verbalization",body:"頭の中に完成図はあるのに、それを言葉にするのが遅く、共有する前に行動してしまう。結果が出ても「なぜそうしたのか」を説明できず、評価を逃しやすい。"},{title:"過小評価の習慣",en:"Self-Underestimation",body:"理想が高いため、現状の自分をつい低く見積もる。実際にはすでに十分な実力があることに、自分だけ気づいていない。"},{title:"孤立リスク",en:"Risk of Isolation",body:"一人で設計・実行まで完結しようとするため、周囲との連携が薄くなることがある。チームとしての成果より、個人の精度を優先しがち。"}],scenes:{school:"文化祭の準備で、誰も全体の進行を管理していないことに気づき、気づいたら自分がスケジュール表を作っていた。感謝されるより「最初からそれがある前提」で扱われることが多い。",work:"会議で議論が迷走し始めると、黙って論点を整理し始める。終わった後に「なんかまとまったね」と言われるが、誰のおかげかは話題にならない。",daily:"友人グループの旅行計画で、気づいたら一番詳しく調べているのが自分だった。幹事でもないのに、実質的に全部決めている。"},compat:{good1:{name:"起爆剤",code:"GHSF",reason:"設計者が頭の中で描いた設計図を、起爆剤が感情と熱量でそのまま実行に移してくれる組み合わせです。設計者は「こう動けばうまくいく」という全体像を持っていて、起爆剤は「やりたい」という感情がそのまま動力になります。この二人がいると、計画と実行が驚くほど速く噛み合います。",role:"設計者が全体の流れと優先順位を設計し、起爆剤が現場で熱量をもって動かします。設計者が「次はここ」と示し、起爆剤が「わかった、やる」で完結します。"},good2:{name:"守護者",code:"GHSO",reason:"設計者の「冷静に全体を設計する力」と、守護者の「場の感情を守る力」が自然に役割分担できる組み合わせです。設計者は論理と構造で動くため、チームの感情的な部分へのケアが後回しになりやすい傾向があります。守護者はその部分を自然に埋めていくため、設計者が「考えること」に集中できる環境が生まれます。",role:"設計者が全体の構造と優先順位を設計し、守護者がメンバーの感情と関係性を整えます。設計者が「どこへ向かうか」を決め、守護者が「全員がついていける状態」を作ります。"},good3:{name:"影の功労者",code:"GCSF",reason:"設計者の「全体を設計する力」と、影の功労者の「設計を実行に落とす力」が自然につながる組み合わせです。設計者が「こう動けばうまくいく」という全体像を描き、影の功労者がその設計図を誰より冷静に・確実に実行します。設計者にとって「自分の設計を信じて動いてくれる人」として、影の功労者は最も頼りになる相手です。",role:"設計者が全体の流れと優先順位を設計し、影の功労者が各タスクを確実に実行します。設計者が「何をどの順番で」を決め、影の功労者が「確実にやり切る」で応えます。"},bad1:{name:"天才肌",code:"ICLF",reason:"設計者は「論理と構造で全体を設計してから動く」タイプですが、天才肌は「なぜかうまくいく自分のやり方」で動くタイプです。設計者からすると「なぜそのプロセスなのか説明してほしい」、天才肌からすると「説明できないけど結果は出る」という根本的なすれ違いが生まれます。設計者は論理的な根拠を求め、天才肌はプロセスの説明が苦手なため、意思決定の場でかみ合わないことがあります。",role:"うまくいく関わり方：設計者が「プロセスは後で一緒に言語化しよう、まず結果を見せてほしい」と伝えてみましょう。天才肌の独自の発想と設計者の構造化力が合わさると、再現性のある唯一無二のやり方が生まれます。"},bad2:{name:"革命家",code:"GHLO",reason:"設計者は「既存の構造を最適化する」タイプですが、革命家は「前提そのものを疑って変える」タイプです。設計者が作った設計図を、革命家が「そもそもこの前提がおかしい」と崩しにかかるパターンが起きやすいです。目指す方向は「より良くすること」で共通しているのに、アプローチが真逆なため主導権がぶつかりやすくなります。",role:"うまくいく関わり方：設計者が「この前提、どう思う？」と革命家に先に投げかけてみましょう。設計者の構造化力と革命家の問題提起力が噛み合うと、前提から作り直した精度の高い設計が生まれます。"},bad3:{name:"規格外",code:"IHLO",reason:"設計者は「既存の構造の中で最適解を出す」タイプですが、規格外は「その構造そのものが自分に合っていない」という感覚を持っています。設計者がいくら丁寧に構造を示しても、規格外にはその構造の前提が「なんか違う」と感じられることがあります。設計者からすると「なぜ構造に沿って動かないのか」、規格外からすると「その構造が自分には合わない」という根本的なすれ違いが生まれやすいです。",role:"うまくいく関わり方：設計者が構造を示す前に「あなたから見てこの状況どう見える？」と先に聞いてみましょう。規格外の外側からの視点と設計者の構造化力が合わさると、前提から作り直した精度の高い設計が生まれます。"}}},
+  "GCSF":{icon:"⚡",name:"影の功労者",sub:"見えない場所で、誰より本気を出してきた人",desc:"あなたはすでに全力で動いている。でも周りがそれに気づいていないだけです。縁の下で支え、冷静に判断し、誰にも言わずやり切る。それができる人間は、本当は少ない。あなたの努力は無駄になっていない。必ず「あのとき動いていた人」として、誰かの記憶に残っています。",overview:"影の功労者は、すでに全力で動いている人です。設計者と違うのは、まだ力をセーブしているのではなく、今この瞬間も誰かのために本気を出しているという点です。目立たない場所で、冷静に状況を読みながら、チームが回るために必要なことを淡々とやり続けています。誰にも気づかれないことも多い。でも、あなたがいなければ確実に何かが止まっていました。",analysis:["影の功労者の行動原理は、「全体がうまく回ることへの責任感」です。誰かに頼まれたからではなく、「これをやらなければ全体が止まる」という判断が先に働き、自然と動いてしまいます。これは義務感とは少し違います。むしろ、チームが機能することそのものに、静かな達成感を感じているのです。","冷静型であるため、感情的に燃え上がることはあまりありません。しかしその分、判断の質が高く、優先順位のつけ方が的確です。「今、何が一番必要か」を素早く見極め、無駄なく動けます。周囲が感情的になっている場面でも、あなただけが冷静に次の手を打っています。","全開型であることの意味は、「すでに力を出し切っている」ということです。裏を返せば、休む隙間がほとんどない状態で動き続けているということでもあります。「まだやれる」「もう少しだけ」と思い続けて、限界を超えてから初めて気づく、というパターンに陥りやすいです。","また、自分の貢献を言語化したり主張したりすることに、強い抵抗感があります。「言うほどのことじゃない」「当たり前のことをやっただけ」という感覚が先に立ち、実際にやり遂げたことを小さく見積もってしまいます。その謙虚さは美徳ですが、同時に評価の機会を自分で手放している面もあります。"],strengths:[{title:"縁の下の実行力",en:"Behind-the-Scenes Drive",body:"誰も気づいていない細部まで目が届き、チームが機能するために必要なことを先回りして動ける。頼まれなくてもやってしまう責任感の強さ。"},{title:"冷静な優先順位判断",en:"Clear Prioritization",body:"感情に流されず、今何をすべきかを的確に判断できる。パニックになっている場面でも、最短ルートを見つけて動ける。"},{title:"持続力",en:"Endurance",body:"一度動き始めたら、結果が出るまでやり続ける粘り強さがある。途中で諦めることへの抵抗感が強く、最後まで責任を持てる。"}],weaknesses:[{title:"消耗への無自覚",en:"Unconscious Burnout",body:"全力を出し続けているため、気づかないうちに限界に近づいていることがある。休むことへの罪悪感があり、無理が蓄積しやすい。"},{title:"貢献の過小評価",en:"Undervaluing Contribution",body:"自分がやったことを「当たり前」と感じてしまい、正当な評価を求めることができない。結果として、実力より低い扱いを受け続けることになる。"},{title:"感謝の受け取り下手",en:"Deflecting Appreciation",body:"「ありがとう」と言われても「そんなことないです」と否定してしまう。自分の価値を他者の言葉で確認することが苦手。"}],scenes:{school:"発表前日、メンバーの誰よりも遅くまで準備していた。当日うまくいっても「みんなのおかげ」と言ってしまう。自分が一番動いていたとわかっていても。",work:"自分の仕事が終わった後、締め切りに追われている同僚を見て、気づいたら手伝っていた。定時を過ぎてもそれが当然のような顔をしている。",daily:"イベントの準備で裏方を一手に引き受け、当日は誰よりも走り回った。写真を見返したら、自分だけ一枚も映っていなかった。"},compat:{good1:{name:"革命家",code:"GHLO",reason:"影の功労者の「冷静に支える力」と、革命家の「場をひっくり返す熱量」が見事に補い合う組み合わせです。革命家は場を変えることに集中しすぎて、後方の細部が崩れることがあります。影の功労者はその崩れを黙って拾い、革命家が前に出続けられる状態を作ります。",role:"革命家が場の前線で問題提起・方向転換を担い、影の功労者が後方で実務・調整・フォローを担います。革命家が「こうすべきだ」と言ったことを、影の功労者が形にします。"},good2:{name:"設計者",code:"GCSO",reason:"影の功労者の「冷静に実行する力」と、設計者の「全体を設計する力」が自然につながる組み合わせです。設計者が「こう動けばうまくいく」という全体像を描き、影の功労者がその設計図を誰より確実に実行します。影の功労者にとって「何をすればいいかが明確になる」という安心感が、さらに高い実行力を生み出します。",role:"設計者が全体の流れと優先順位を設計し、影の功労者が各タスクを確実に実行します。設計者が「次はここ」と示し、影の功労者が「わかった、やる」で完結します。"},good3:{name:"先見者",code:"GCLO",reason:"先見者の「未来を読む視点」と、影の功労者の「今を確実に動かす力」が自然に役割分担できる組み合わせです。先見者が「このままいくとこうなる」という予測を示し、影の功労者がその予測を今日の行動に変換して動きます。先見者にとって「自分のビジョンを信じて動いてくれる人」として、影の功労者は非常に心強い相手です。",role:"先見者が中長期の方向性と課題を示し、影の功労者が今日やるべき行動に分解して動きます。先見者の「3ヶ月後の問題」を、影の功労者が「今週の行動」に変えます。"},bad1:{name:"縁の下の情熱家",code:"IHSF",reason:"影の功労者も縁の下の情熱家も、どちらも「誰かのために縁の下で動く」という動機を持っています。似た役割を持っているからこそ、同じチームにいると「どちらが何をやるのか」という境界が曖昧になりやすいです。影の功労者が「自分がやるべきこと」と思っていた仕事を縁の下の情熱家もやろうとしていて、お互いが動いてしまうパターンや、逆に「相手がやるだろう」と思って誰もやらないパターンが起きやすくなります。",role:"うまくいく関わり方：最初に「あなたはここを担当、自分はここを担当」と明確に分けてしまいましょう。役割が決まった瞬間、影の功労者と縁の下の情熱家はどちらも全力で自分の領域を支え始めます。"},bad2:{name:"先駆者",code:"ICLO",reason:"先駆者は「自分の判断軸で動くこと」に強い独立心を持ちますが、影の功労者は「チームが機能すること」への責任感で動きます。影の功労者が「チームのために合わせてほしい」と感じても、先駆者には「なぜ自分の判断軸を変える必要があるのか」という感覚が先に来ます。先駆者からすると「なぜ自分のやり方に口を出すのか」、影の功労者からすると「なぜチームに合わせてくれないのか」という構造的なすれ違いが生まれやすいです。",role:"うまくいく関わり方：影の功労者が「あなたのやり方は尊重する、ただここだけ共有してほしい」と一点だけ伝えてみましょう。先駆者の独自性と影の功労者の実行力が同じ方向を向いたとき、誰も作れないものが生まれます。"},bad3:{name:"規格外",code:"IHLO",reason:"影の功労者はチームが機能することへの責任感で動きますが、規格外は既存の役割構造そのものに馴染まないタイプです。影の功労者が「この役割をお願いしたい」と伝えても、規格外には「なぜその役割がそもそも必要なのか」という疑問が先に来ることがあります。影の功労者からすると「なぜ動いてくれないのか」、規格外からすると「なぜそのやり方前提なのか」という互いへの違和感が積み重なりやすいです。",role:"うまくいく関わり方：影の功労者が役割ではなく「あなたにしかできないことがある」という形で伝えてみましょう。規格外は「自分にしかできないこと」という文脈で動き始めたとき、誰も想像しなかった貢献をします。"}}},
+  "GCLO":{icon:"🎯",name:"先見者",sub:"まだ誰も気づいていないゴールを、すでに見ている",desc:"あなたは周りより先を見ている。でもそれを口に出すタイミングを測っているだけです。冷静な判断力と、チームを動かす影響力を持ちながら、まだ本気を出していない。その組み合わせは、正しい場所で使われたとき、誰も想像しなかった結果を生み出します。",overview:"先見者は、まだ誰も気づいていないゴールを、すでに見ている人です。集団の中にいながら、流れの先を読む力が自然と備わっています。ただ、その洞察を口にするタイミングをいつも測っていて、結果として「言い出せないまま時間が経つ」ことが多い。本気を出していないのに、すでに周りより先を見ている。それが先見者の、まだ誰にも知られていない実力です。",analysis:["先見者の最大の特徴は、「情報と文脈を統合して未来を描く力」です。バラバラに見える出来事や会話の断片を無意識に拾い集め、「このままいくとどうなるか」を自然に予測しています。これは訓練して身につけたものではなく、ものを見るときの基本的なスタンスがそもそも「先を読む」方向に向いているのです。","しかしその力は、多くの場合で眠ったままになっています。理由のひとつは、「早すぎる」という感覚です。周りがまだそこまで考えていない段階で正解が見えているため、発言すると浮いてしまうかもしれないという不安が先に立ちます。もうひとつは、確信の持ち方の問題です。見えているものが正しいという自信はあるのに、「外れたらどうしよう」という一点だけで言い出せなくなることがあります。","冷静型であるため、感情で動くことは少ないです。判断は常にロジックと根拠に基づいており、思いつきで発言することをしません。その慎重さは質の高いアウトプットにつながりますが、同時に「完璧な状態になるまで待つ」という癖とも隣り合わせです。先頭型の資質を持ちながらも、自分が前に出ることへの内なる抵抗が、行動を遅らせています。","温存型であることは、まだ本気を出していないという意味です。先見者の場合、これは「機会を待っている」という側面が強いです。正しい場所・正しいタイミング・正しい相手が揃ったとき、初めて本気を出す準備ができる。その慎重さは長所ですが、「条件が揃うのを待ちすぎて、機会を逃す」というリスクも持っています。"],strengths:[{title:"未来予測力",en:"Future Vision",body:"バラバラな情報を統合し、「このままいくとどうなるか」を自然に描ける。プロジェクトの初期段階で、数ヶ月後の問題点がすでに見えていることがある。"},{title:"冷静な論理構築力",en:"Logical Clarity",body:"感情に流されず、根拠のある判断ができる。議論が感情的になっている場面でも、本質的な論点を見失わない。"},{title:"場を動かす潜在力",en:"Latent Influence",body:"まだ本気を出していないにもかかわらず、発言ひとつで場の方向性が変わることがある。その言葉の重さに、自分自身が一番気づいていない。"}],weaknesses:[{title:"発言タイミングの遅さ",en:"Delayed Expression",body:"正しいことが見えているのに、「まだ早い」「もう少し確信が持てたら」と待ち続ける。結果として後から「あのとき言ってたよね」となることが多い。"},{title:"完璧主義的な準備癖",en:"Over-Preparation",body:"動き出す前に条件を揃えようとしすぎる。準備している間に機会が過ぎてしまうことがある。"},{title:"評価されにくい貢献",en:"Invisible Prevention",body:"先を読んで動いているため、問題が起きる前に防いでいることが多い。しかし「起きなかった問題」は誰にも見えないため、貢献が認識されにくい。"}],scenes:{school:"授業中、先生の説明が終わる前に次の展開が見えていた。手を挙げるのをためらっているうちに、別の人が同じことを言って褒められた。",work:"プロジェクトが始まった段階で、3ヶ月後に起きる問題がすでに見えていた。指摘しようか迷っているうちに、本当にその問題が起きた。",daily:"「この店、絶対流行るよ」と友達に言ったら半年後に行列ができていた。でも言ったことを覚えているのは自分だけだった。"},compat:{good1:{name:"影の功労者",code:"GCSF",reason:"先見者が描く未来のビジョンを、影の功労者が今日の行動に変換してくれる組み合わせです。先見者は「このままいくとこうなる」という予測は得意ですが、それを具体的なタスクに落とし込む作業でもたつくことがあります。影の功労者はその変換を自然にやってしまう人なので、先見者が「見えている未来」を口にするだけで、影の功労者が動き始めます。",role:"先見者が中長期の方向性と課題を示し、影の功労者が今日やるべき行動に分解して動きます。先見者の「3ヶ月後の問題」を、影の功労者が「今週の行動」に変えます。"},good2:{name:"守護者",code:"GHSO",reason:"先見者の「論理と予測で動く力」と、守護者の「場の感情を守る力」が自然に役割分担できる組み合わせです。先見者は論理と予測で動くため、チームの感情的な部分へのケアが後回しになりやすい傾向があります。守護者はその部分を自然に埋めていくため、先見者が「考えること」に集中できる環境が生まれます。",role:"先見者がチームの方向性と課題を示し、守護者がメンバーの感情と関係性を整えます。先見者が「どこへ向かうか」を決め、守護者が「全員がついていける状態」を作ります。"},good3:{name:"縁の下の情熱家",code:"IHSF",reason:"先見者の「未来を読む視点」と、縁の下の情熱家の「今を誠実に支える力」が自然に役割分担できる組み合わせです。先見者は中長期の方向性を示しますが、それを日々の行動に変換する部分でもたつくことがあります。縁の下の情熱家はその変換を自然にやってしまう人なので、先見者が「見えている未来」を口にするだけで、縁の下の情熱家が誠実に動き始めます。",role:"先見者が中長期の方向性と課題を示し、縁の下の情熱家が今日やるべきことを誠実に動き続けます。先見者が「この先こうなる」と示し、縁の下の情熱家が「ならここをやる」で応えます。"},bad1:{name:"革命家",code:"GHLO",reason:"先見者は「論理と根拠で未来を描き、そこから逆算して動く」タイプです。革命家は「今の前提そのものがおかしい」という視点で動くタイプです。先見者が積み上げた論理の前提を、革命家が「そもそもその前提は正しいのか」と崩しにかかるパターンが起きやすいです。先見者からすると「せっかく構築した論理をひっくり返された」という消耗感があり、革命家からすると「なぜ前提を疑わないのか」という苛立ちが生まれやすいです。",role:"うまくいく関わり方：先見者が「前提はこれでいいか？」と最初に革命家に確認してみましょう。先見者の予測力と革命家の前提を疑う力が合わさると、より強固で崩れにくいビジョンが生まれます。"},bad2:{name:"解放者",code:"GHLF",reason:"先見者は「確信が持てるまで動かない」タイプですが、解放者は「動きながら方向を修正する」タイプです。先見者からすると「なぜ見切り発車で動くのか」、解放者からすると「なぜそんなに時間をかけるのか」という判断タイミングのずれが、特にスピードが求められる場面で大きな摩擦になります。",role:"うまくいく関わり方：解放者が「まず動いてみて、修正は一緒にしよう」と声をかけてみましょう。先見者の予測力と解放者の推進力が合わさると、方向を確認しながら速く動けるチームになります。"},bad3:{name:"天才肌",code:"ICLF",reason:"先見者は「論理と根拠で未来を描く」タイプですが、天才肌は「なぜかうまくいく自分のやり方」で動くタイプです。先見者からすると「なぜそのプロセスなのか説明してほしい」、天才肌からすると「説明できないけど結果は出る」という根本的なすれ違いが生まれます。先見者は根拠のある予測を大切にするため、説明できないやり方で動く天才肌の行動に「なぜそうなるのかわからない」という不安を感じやすいです。",role:"うまくいく関わり方：先見者が「プロセスは後で一緒に言語化しよう、まず結果を見せてほしい」と伝えてみましょう。天才肌の独自の発想と先見者の予測力が合わさると、誰も想像しなかった確度の高いビジョンが生まれます。"}}},
+  "GCLF":{icon:"🔥",name:"指揮官",sub:"本気を出したら、誰も止められない",desc:"あなたはすでに、場を動かす力を持って全力で走っている。冷静さと行動力を両立できる人間は、実はほとんどいない。「なんでこんなに動けるんだろう」と不思議に思うことがあるなら、それがあなたの本来の姿です。その力は本物です。あとは信じて使い続けるだけ。",overview:"指揮官は、冷静さと行動力を同時に持つ、非常に希少なタイプです。感情的にならずに判断しながら、場の先頭に立って動き続けられる。その両立は、言葉にすると簡単そうに見えますが、実際にできる人間はほとんどいません。すでに全力を出していて、さらにそのクオリティが高い。それが指揮官の現在地です。",analysis:["指揮官の行動を支えているのは、「正しく判断して、正しく動く」という一貫した軸です。感情的な衝動で動くことはなく、かといって慎重すぎて動けなくなることもない。状況を冷静に読み、必要だと判断したら迷わず前に出る。この判断から行動までのサイクルが他の人より圧倒的に速いことが、指揮官の最大の強みです。","ただ、その速さゆえに周囲との摩擦が生まれることがあります。指揮官にとっての「普通のスピード」が、他の人には「速すぎる」と映ることがあるのです。「なぜ今すぐ動かないのか」「なぜ決断を先延ばしにするのか」という苛立ちを感じやすいのは、あなたの基準が周りより高いからです。これは能力の高さの裏返しですが、チームとの関係においては意識的に調整が必要な部分でもあります。","全開型であることは、すでに本気を出し続けているということです。指揮官の場合、これはパワーの問題ではなく、常に高い水準で動き続けることへの慣れとも言えます。休んでいるつもりでも頭が動いていて、気づいたら次の計画を立てている、ということが日常的にあるはずです。","集団の中での影響力と先頭に立つ力を持つ指揮官は、チームや組織の中で自然とリーダーポジションに引き寄せられます。望んでそこにいるというより、気づいたらそこにいる、というほうが正確かもしれません。その自覚があるほど、責任感も強くなる傾向があります。"],strengths:[{title:"判断と行動の一致",en:"Decision-Action Alignment",body:"頭で正しいと判断したことを、感情的なブレなく実行できる。「わかっているのにできない」という状態になりにくい。"},{title:"場を動かすリーダーシップ",en:"Natural Leadership",body:"誰かに任命されなくても、自然と場の中心になっていく。それはカリスマ性というより、「この人についていけば大丈夫」という信頼の積み重ね。"},{title:"高い水準での継続力",en:"High-Level Endurance",body:"全力を出し続けることが、指揮官にとっての普通の状態。その持続力が、長期的なプロジェクトや組織での信頼につながっている。"}],weaknesses:[{title:"他者のペースへの苛立ち",en:"Impatience with Others",body:"自分のスピードや基準が周りより高いため、他者の判断の遅さや行動力のなさに苛立ちを感じやすい。それを表に出すと、威圧的に見られることがある。"},{title:"一人で抱え込む傾向",en:"Over-Independence",body:"「自分がやったほうが早い・正確」という判断が先に立ち、委任が苦手。結果として負荷が集中しやすい。"},{title:"休息への罪悪感",en:"Rest Guilt",body:"動き続けることが当たり前になっているため、休んでいる状態を「無駄にしている」と感じてしまう。長期的な消耗につながりやすい。"}],scenes:{school:"「誰がリーダーやる？」という沈黙が3秒続いたとき、気づいたら自分が手を挙げていた。頼まれたというより、誰かがやらなければならなかっただけ。",work:"会議で議論が迷走し始めると、自然と仕切り始めている。終わった後に「まとめてくれてありがとう」と言われるが、自分ではやって当然のことをしたつもりでいる。",daily:"グループ旅行の計画が「誰かよろしく」で止まっていたら、気づいたら全部調べて案を出していた。楽しみたいだけなのに、気づいたらプロデューサーになっている。"},compat:{good1:{name:"職人",code:"ICSO",reason:"指揮官の「判断と実行の速さ」と、職人の「深く・精度高く仕上げる力」が自然に役割分担できる組み合わせです。指揮官は全体を動かすことに集中しすぎて、細部の精度が落ちることがあります。職人はその細部を、誰も気にしていない段階から高い基準で仕上げていきます。",role:"指揮官が全体の方向性・判断・スケジュールを担い、職人が各タスクの品質と精度を担います。指揮官が「いつまでに何を」を決め、職人が「どれだけ良いものを」を実現します。"},good2:{name:"影の功労者",code:"GCSF",reason:"指揮官の「場を動かす判断力」と、影の功労者の「冷静に支える実行力」が自然に役割分担できる組み合わせです。指揮官は全体を動かすことに集中しますが、その勢いで後方の細部が崩れることがあります。影の功労者はその崩れを黙って拾い、指揮官が前に出続けられる状態を作ります。",role:"指揮官が全体の方向性・判断・スケジュールを担い、影の功労者が後方で実務・調整・フォローを担います。指揮官が「こうすべきだ」と言ったことを、影の功労者が形にします。"},good3:{name:"夜明け前の実力者",code:"IHLF",reason:"指揮官の「判断して場を動かす力」と、夜明け前の実力者の「全力で走り続ける誠実さ」が自然に信頼関係を築く組み合わせです。指揮官は「誰に何を任せるか」の判断が速く、夜明け前の実力者の「全力で動いているのに評価されていない」という状況を見抜き、「ここを任せたい」と明確に示すことができます。夜明け前の実力者にとって「自分の全力を正当に見てくれる人」として、指揮官は本来の力を引き出してくれる相手です。",role:"指揮官が全体の方向性と配置を担い、夜明け前の実力者がその方向に向かって全力で走り続けます。指揮官が「ここを任せたい」と言い、夜明け前の実力者が「ならここで出す」で応えます。"},bad1:{name:"天才肌",code:"ICLF",reason:"指揮官は「チーム全体を動かすこと」に責任感を持ちますが、天才肌は「自分のやり方で動くこと」に一貫性を持ちます。指揮官が「こう動いてほしい」と伝えても、天才肌は「自分のやり方のほうが結果が出る」という確信があるため、素直に従わないことがあります。指揮官からすると「なぜチームに合わせないのか」、天才肌からすると「なぜ自分のやり方を制限されるのか」という構造的な衝突が起きやすいです。",role:"うまくいく関わり方：指揮官が「このゴールさえ達成してくれればやり方は任せる」と伝えてみましょう。天才肌の独自性と指揮官のリーダーシップが同じゴールを向いたとき、誰も想像しなかった結果が生まれます。"},bad2:{name:"革命家",code:"GHLO",reason:"どちらも集団に影響を与える力を持ち、場を動かそうとするタイプです。しかし指揮官は「決めて動かす」、革命家は「疑って変える」という動き方の違いがあるため、同じ場にいると主導権が衝突しやすくなります。指揮官からすると「なぜ決まったことをひっくり返すのか」、革命家からすると「なぜその前提で進めるのか」という摩擦が積み重なりやすいです。",role:"うまくいく関わり方：革命家が「決める前にここだけ確認させてほしい」と一点だけ問いを立ててみましょう。指揮官の決断力と革命家の洞察力が合わさると、前提を確認した上で速く動けるチームになります。"},bad3:{name:"孤高の達人",code:"ICSF",reason:"指揮官の判断と行動のスピードに、孤高の達人がついていけないと感じやすい組み合わせです。孤高の達人は自分のペースで深く積み上げるタイプのため、指揮官の「決めて動かす」テンポに圧倒されてしまうことがあります。指揮官からすると「なぜもっと積極的に動かないのか」、孤高の達人からすると「このスピードでは自分の質が保てない」という感覚が積み重なりやすいです。",role:"うまくいく関わり方：指揮官が「ここだけをお願いしたい」と一点だけ明確に示してみましょう。孤高の達人は「自分にできること」が具体的に見えたとき、誰も想像しなかった精度で応えます。"}}},
+  "GHSO":{icon:"🌿",name:"守護者",sub:"熱さを内側に秘めて、仲間を守り続ける人",desc:"あなたは感情が豊かで、誰かのために動ける人間です。でもその熱さをあまり外に出さず、縁の下でチームを守ってきた。その組み合わせは、実は最も信頼される人間のパターンです。あなたがいる場所は確かにあたたかくなっています。",overview:"守護者は、熱い感情を内側に秘めながら、集団の中で誰かを静かに支え続ける人です。表舞台には立たず、目立とうともしない。でも気づけば、あなたがいる場所はなぜか安定していて、誰かが少し救われています。まだ本気を出していないのに、すでにチームにとって不可欠な存在になっている。それが守護者の、自分でも気づいていない実力です。",analysis:["守護者の行動の根底にあるのは、「誰かが傷つくのを見ていられない」という感覚です。これは意識的な判断というより、もっと深い部分から来る反応です。グループの中で誰かが浮いていたり、場の空気が壊れかけていたりすると、気づいたら自分が動いています。それは使命感でも義務感でもなく、そうせずにはいられない、という感覚に近いものです。","熱血型でありながら、その熱さが外に出ることはあまりありません。感情が豊かなのは確かですが、それを表に出すことへの抵抗感があります。「自分が感情的になってどうする」という自制心が働いていたり、「この熱さを出したら引かれるかも」という不安があったりします。結果として、内側では強い感情が動いているのに、外から見ると穏やかで落ち着いた人に見えます。","縁の下型であることは、支える側に自然とポジションを取るということです。守護者の場合、これは能力がないからではありません。むしろ、全体が機能するために今何が必要かを読む力があり、その上で「自分は支える役割が最適だ」と判断しているのです。ただ、その判断が習慣化しすぎると、本当は前に出られる場面でも後ろに下がってしまうことがあります。","温存型であることは、まだ本気を出していないという意味です。守護者の場合、これは「本気を出す許可を誰かから待っている」という状態に近いことが多いです。自分の熱さや力を全開にすることへの躊躇いがあり、それが解けたとき、周りが一番驚くタイプです。"],strengths:[{title:"場の感情を読む力",en:"Emotional Radar",body:"グループの中で誰が傷ついているか、どこに亀裂が入りかけているかを、言葉にされる前に察知できる。その敏感さが、チームの崩壊を未然に防いでいることがある。"},{title:"信頼される存在感",en:"Trustworthy Presence",body:"大きな主張をしなくても、あなたがいる場所は自然と安心感が生まれる。それは態度や言葉の積み重ねが、周囲に無意識に伝わっているから。"},{title:"内側の熱量",en:"Inner Passion",body:"表に出さないだけで、誰かのために動くときの本気度は本物。その熱さが行動の質に現れていて、やることの丁寧さや誠実さに滲み出ている。"}],weaknesses:[{title:"自分を後回しにする癖",en:"Self-Neglect",body:"誰かのために動くことが先に立ちすぎて、自分の疲れや限界に気づくのが遅れる。「大丈夫」と言い続けて、ある日突然限界を迎えることがある。"},{title:"本気を出すことへの躊躇い",en:"Hesitation to Shine",body:"力があるのに、それを全開にすることへの抵抗感がある。「出しゃばりたくない」「こんな自分が前に出ていいのか」という感覚が、行動にブレーキをかける。"},{title:"貢献が見えにくい",en:"Invisible Contribution",body:"縁の下で動いているため、何をしたかが周囲に伝わりにくい。チームがうまくいっていても、あなたの貢献が直接評価される機会は少ない。"}],scenes:{school:"クラスで明らかに浮いている人がいたとき、誰も動かない中で気づいたら自分だけ話しかけていた。特に深く考えていたわけではなく、気づいたら動いていた。",work:"後輩が上司に詰められている場面で、フォローに入っていた。直接助けるのではなく、さりげなく話題を変えたり、後から声をかけたりする形で。",daily:"グループLINEが険悪な空気になったとき、誰かが収めなければと思って静かにまとめに入った。感謝されることもなく、でもそれでいいと思っている。"},compat:{good1:{name:"先見者",code:"GCLO",reason:"守護者の「場の感情を守る力」と、先見者の「未来を読む力」が自然に役割分担できる組み合わせです。先見者は論理と予測で動くため、チームの感情的な部分へのケアが後回しになりやすい傾向があります。守護者はその部分を自然に埋めていくため、先見者が「考えること」に集中できる環境が生まれます。",role:"先見者がチームの方向性と課題を示し、守護者がメンバーの感情と関係性を整えます。先見者が「どこへ向かうか」を決め、守護者が「全員がついていける状態」を作ります。"},good2:{name:"影の功労者",code:"GCSF",reason:"守護者の「場の感情を守る力」と、影の功労者の「冷静に実行する力」が自然に補い合う組み合わせです。どちらも縁の下で動くタイプですが、守護者が感情面を、影の功労者が実務面を担うことで、チームを多面的に支えることができます。お互いに「自分の領域」を持ちながら、干渉しすぎることなく動けます。",role:"守護者がメンバーの感情と関係性の維持を担い、影の功労者が実務・調整・フォローを担います。守護者が「場の空気」を整え、影の功労者が「やるべきこと」を動かします。"},good3:{name:"縁の下の情熱家",code:"IHSF",reason:"どちらも感情を内側に秘めながら、誰かのために本気で動くタイプとして、お互いの誠実さを自然に感じ取れる組み合わせです。守護者は場の感情を守り、縁の下の情熱家は誠実さで支える。それぞれ異なる形でチームを支えますが、根っこにある動機が共鳴するため、自然と助け合える関係になります。",role:"守護者がメンバーの感情と関係性の維持を担い、縁の下の情熱家が誠実な実行とサポートを担います。守護者が「場を守る」ことで、縁の下の情熱家が「安心して動ける」状態が生まれます。"},bad1:{name:"指揮官",code:"GCLF",reason:"守護者は「感情を大切にしながら静かに支える」タイプですが、指揮官は「冷静に判断して速く動かす」タイプです。指揮官のスピードと決断力が、守護者には「誰かが置いていかれている」という感覚を生みやすくなります。守護者からすると「もう少し周りを見てほしい」、指揮官からすると「なぜそんなに慎重なのか」という温度差が積み重なりやすいです。",role:"うまくいく関わり方：守護者が「ここだけ確認させてほしい」と一点だけ伝えてみましょう。指揮官の決断力と守護者の感情的な誠実さが合わさると、速くて誰も置いていかないチームになります。"},bad2:{name:"革命家",code:"GHLO",reason:"守護者は「チームの感情と関係性を守ること」を大切にしますが、革命家は「場をひっくり返すこと」に熱量を持ちます。革命家が場を変えようとするとき、守護者は「変化の中で誰かが傷ついていないか」を気にします。守護者からすると「もう少しメンバーへの影響を考えてほしい」、革命家からすると「なぜ変化を止めようとするのか」という根本的な価値観のずれが、特に変化のタイミングで摩擦になります。",role:"うまくいく関わり方：革命家が「変えたい方向はここ、取り残される人が出ないようにここをお願いしたい」と守護者に先に伝えてみましょう。守護者の誠実さと革命家の変革力が合わさると、変化しながら誰も置いていかないチームになります。"},bad3:{name:"解放者",code:"GHLF",reason:"守護者は「誰も置いていかない」ことを大切にしますが、解放者は「全力で前に進む」ことを優先します。解放者のスピードに守護者がついていけないと感じるとき、守護者は「誰かが取り残されている」という感覚を持ちやすくなります。守護者からすると「もう少しゆっくり進んでほしい」、解放者からすると「なぜそんなに慎重なのか」という温度差が積み重なりやすいです。",role:"うまくいく関わり方：解放者が「あなたが気になる人を教えてほしい、その人は自分がフォローする」と伝えてみましょう。解放者の推進力と守護者の誠実さが合わさると、速くて誰も置いていかないチームになります。"}}},
+  "GHSF":{icon:"💥",name:"起爆剤",sub:"感じたことを全力で行動に変える、本物の熱量",desc:"あなたは「動いた後に結果がついてくる」タイプです。考えるより先に体が動き、気づいたらチームを動かしていた経験があるはず。その純粋な熱量は、技術より先に人の心を動かす。感情を動力に変えられるのは、あなたの感情が本物だからです。",overview:"起爆剤は、感情をそのまま動力に変えて動ける、本物の熱量を持つ人です。考えるより先に体が動き、気づいたら場の空気が変わっている。縁の下で支えながら、その熱さで周囲を引っ張っていく。すでに全力を出していて、しかもその全力が場に伝染する。それが起爆剤の、他のタイプにはない唯一無二の力です。",analysis:["起爆剤の最大の特徴は、「感情と行動の距離がほぼゼロ」であることです。何かを感じたとき、それが行動に変わるまでのラグがほとんどありません。誰かが困っていると感じたら動いている、場が盛り上がっていないと感じたら声を出している。この反応速度は、論理で動くタイプには出せないものです。","熱血型の感情エネルギーは、起爆剤にとってガソリンのようなものです。理屈ではなく、「これをやりたい」「これは放っておけない」という感覚が行動の源泉になっています。その純粋さが、周囲の人間の心を動かします。計算されたリーダーシップではなく、感情の本物さが伝わるから、人がついてくるのです。","縁の下型であることは、起爆剤にとってやや意外に見えるかもしれません。しかし起爆剤は、自分が主役になりたいわけではないのです。場がうまく回ること、誰かが前に進めること、チームが機能することに喜びを感じています。自分の熱量を誰かのために使うことが、起爆剤にとっての自然な状態です。","全開型であることは、常にエンジンがかかった状態で動いているということです。それは圧倒的な強みですが、同時にリスクでもあります。感情のエネルギーは有限であり、全力で出し続けることは消耗と表裏一体です。燃え尽きやすいのは、そのためです。"],strengths:[{title:"感情を動力に変える力",en:"Emotional Engine",body:"「やりたい」「放っておけない」という感覚を、そのまま行動に変換できる。そのスピードと純粋さが、周囲に伝染して場を動かす。"},{title:"熱量の伝染力",en:"Contagious Energy",body:"起爆剤が本気で動いているとき、周りの人間も引き寄せられる。意図してリードしているのではなく、本物の熱さが自然とチームを動かす。"},{title:"諦めない粘り強さ",en:"Emotional Resilience",body:"感情が動力源であるため、論理的に「無理だ」と判断される局面でも動き続けられる。感情が続く限り、行動が止まらない。"}],weaknesses:[{title:"燃え尽きやすさ",en:"Burnout Risk",body:"全力で動き続けるため、エネルギーの消耗が速い。本人が気づく前に限界を超えていることがあり、突然動けなくなることがある。"},{title:"感情に引っ張られすぎる判断",en:"Emotion-Led Decisions",body:"熱量で動くからこそ、冷静に状況を見直すタイミングを逃すことがある。勢いのまま動いた結果、方向が少しずれていたということが起きやすい。"},{title:"貢献の言語化が苦手",en:"Hard to Articulate",body:"感じて動くタイプのため、「なぜそうしたか」を言葉で説明することが難しい。結果は出ていても、プロセスを評価してもらいにくいことがある。"}],scenes:{school:"体育祭の応援練習で、誰も盛り上がれていない空気のとき、気づいたら自分が一番声を出していた。恥ずかしいとか考える前に、体が動いていた。",work:"チーム全体が諦めムードになっているプロジェクトで、なぜか自分だけやる気が上がっていた。「まだいける」という感覚が、論理的な根拠より先に来る。",daily:"友人が落ち込んでいる連絡が来たとき、話を聞く前にすでに会いに行く準備をしていた。考えるより先に動いてしまうのが、自分でも止められない。"},compat:{good1:{name:"設計者",code:"GCSO",reason:"起爆剤の「感情がそのまま行動になる熱量」と、設計者の「全体を静かに設計する力」が見事に噛み合う組み合わせです。起爆剤は「やりたい」という感覚で動くため、方向性が定まっていないと熱量が空回りすることがあります。設計者がその方向性を静かに示すことで、起爆剤の熱量が正しいところに向かい始めます。",role:"設計者が全体の構造と優先順位を設計し、起爆剤が現場で熱量をもって動かします。設計者が「次はここ」と示し、起爆剤が「わかった、やる」で完結します。"},good2:{name:"影の功労者",code:"GCSF",reason:"起爆剤の「感情がそのまま行動になる熱量」を、影の功労者が冷静に支える組み合わせです。起爆剤は全力で前に動きますが、その勢いで後方の細部が崩れることがあります。影の功労者はその崩れを黙って拾い、起爆剤が動き続けられる状態を作ります。",role:"起爆剤が現場で熱量をもって動かし、影の功労者が後方で実務・調整・フォローを担います。起爆剤が「やる」で動き出し、影の功労者が「ならここを整える」で応えます。"},good3:{name:"先見者",code:"GCLO",reason:"起爆剤の「感じたらすぐ動く熱量」と、先見者の「先を読む視点」が補い合う組み合わせです。起爆剤は「やりたい」という感覚で動くため、方向性が定まっていないと熱量が空回りすることがあります。先見者がその方向性を示すことで、起爆剤の熱量が正しいところに向かい始めます。",role:"先見者が中長期の方向性と課題を示し、起爆剤が現場で熱量をもって動かします。先見者が「ここが問題になる」と示し、起爆剤が「ならやる」で完結します。"},bad1:{name:"職人",code:"ICSO",reason:"起爆剤は「動いた後に精度を上げる」タイプですが、職人は「精度が整ってから出す」タイプです。起爆剤のスピードに職人がついていけないと感じるとき、職人は「まだ準備が整っていない」という感覚を持ち、起爆剤は「なぜ動かないのか」という苛立ちを感じやすくなります。どちらも本気で動いているだけに、このすれ違いはお互いにとって消耗が大きくなりやすいです。",role:"うまくいく関わり方：起爆剤が「あなたのペースでいい、ただここだけ一緒に動いてほしい」と一点だけ伝えてみましょう。起爆剤の推進力と職人の精度が合わさると、速くて確かなアウトプットが生まれます。"},bad2:{name:"孤高の達人",code:"ICSF",reason:"起爆剤は感情をそのまま外に出して場を動かすタイプですが、孤高の達人は感情を内側に溜めて一人で積み上げるタイプです。起爆剤の熱量に孤高の達人が圧倒されてしまい、本来の実力が出せなくなることがあります。起爆剤が「一緒にやろう」と引っ張りすぎると、孤高の達人が「自分のペースで動けない」と感じて距離を置くことがあります。",role:"うまくいく関わり方：起爆剤が「あなたのペースでいい、ただ方向だけ一緒にいよう」と伝えてみましょう。孤高の達人が安心して実力を発揮できる場を、起爆剤が作ることができます。"},bad3:{name:"先駆者",code:"ICLO",reason:"先駆者は「確信が持てるまで動かない」という慎重さで進みますが、起爆剤は「感じたらすぐ動く」という熱量で進みます。先駆者からすると「なぜそんなに見切り発車で動くのか」、起爆剤からすると「なぜそんなに時間をかけるのか」という判断タイミングのずれが、特にスピードが求められる場面で大きな摩擦になります。",role:"うまくいく関わり方：先駆者が「ここまでは確認できた、ここから先は動きながら確認しよう」と一歩踏み出してみましょう。起爆剤の推進力と先駆者の独自の視点が合わさると、誰も踏み込まなかった道を勢いよく進めるチームになります。"}}},
+  "GHLO":{icon:"🌊",name:"革命家",sub:"空気を読んで、場をまるごとひっくり返す人",desc:"あなたが来ると、なぜか場の流れが変わる。それは偶然じゃなく、あなたが無意識に全体を観察して動いているからです。熱さがあって、人を動かす力があって、まだ本気を出していない。その三つが揃っているあなたは、覚醒したとき誰も予想しない変化を起こせる人です。",overview:"革命家は、空気を読んだ上で、あえてその空気をひっくり返せる人です。場の流れを誰より敏感に察知しながら、「これはおかしい」と感じたとき、静かに、しかし確実に動き始めます。まだ本気を出していないのに、革命家が口を開くと場の方向性が変わる。その言葉の重さに、自分自身が一番気づいていません。",analysis:["革命家の思考の根底にあるのは、「当たり前を疑う視点」です。多くの人が「そういうものだから」と受け入れていることに対して、革命家は本能的に「なぜ？」という問いを持ちます。これは反抗心でも天邪鬼でもなく、物事の本質を見ようとする真剣さから来ています。その問いが正しいことは、後になって証明されることが多いです。","熱血型であることは、その「おかしい」という感覚が感情レベルで来るということです。論理的に矛盾を見つけるというより、何か違うという違和感が先に体に来る。その感覚は鋭く、ほとんどの場合で正しいのですが、感情ベースであるがゆえに「なぜおかしいか」を言語化するのに時間がかかることがあります。","先頭型の資質を持ちながら、温存型であることは、革命家にとって大きな葛藤の源になっています。本来は場を変える力があり、前に出る意志もある。しかし「また変なことを言っていると思われるかも」「このタイミングではない」という判断が重なり、行動にブレーキがかかります。その結果、本来の力が外に出ないまま、くすぶっている状態が続きます。","革命家が本気を出す瞬間は、「もう黙っていられない」という感覚が閾値を超えたときです。それまでの観察と蓄積が一気に放出される瞬間であり、周囲からすると突然のように見えますが、革命家の中ではずっと前から準備が整っていました。"],strengths:[{title:"本質を見抜く力",en:"Core Insight",body:"表面的な情報に惑わされず、「これはおかしい」という核心をつかむ力がある。その感覚はほとんどの場合で正しく、後から周囲も気づくことになる。"},{title:"場を変える胆力",en:"Courage to Disrupt",body:"空気を読んだ上で、あえてひっくり返すことができる。これは勇気というより、「このままでは本当にまずい」という確信から来る行動力。"},{title:"観察力と洞察力",en:"Deep Observation",body:"動く前に場全体を観察し、どこに問題があるかを把握している。その蓄積があるから、いざ動いたときの発言に重みがある。"}],weaknesses:[{title:"くすぶりやすさ",en:"Suppressed Potential",body:"本気を出すタイミングを測りすぎて、機会を逃し続けることがある。正しいものを持ちながら、それを出せない状態が続くことへのフラストレーションが蓄積しやすい。"},{title:"言語化の難しさ",en:"Verbalization Gap",body:"感覚ベースで「おかしい」と感じているため、それを論理的に説明することに時間がかかる。感覚が正しくても、言語化できないと周囲に伝わらない。"},{title:"誤解されやすさ",en:"Misread Intentions",body:"現状を変えようとする言動が、批判や否定と受け取られることがある。「変えたい」という建設的な意図が、「文句を言っている」と見られてしまうことがある。"}],scenes:{school:"授業や部活のやり方に「なぜこうなのか」と疑問を感じていた。口にしたら「そういうものだから」と返ってきて、それが一番納得できなかった。",work:"長年続いている非効率な慣習に違和感を覚え、「なぜこのやり方なんですか」と聞いたら、誰も明確な答えを持っていなかった。その後、静かにやり方が変わっていた。",daily:"「みんながそうしているから」という理由が、どうしても行動の根拠にならない。周りに合わせることはできるけれど、納得はしていない。"},compat:{good1:{name:"影の功労者",code:"GCSF",reason:"革命家の「場をひっくり返す熱量」と、影の功労者の「冷静に支える実行力」が見事に補い合う組み合わせです。革命家は前線で問題提起や方向転換に集中しますが、その勢いで後方の細部が崩れることがあります。影の功労者はその崩れを黙って拾い、革命家が前に出続けられる状態を作ります。",role:"革命家が場の前線で問題提起・方向転換を担い、影の功労者が後方で実務・調整・フォローを担います。革命家が「こうすべきだ」と言ったことを、影の功労者が形にします。"},good2:{name:"職人",code:"ICSO",reason:"革命家の「前提を変える視点」と、職人の「一つのことを深く仕上げる力」が自然に役割分担できる組み合わせです。革命家が「このやり方はおかしい、変えよう」と場を動かし、職人がその新しいやり方を誰より深く・正確に実現していきます。革命家は広く場を動かすことが得意ですが、細部の精度を上げる部分で職人の力が加わることで、変化が確かな形として根付きやすくなります。",role:"革命家が「何を変えるか」の方向性と問題提起を担い、職人が「どう仕上げるか」の精度と完成度を担います。革命家が変化の旗を立て、職人がその旗を確かなものにします。"},good3:{name:"縁の下の情熱家",code:"IHSF",reason:"革命家の「場を変えたい」という熱さと、縁の下の情熱家の「誰かのために動きたい」という熱さが、根っこの部分で共鳴する組み合わせです。革命家が場を動かすとき、縁の下の情熱家がその変化の中で取り残される人を静かに拾っていきます。変化の速さと誰も置いていかない誠実さが両立する、バランスの良い組み合わせです。",role:"革命家が変化の方向性と推進を担い、縁の下の情熱家が変化の中で生まれる細かなフォローと関係の維持を担います。革命家が「前へ」と動かし、縁の下の情熱家が「全員で」を実現します。"},bad1:{name:"設計者",code:"GCSO",reason:"革命家は「前提そのものを疑って変える」タイプですが、設計者は「既存の構造を最適化する」タイプです。目指す方向は「より良くすること」で共通しているのに、アプローチが真逆なため、同じチームにいると主導権がぶつかりやすくなります。設計者が作った設計図を、革命家が「そもそもこの前提がおかしい」と崩しにかかるパターンが起きやすいです。",role:"うまくいく関わり方：革命家が最初に「この前提、どう思う？」と設計者に投げかけてみましょう。設計者の構造化力と革命家の問題提起力が噛み合うと、前提から作り直した精度の高い設計が生まれます。"},bad2:{name:"指揮官",code:"GCLF",reason:"どちらも集団に影響を与える力を持ち、場を動かそうとするタイプです。しかし指揮官は「決めて動かす」、革命家は「疑って変える」という動き方の違いがあるため、同じ場にいると主導権が衝突しやすくなります。指揮官からすると「なぜ決まったことをひっくり返すのか」、革命家からすると「なぜその前提で進めるのか」という摩擦が積み重なりやすいです。",role:"うまくいく関わり方：革命家が「決める前にここだけ確認させてほしい」と一点だけ問いを立ててみましょう。指揮官の決断力と革命家の洞察力が合わさると、前提を確認した上で速く動けるチームになります。"},bad3:{name:"孤高の達人",code:"ICSF",reason:"革命家は「場をひっくり返すこと」に熱量を持ちますが、孤高の達人は「自分が積み上げてきたものの精度を高めること」に価値を置いています。革命家が場をひっくり返そうとするとき、孤高の達人にとってはそれが「自分が積み上げてきたものを崩される」と感じられることがあります。",role:"うまくいく関わり方：革命家が「あなたが積み上げてきたものを活かした上で、ここを変えたい」と伝えてみましょう。孤高の達人の実力と革命家の変革力が合わさると、根拠のある変化が生まれます。"}}},
+  "GHLF":{icon:"🌋",name:"解放者",sub:"すべてを出し切ったとき、誰も追いつけない",desc:"あなたはすでに全力で、チームの中心で動いている。その熱量と行動力は、本物です。「こんなに動いていいのか」と思うことがあるなら、それがあなたの本来のエンジンです。ブレーキを外したあなたを止められる人はいない。その力で動き続けることが、あなたの使命です。",overview:"解放者は、すでに全力で、場の先頭に立って動いている人です。熱さと行動力を両方持ち、それを集団の中で全開にしている。「こんなに動いていていいのか」と自分でも不思議に思うことがあるなら、それがあなたの本来のエンジンです。ブレーキを外した解放者を止められる人は、そうそういません。",analysis:["解放者の最大の特徴は、「本気が伝染する」ことです。解放者が全力で動いているとき、周囲の人間は理屈抜きでそれに引き寄せられます。これは意図してリードしているのではなく、本物の熱量と行動が周囲の何かを刺激するからです。解放者の存在そのものが、チームのエンジンになっています。","熱血型と先頭型の組み合わせは、感情を動力にしながら前に出る力を持つということです。解放者の場合、この二つが完全に連動しています。熱さが増すほど行動力が上がり、行動するほど熱さが増す。この自己強化のサイクルが、解放者を止まらせない原動力になっています。","全開型であることは、すでにそのサイクルが稼働しているということです。解放者は、まだ本気を出していないのではなく、今この瞬間も全力で動いています。その状態が当たり前になっているため、自分がいかに動いているかを客観的に把握しにくくなっています。周囲から見ると明らかに突出しているのに、本人には「普通にやっているだけ」という感覚があります。","ただ、全力で動き続けることには、立ち止まって考える時間が削られるというリスクが伴います。解放者は方向性の修正が遅れやすく、勢いのまま進んだ結果、後から「少し違う方向だった」と気づくことがあります。その推進力を活かしつつ、定期的に立ち止まる習慣が、解放者の力をさらに大きくします。"],strengths:[{title:"本気の伝染力",en:"Infectious Intensity",body:"解放者が全力で動いているとき、周囲は理屈なしに動き出す。これは意図したリーダーシップではなく、本物の熱量が持つ自然な引力。"},{title:"突破力",en:"Breakthrough Power",body:"「もうダメかも」という空気の中でも、解放者だけがまだ諦めていない。その姿が、チーム全体の粘りを引き出すことがある。"},{title:"スピードと実行力",en:"Speed and Execution",body:"考えながら動けるため、行動の量と質を同時に保てる。判断から実行までのサイクルが速く、変化の早い状況で特に力を発揮する。"}],weaknesses:[{title:"立ち止まれない",en:"Can't Pause",body:"動き続けることが当たり前になっているため、立ち止まって方向を確認するタイミングを逃しやすい。気づいたら少し違う方向に走っていたということが起きる。"},{title:"消耗への無自覚",en:"Unaware of Exhaustion",body:"全力が通常運転になっているため、疲れていることに気づきにくい。周囲が心配しているのに、本人だけが「まだいける」と思っていることがある。"},{title:"ペースの合わせにくさ",en:"Pace Mismatch",body:"解放者のスピードについてこられない人が出てくることがある。本人に悪意はないが、結果としてチームに温度差が生まれることがある。"}],scenes:{school:"運動会のリレーでアンカーを任されたとき、なぜか普段より速く走れた。追い込まれるほどエンジンがかかる感覚が、自分でもわかっていた。",work:"締め切り直前になると、逆にギアが上がる。周りが焦っている中で、自分だけ妙に冷静に全力を出せている。",daily:"「もうダメかも」という場面でも、自分だけまだ諦めていなかった。後から「あのときよく続けられたね」と言われることがあるが、本人には続けた感覚がない。"},compat:{good1:{name:"先駆者",code:"ICLO",reason:"解放者の「全力で前に進む推進力」と、先駆者の「誰も踏み込まない道を静かに進む独自性」が自然に補い合う組み合わせです。解放者が勢いよく前に出ることで、先駆者が「この方向でいい」という確信を得やすくなります。先駆者は自分の判断軸を持っていますが、それを全力で実行することへの躊躇いがあります。解放者の本気が、先駆者の躊躇いを自然に押し流してくれます。",role:"解放者が突破と推進を担い、先駆者が方向性と独自の視点を担います。解放者が「やろう」で動き出し、先駆者が「ならこっちだ」と道を示します。"},good2:{name:"影の功労者",code:"GCSF",reason:"解放者の「圧倒的な推進力」を、影の功労者が冷静に支える組み合わせです。解放者は全力で前に進みますが、その速さゆえに後ろが崩れることがあります。影の功労者はその崩れを見越して先回りし、解放者が走り続けられる環境を整えます。解放者が開けた道を、影の功労者が舗装して次の人が通れるようにします。",role:"解放者が突破と開拓を担い、影の功労者が継続と整備を担います。解放者が「ここを開ける」と動き、影の功労者が「ここを整える」で応えます。"},good3:{name:"原石",code:"IHSO",reason:"解放者の「全力で動く姿」が、原石の「本気を出す許可」を自然に与える組み合わせです。原石はポテンシャルを持ちながらも、「自分がやっていいのか」という躊躇いが行動にブレーキをかけています。解放者が隣で全力を出している姿を見ることで、原石は「これくらいやっていいんだ」という感覚を得やすくなります。",role:"解放者が場の空気を作り・チームを動かし、原石がその空気の中で本来の力を発揮し始めます。解放者が「一緒にやろう」と引っ張り、原石が「やってみる」で応えます。"},bad1:{name:"職人",code:"ICSO",reason:"解放者は「動きながら精度を上げる」タイプですが、職人は「精度が整ってから出す」タイプです。解放者のスピードと勢いに職人がついていけないと感じるとき、職人は「まだ仕上がっていない」という感覚を持ちます。解放者からすると「なぜそんなに時間をかけるのか」、職人からすると「なぜ仕上がっていないのに動くのか」という根本的なすれ違いが起きやすいです。",role:"うまくいく関わり方：職人が「ここまでの精度なら今出せる、ここから先は次のフェーズで仕上げる」と段階を分けて伝えてみましょう。解放者の推進力と職人の完成度が段階的に噛み合い、止まらずに前に進めるチームになります。"},bad2:{name:"先見者",code:"GCLO",reason:"解放者は「動きながら方向を修正する」タイプですが、先見者は「確信が持てるまで動かない」タイプです。解放者からすると「なぜそんなに時間をかけるのか」、先見者からすると「なぜ見切り発車で動くのか」という判断タイミングのずれが、特にスピードが求められる場面で大きな摩擦になります。",role:"うまくいく関わり方：解放者が「まず動いてみて、修正は一緒にしよう」と声をかけてみましょう。先見者の予測力と解放者の推進力が合わさると、方向を確認しながら速く動けるチームになります。"},bad3:{name:"孤高の達人",code:"ICSF",reason:"解放者は感情と熱量を全開にして場を動かしますが、孤高の達人は静かに・自分のペースで積み上げるタイプです。解放者の勢いに孤高の達人が飲み込まれると、本来の深さと精度が発揮できなくなります。解放者からすると「なぜもっと前に出ないのか」、孤高の達人からすると「なぜそんなに急ぐのか」という温度差が、じわじわと関係に影響します。",role:"うまくいく関わり方：解放者が「あなたが仕上げたものを、自分が前に出して動かす」という役割分担を先に伝えてみましょう。孤高の達人の実力と解放者の推進力が、それぞれの得意な場所で発揮されます。"}}},
+  "ICSO":{icon:"🏔️",name:"職人",sub:"一人で深く、誰も到達できない場所まで行ける人",desc:"あなたは群れなくても、誰より深く考えられる人間です。一人でコツコツ積み上げてきたものが、今のあなたの底力になっている。「自分の得意なことを周りが知らない」という人ほど、実は本物の技術を持っています。その静かな実力は、正しい場所で使われたとき、必ず光ります。",overview:"職人は、一人で深く潜り込み、誰も到達できないレベルまで積み上げられる人です。群れなくても、集団の中にいなくても、自分の基準で着実に前に進んでいます。まだ本気を出していないのに、すでに周囲の「最高」を超えているクオリティが、あなたの日常の中にあります。それに気づいていないのは、あなただけかもしれません。",analysis:["職人の思考の中心にあるのは、「自分の基準を満たすこと」への強い執着です。他者からの評価や承認よりも、自分の中にある完成形のイメージに近づけることが、行動の主な動機になっています。これは自己満足ではなく、本質的な質への追求であり、その姿勢が積み重なることで、他の誰も持っていない深さと精度が育まれていきます。","個人型であることは、一対一や単独の状況で最も力を発揮するということです。職人の場合、これは集団が苦手というより、集団の中では自分のペースで深く潜れないという感覚に近いです。一人になったとき、思考が本来の速度と深さで動き始め、最も良い仕事ができると感じているはずです。","冷静型の思考スタイルは、職人の精度をさらに高めます。感情的な波に流されず、論理と観察で物事を積み上げていく。その過程で見えてくる細部への気づきが、職人のアウトプットに他との差をつけます。「なぜこうなるのか」を突き詰める習慣が、気づかないうちに専門性という形で蓄積されています。","温存型であることは、まだ本気を出していないという意味ですが、職人の場合は少し特殊です。「まだ完成していない」「もう少し精度を上げてから」という感覚が強く、アウトプットを出すタイミングを自分で遅らせてしまうことが多いです。完成度を追い求めるあまり、外に出す前に時間が過ぎてしまう。それが最も大きな機会損失になっています。"],strengths:[{title:"圧倒的な専門性",en:"Deep Expertise",body:"一つのことを深く掘り下げる習慣が積み重なり、他の人が到達できないレベルの知識と技術が自然と育まれている。その深さは、広く浅くやってきた人間には出せないもの。"},{title:"高い精度と完成度",en:"Precision and Quality",body:"アウトプットの質へのこだわりが強く、細部まで手を抜かない。「誰かに見せるから」ではなく、「自分の基準を満たすから」という動機が、結果の質を一段高いところに置いている。"},{title:"静かな継続力",en:"Quiet Persistence",body:"誰かに見られていなくても、評価されていなくても、自分のペースで積み上げ続けられる。その継続が、長期的に見たとき最も大きな差になっている。"}],weaknesses:[{title:"完璧主義による出し渋り",en:"Perfectionist Paralysis",body:"「まだ足りない」「もう少し」という感覚が抜けず、アウトプットを外に出すタイミングが遅れる。8割の完成度でも十分すごいものが、日の目を見ないまま終わることがある。"},{title:"評価の機会を自分で逃す",en:"Self-Hidden Talent",body:"一人で完結しようとするため、自分の実力が周囲に伝わる場面が少ない。結果として、実力より低く見られることがある。"},{title:"連携の難しさ",en:"Collaboration Friction",body:"自分のペースと基準で動くため、他者と合わせることへのストレスを感じやすい。チームで動く場面で、そのこだわりが摩擦を生むことがある。"}],scenes:{school:"テスト勉強で、誰も手をつけていない範囲まで一人で調べていた。試験に出なかったけれど、その知識が後から別の場面で活きたことがある。",work:"誰も気にしていない細かい部分の精度を、黙って上げていた。指摘されたわけでもなく、評価されるわけでもなく、ただ自分の基準がそれを許さなかった。",daily:"趣味の深さが気づいたらマニアレベルになっていた。「そこまで知ってるの？」と言われることがあるが、自分では普通に好きなだけのつもりでいる。"},compat:{good1:{name:"指揮官",code:"GCLF",reason:"職人の「深く・精度高く仕上げる力」と、指揮官の「全体を判断して動かす力」が自然に役割分担できる組み合わせです。指揮官は全体を動かすことに集中しますが、細部の精度が落ちることがあります。職人はその細部を、誰も気にしていない段階から高い基準で仕上げていきます。",role:"指揮官が全体の方向性・判断・スケジュールを担い、職人が各タスクの品質と精度を担います。指揮官が「ここをお願いしたい」と言い、職人が「わかった」で完結します。"},good2:{name:"革命家",code:"GHLO",reason:"革命家の「前提を変える視点」と、職人の「新しいやり方を深く仕上げる力」が補い合う組み合わせです。革命家が「このやり方はおかしい、変えよう」と場を動かしたとき、職人がその新しいやり方を誰より深く・正確に実現していきます。革命家が変化の旗を立て、職人がその旗を確かなものにすることで、変化が表面的なものではなく根付いた形になります。",role:"革命家が「何を変えるか」の方向性と問題提起を担い、職人が「どう仕上げるか」の精度と完成度を担います。革命家が動かした場を、職人が確かなものとして固めます。"},good3:{name:"先見者",code:"GCLO",reason:"先見者の「未来を読む視点」と、職人の「今を深く仕上げる力」が自然に役割分担できる組み合わせです。先見者が「この先こうなる、だから今ここを準備しておくべきだ」と示したとき、職人はその準備を誰より丁寧に・確実に仕上げます。先見者の予測が職人の行動の根拠になり、職人の精度が先見者の予測を現実に変えていきます。",role:"先見者が中長期の方向性と課題を示し、職人が今やるべきことを深く・確実に仕上げます。先見者が「ここを準備しよう」と言い、職人が「ならこの精度で仕上げる」で応えます。"},bad1:{name:"起爆剤",code:"GHSF",reason:"職人は「自分の基準を満たすまで出さない」という精度へのこだわりで動きますが、起爆剤は「感じたらすぐ動く」という熱量で動きます。起爆剤の「とりあえず動こう」というテンポに、職人の「まだ準備が整っていない」という感覚がぶつかりやすいです。起爆剤からすると「なぜ動かないのか」、職人からすると「なぜそんなに急ぐのか」という互いへのストレスが積み重なります。",role:"うまくいく関わり方：職人が「ここまでなら今出せる」と段階を示してみましょう。起爆剤の推進力と職人の精度が段階的に合わさることで、スピードと質が両立したアウトプットが生まれます。"},bad2:{name:"解放者",code:"GHLF",reason:"解放者は「動きながら精度を上げる」タイプですが、職人は「精度が整ってから出す」タイプです。解放者のスピードと勢いに職人がついていけないと感じるとき、職人は「まだ仕上がっていない」という感覚を持ちます。解放者からすると「なぜそんなに時間をかけるのか」、職人からすると「なぜ仕上がっていないのに動くのか」という根本的なすれ違いが起きやすいです。",role:"うまくいく関わり方：職人が「ここまでの精度なら今出せる、ここから先は次のフェーズで仕上げる」と段階を分けて伝えてみましょう。解放者の推進力と職人の完成度が段階的に噛み合い、止まらずに前に進めるチームになります。"},bad3:{name:"規格外",code:"IHLO",reason:"職人は「自分の基準の中で深く積み上げる」タイプですが、規格外は「その基準や構造そのものが自分に合っていない」という感覚を持っています。職人が「この基準でやろう」と示しても、規格外には「なぜその基準前提なのか」という疑問が先に来ることがあります。職人からすると「なぜ基準に沿って動かないのか」、規格外からすると「なぜその基準が正しいと思っているのか」というすれ違いが生まれやすいです。",role:"うまくいく関わり方：職人が基準を示す前に「あなたならどうやる？」と先に聞いてみましょう。規格外の独自の視点と職人の精度が合わさると、誰も思いつかなかったやり方で高いクオリティのものが生まれます。"}}},
+  "ICSF":{icon:"🗺️",name:"孤高の達人",sub:"誰にも知られていないが、すでに高みにいる",desc:"あなたはすでに、相当なところまで来ている。ただ誰にも見せていないだけです。一人で冷静に判断し、縁の下で全力を出してきた。その積み重ねは嘘をつかない。「実はもっとできるんじゃないか」という感覚があるなら、それは正しい。あなたはまだ本当の力を出していません。",overview:"孤高の達人は、誰にも知られていないだけで、すでに相当なところまで来ている人です。一人で積み上げ、冷静に判断し、縁の下で全力を出し続けてきた。その蓄積は本物であり、嘘をつきません。「実はもっとできるんじゃないか」という感覚があるなら、それは正しい。あなたはまだ、本当の力を外に出していません。",analysis:["孤高の達人の最大の特徴は、「自己評価と実際の実力の間にある大きなギャップ」です。実力があればあるほど、自分の至らない部分がよく見えるようになります。「まだまだ」「全然足りない」という感覚は、能力が低いのではなく、見えている景色が広くなっているからこそ生まれるものです。これはインポスター症候群と呼ばれる心理状態に近く、実力者ほど陥りやすい罠です。","個人型と縁の下型の組み合わせは、一人で支える側に徹するということです。孤高の達人は、誰かを助けるとき、それをアピールしません。助けたこと自体を忘れてしまうくらい、自然にやってしまいます。その結果、周囲はあなたの貢献に気づかないまま時間が過ぎ、あなた自身も「自分は大したことをしていない」という認識が強化されていきます。","冷静型であることは、感情的な自己評価のブレが少ないということです。しかし孤高の達人の場合、その冷静さが自分への厳しい分析に向かいすぎる傾向があります。他者には寛大に、自分には厳格に。そのアンバランスが、実力の過小評価を生み出す構造になっています。","全開型であることは、すでに本気を出しているということです。つまり、これが全力だと思っているのに「まだ足りない」と感じている状態です。その感覚は向上心の表れでもありますが、同時に今の自分を正当に評価できていないサインでもあります。"],strengths:[{title:"圧倒的な底力",en:"Unshakeable Foundation",body:"一人で積み上げてきた実力は、誰かに教わったものでも環境に恵まれたものでもない。自分の力で手に入れたものだからこそ、どんな状況でも消えない。"},{title:"自己完結できる力",en:"Self-Sufficiency",body:"誰かの助けや承認がなくても、自分の基準で最高を出し続けられる。その独立性は、環境が変わっても揺らがない強みになっている。"},{title:"周囲の基準を上げる存在感",en:"Elevating Presence",body:"意図していなくても、孤高の達人が全力で動いていることが、周囲の「もっと頑張ろう」という気持ちを引き出していることがある。その影響力は、言葉や行動ではなく、存在そのものから来ている。"}],weaknesses:[{title:"インポスター症候群",en:"Impostor Syndrome",body:"実力があるほど「まだまだ」と感じてしまう。自分の達成を正当に評価できず、成功しても「たまたまうまくいっただけ」と思ってしまう癖がある。"},{title:"孤立のリスク",en:"Risk of Solitude",body:"一人で完結しようとするあまり、周囲との接点が薄くなる。実力があっても、それが伝わる機会がないまま時間が過ぎることがある。"},{title:"自分への過剰な厳しさ",en:"Self-Imposed Pressure",body:"他者には寛大なのに、自分には極端に厳しい基準を当てはめてしまう。そのアンバランスが、慢性的な自己評価の低さにつながっている。"}],scenes:{school:"提出物やレポートのクオリティが、なぜか一人だけ違った。本人は「普通にやっただけ」と思っているが、周囲には明らかに差があった。",work:"「誰かやっておいて」という曖昧な仕事が、毎回気づいたら自分がやっていた。やって当然と思っているが、実はそれができる人間がほとんどいない。",daily:"「すごいね」と言われるたびに、反射的に「全然そんなことないです」と返してしまう。否定しているのではなく、本当にそう思っているのが厄介なところ。"},compat:{good1:{name:"守護者",code:"GHSO",reason:"孤高の達人の「一人で深く積み上げる実力」を、守護者が後方から静かに支える組み合わせです。孤高の達人は実力があるのに、それが周囲に伝わりにくい傾向があります。守護者はその実力を自然に感じ取り、孤高の達人が動きやすい環境を整えます。孤高の達人にとって「自分のやり方を否定しない、でも孤立もさせない」という存在として、守護者は非常に貴重な相手になります。",role:"孤高の達人が任された領域を誰よりも深く・確実に仕上げ、守護者が周囲との関係調整と場の安定を担います。孤高の達人が「ここを仕上げる」と集中し、守護者が「その間、周りは任せて」で応えます。"},good2:{name:"設計者",code:"GCSO",reason:"孤高の達人の「一人で深く積み上げる実力」と、設計者の「全体を構造化する力」が自然に補い合う組み合わせです。孤高の達人は実力があるのに、それが周囲に伝わりにくい傾向があります。設計者はその実力を観察し、「あなたの力はここで活きている」と構造として言語化することができます。孤高の達人にとって「自分の積み上げてきたものを正しく評価してくれる人」として、設計者は非常に心強い相手になります。",role:"孤高の達人が任された領域を誰よりも深く・確実に仕上げ、設計者がその実力を全体の構造の中で正しい場所に配置します。孤高の達人が「ここを仕上げる」と集中し、設計者が「その力はここで最大限活きる」と示します。"},good3:{name:"縁の下の情熱家",code:"IHSF",reason:"どちらも静かに・一人で・本気で動くタイプとして、お互いの存在を自然に尊重できる組み合わせです。孤高の達人は実力で、縁の下の情熱家は誠実さで、それぞれ異なる形でチームを支えます。表立って主張し合うことがないため、役割がかぶらず、お互いの領域を自然に尊重できます。",role:"孤高の達人が専門性と精度を担い、縁の下の情熱家が誠実さと継続的なサポートを担います。孤高の達人が「質」を担保し、縁の下の情熱家が「関係」を担保します。"},bad1:{name:"起爆剤",code:"GHSF",reason:"孤高の達人は感情を内側に溜めて一人で積み上げるタイプですが、起爆剤は感情をそのまま外に出して場を動かすタイプです。起爆剤の熱量に孤高の達人が圧倒されてしまい、本来の実力が出せなくなることがあります。起爆剤が「一緒にやろう」と引っ張りすぎると、孤高の達人が「自分のペースで動けない」と感じて距離を置くことがあります。",role:"うまくいく関わり方：起爆剤が「あなたのペースでいい、ただ方向だけ一緒にいよう」と伝えてみましょう。孤高の達人が安心して実力を発揮できる場を、起爆剤が作ることができます。"},bad2:{name:"解放者",code:"GHLF",reason:"解放者は感情と熱量を全開にして場を動かしますが、孤高の達人は静かに・自分のペースで積み上げるタイプです。解放者の勢いに孤高の達人が飲み込まれると、本来の深さと精度が発揮できなくなります。解放者からすると「なぜもっと前に出ないのか」、孤高の達人からすると「なぜそんなに急ぐのか」という温度差が、じわじわと関係に影響します。",role:"うまくいく関わり方：解放者が「あなたが仕上げたものを、自分が前に出して動かす」という役割分担を先に伝えてみましょう。孤高の達人の実力と解放者の推進力が、それぞれの得意な場所で発揮されます。"},bad3:{name:"革命家",code:"GHLO",reason:"革命家は「場をひっくり返すこと」に熱量を持ちますが、孤高の達人は「自分が積み上げてきたものの精度を高めること」に価値を置いています。革命家が場をひっくり返そうとするとき、孤高の達人にとってはそれが「自分が積み上げてきたものを崩される」と感じられることがあります。",role:"うまくいく関わり方：革命家が「あなたが積み上げてきたものを活かした上で、ここを変えたい」と伝えてみましょう。孤高の達人の実力と革命家の変革力が合わさると、根拠のある変化が生まれます。"}}},
+  "ICLO":{icon:"🌠",name:"先駆者",sub:"自分のペースで、誰も踏み込まなかった道を進む",desc:"あなたは自分のやり方で、誰も見ていないゴールに向かっている。まだ本気を出していないのに、すでに周りより先を見ている。その独立心と冷静な判断力は、唯一無二の強みです。本気を出したとき、あなたは「他の誰にも作れないもの」を生み出す人です。",overview:"先駆者は、自分のペースで、誰も踏み込んでいない道を進んでいる人です。集団の流れに乗るのではなく、自分の判断軸で方向を決め、静かに前へ進んでいます。まだ本気を出していないのに、すでに周りとは違う場所に立っている。その独自の視点と行動力は、正しい場所で使われたとき、誰も作れないものを生み出します。",analysis:["先駆者の思考の根底にあるのは、「自分の判断を信じる力」です。周囲の意見や一般的な正解に流されるのではなく、自分が観察し、考え、出した結論を行動の基準にしています。これは頑固さではなく、他者の評価より自分の判断を優先できる独立心の強さです。その姿勢が、他の人が踏み込まなかった領域に自然と足を踏み入れる力になっています。","個人型であることは、一人の環境で最も思考が深まるということです。先駆者の場合、集団の中では自分の判断軸がぶれやすくなる感覚があります。周囲の意見や空気が入ってくることで、本来の思考の流れが乱れてしまうのです。一人になったとき、本当の意味での思考が始まり、誰も気づいていない視点や解決策が見えてきます。","冷静型の思考スタイルは、先駆者の独自路線に論理的な裏付けを与えます。感覚だけで動くのではなく、自分なりの根拠と観察に基づいて判断しているため、独自のやり方でも精度が高いです。「なぜそうするのか」を聞かれたとき、ちゃんと答えられる。その論理性が、先駆者の行動を単なる異端ではなく、新しいスタンダードに変えていきます。","先頭型でありながら温存型であることは、先駆者にとって特有の葛藤を生みます。前に出る力はあるのに、まだそれを全開にしていない。理由のひとつは、「正しいと確信できるまで動かない」という慎重さです。もうひとつは、自分のやり方を否定されることへの、静かな恐れです。その恐れが解けたとき、先駆者は誰も想像しなかった場所に到達します。"],strengths:[{title:"独自の判断軸",en:"Independent Judgment",body:"周囲の空気や一般論に流されず、自分の観察と論理で結論を出せる。その軸は一貫していて、状況が変わっても揺らがない。"},{title:"誰も踏み込まない領域への行動力",en:"Pioneer Mindset",body:"「普通はこうする」という前提を疑い、誰もやっていないやり方を試せる。その結果が新しいスタンダードになることがある。"},{title:"静かな先見性",en:"Quiet Foresight",body:"目立たない形で、すでに時代や状況の一歩先を行っている。後から「あのときそう言ってたよね」となることが多い。"}],weaknesses:[{title:"連携の難しさ",en:"Collaboration Friction",body:"自分の判断軸が強いため、他者と足並みを揃えることへのストレスを感じやすい。「なぜそのやり方なのか」を説明する手間を省いてしまい、孤立することがある。"},{title:"本気を出すタイミングの遅さ",en:"Delayed Full Effort",body:"確信が持てるまで動かない慎重さが、機会を逃すことにつながることがある。準備が整ったと感じるまでに、時間をかけすぎてしまう。"},{title:"評価されにくい独自性",en:"Ahead of Its Time",body:"先を行きすぎているため、周囲がその価値に気づくまでにタイムラグがある。正しいことをしているのに、当時は理解されないことがある。"}],scenes:{school:"みんなが同じ解き方をしている問題を、一人だけ違うアプローチで解いていた。答えは合っているのに「なぜこうなった？」と聞かれることがあった。",work:"誰もやっていなかった方法を試したら、うまくいった。最初は変な目で見られていたのに、しばらくしたら周囲が同じことをやり始めた。",daily:"流行に乗らなくても、気づいたら自分だけのスタイルが確立されていた。「どこでそれ知ったの？」と聞かれることが多いが、特に意識してやってきたわけではない。"},compat:{good1:{name:"解放者",code:"GHLF",reason:"先駆者の「誰も踏み込まない道を静かに進む独自性」と、解放者の「全力で前に進む推進力」が自然に補い合う組み合わせです。先駆者は自分の判断軸を持っていますが、それを全力で実行することへの躊躇いがあります。解放者の本気が、先駆者の躊躇いを自然に押し流してくれます。先駆者が「こっちだ」と方向を示し、解放者が「ならやろう」で動き出すことで、独自の道を勢いよく進めるチームになります。",role:"先駆者が方向性と独自の視点を担い、解放者が突破と推進を担います。先駆者が「こっちに道がある」と示し、解放者が「ならここを開ける」で応えます。"},good2:{name:"守護者",code:"GHSO",reason:"先駆者の「一人で道を切り開く力」を、守護者が後方から静かに支える組み合わせです。先駆者は自分の判断軸で動くため、周囲との摩擦が生まれやすい傾向があります。守護者はその摩擦を和らげ、先駆者が動きやすい環境を整えます。先駆者にとって「自分のやり方を否定しない、でも孤立もさせない」という存在として、守護者は非常に貴重な相手になります。",role:"先駆者が独自の判断と行動で前に進み、守護者が周囲との関係調整と場の安定を担います。先駆者が「こうやる」と決め、守護者が「それを受け入れてもらえる空気」を作ります。"},good3:{name:"設計者",code:"GCSO",reason:"先駆者の「独自の視点と判断軸」と、設計者の「全体を構造化する力」が補い合う組み合わせです。先駆者は誰も踏み込まない領域に足を踏み入れますが、その行動を構造として整理することが苦手なことがあります。設計者はその行動を「なぜうまくいったのか」「次はどう動くべきか」という形で構造化することができます。",role:"先駆者が誰も踏み込まない領域への行動と視点を担い、設計者がその行動を構造化して次に活かせる形に整えます。先駆者が「こっちに道がある」と動き、設計者が「なぜそこに道があるのか」を言語化します。"},bad1:{name:"影の功労者",code:"GCSF",reason:"先駆者は「自分の判断軸で動くこと」に強い独立心を持ちますが、影の功労者は「チームが機能すること」への責任感で動きます。影の功労者が「チームのために合わせてほしい」と感じても、先駆者には「なぜ自分の判断軸を変える必要があるのか」という感覚が先に来ます。先駆者からすると「なぜ自分のやり方に口を出すのか」、影の功労者からすると「なぜチームに合わせてくれないのか」という構造的なすれ違いが生まれやすいです。",role:"うまくいく関わり方：影の功労者が「あなたのやり方は尊重する、ただここだけ共有してほしい」と一点だけ伝えてみましょう。先駆者の独自性と影の功労者の実行力が同じ方向を向いたとき、誰も作れないものが生まれます。"},bad2:{name:"起爆剤",code:"GHSF",reason:"先駆者は「確信が持てるまで動かない」という慎重さで進みますが、起爆剤は「感じたらすぐ動く」という熱量で進みます。先駆者からすると「なぜそんなに見切り発車で動くのか」、起爆剤からすると「なぜそんなに時間をかけるのか」という判断タイミングのずれが、特にスピードが求められる場面で大きな摩擦になります。",role:"うまくいく関わり方：先駆者が「ここまでは確認できた、ここから先は動きながら確認しよう」と一歩踏み出してみましょう。起爆剤の推進力と先駆者の独自の視点が合わさると、誰も踏み込まなかった道を勢いよく進めるチームになります。"},bad3:{name:"天才肌",code:"ICLF",reason:"どちらも「自分のやり方で進む」という独自性を持っているタイプです。先駆者は「自分の判断軸で誰も踏み込まない道を進む」、天才肌は「なぜかうまくいく自分だけのやり方で動く」。同じ場にいると、どちらも「自分のやり方が正しい」という確信を持っているため、方向性が合わないときに主導権がぶつかりやすくなります。先駆者からすると「なぜ自分の判断軸に従わないのか」、天才肌からすると「なぜ自分のやり方を制限されるのか」というすれ違いが生まれやすいです。",role:"うまくいく関わり方：先駆者と天才肌が「どこに向かいたいか」を最初に共有してみましょう。ゴールが一致したとき、先駆者の独自の判断軸と天才肌の独自のやり方が、それぞれ異なる角度から同じゴールを実現し始めます。"}}},
+  "ICLF":{icon:"💎",name:"天才肌",sub:"型にはまらず、一人で世界を変えてしまう人",desc:"あなたは自分のスタイルで、すでに全力を出している。それは「協調性がない」のではなく、「自分のやり方が正しいから」です。一人で冷静に動き、先頭に立つ。その組み合わせで本気を出したとき、あなたは誰にも真似できない成果を出します。",overview:"天才肌は、自分のやり方で、すでに全力を出している人です。型にはまらず、一人で判断し、先頭に立って動く。その組み合わせは、周囲から見ると「なぜかうまくいく人」に映ります。説明できないけれど結果が出る。そのやり方は間違っていません。あなたの思考回路が、他の人とは根本的に違うだけです。",analysis:["天才肌の最大の特徴は、「プロセスが独自すぎて、他者に説明できない」ことです。結論にたどり着くルートが、一般的な思考の流れとは大きく異なります。論理的に積み上げているわけでも、感情で動いているわけでもなく、なぜかそこに到達している。後から振り返っても、「なんでそうしたんだろう」と自分でも説明しにくいことがあります。","個人型であることは、一人の環境で最も力が発揮されるということです。天才肌の場合、集団の中では自分の思考が制限される感覚があります。周囲のペースや期待に合わせようとする瞬間に、本来の思考回路がブロックされてしまうのです。一人で自由に考えられる状態になったとき、他の誰も思いつかないような発想や解決策が自然と浮かんできます。","冷静型であることは、天才肌の独自性にある種の精度を与えます。感情的な衝動ではなく、自分なりの論理と観察に基づいて動いているため、独自のやり方でも再現性があります。「なんとなく」ではなく、自分の中では筋道が通っている。ただその筋道が他者と共有しにくいだけです。","全開型であることは、すでにそのユニークな力を全開で使っているということです。天才肌は力をセーブしているのではなく、今この瞬間も自分のスタイルで本気を出しています。その状態が当たり前になっているため、自分がいかに特異な力を持っているかを、客観的に把握しにくくなっています。"],strengths:[{title:"誰も思いつかない発想力",en:"Unconventional Insight",body:"正解を知らないからこそ、既存の枠に縛られない解決策にたどり着ける。その発想は、経験や知識の積み上げではなく、思考回路そのものが生み出している。"},{title:"自分のスタイルへの一貫性",en:"Stylistic Integrity",body:"周囲の評価や一般的なやり方に流されず、自分の方法を貫ける。その一貫性が、長期的に見たとき唯一無二の結果を生み出す。"},{title:"結果で示す力",en:"Results Speak",body:"プロセスは説明できなくても、結果は出る。その実績の積み重ねが、周囲の信頼に変わっていく。"}],weaknesses:[{title:"説明できないもどかしさ",en:"Inarticulate Process",body:"自分の思考プロセスを他者に伝えることが難しく、「なぜそうしたのか」を聞かれると言葉に詰まる。理解してもらう前に、諦めてしまうことがある。"},{title:"チームでの摩擦",en:"Team Friction",body:"自分のやり方で動くため、他者と足並みを揃えることへのストレスが大きい。悪意はないが、「なぜそのやり方なのか共有してほしい」と言われることがある。"},{title:"孤立のリスク",en:"Risk of Isolation",body:"独自すぎるがゆえに、周囲に理解者が少ない状態が続くことがある。結果を出しているのに、プロセスが見えないため評価されにくい場面がある。"}],scenes:{school:"解き方が独特すぎて、答えは合っているのに先生に「なぜこうなった？」と聞かれた。説明しようとしたが、自分でもうまく言葉にできなかった。",work:"なぜかうまくいく自分だけのやり方がある。再現性を説明しろと言われると困るが、毎回なぜかうまくいく。",daily:"「変わってるね」と言われることが多いが、自分では至って普通のことをしているつもり。何が変わっているのか、正直よくわかっていない。"},compat:{good1:{name:"守護者",code:"GHSO",reason:"天才肌の「型にはまらない独自のやり方」を、守護者が自然に受け入れてくれる組み合わせです。天才肌は「なぜそのやり方なのか」を説明することが苦手ですが、守護者は結果よりもその人の誠実さや熱量を先に受け取ることができます。天才肌にとって「自分のやり方を否定されない」という安心感は、本来の力を発揮する上で非常に重要です。",role:"天才肌が独自のやり方で結果を出すことを担い、守護者がその過程で生まれる周囲との摩擦を和らげることを担います。天才肌が「こうやる」と動き、守護者が「この人のやり方には意味がある」と周囲に伝えます。"},good2:{name:"影の功労者",code:"GCSF",reason:"天才肌の「独自のやり方で結果を出す力」を、影の功労者が後方から黙って支える組み合わせです。影の功労者は「チームが機能すること」への責任感で動くため、天才肌が独自のやり方で動いていても、その結果がチームにとってプラスになっていると感じれば自然にサポートに回ります。天才肌にとって「自分のやり方を変えなくていい」という状態で実力を発揮できる、数少ない相手です。",role:"天才肌が独自の判断とやり方で結果を出すことを担い、影の功労者がその周辺の実務・調整・フォローを担います。天才肌が「こうやる」と動き、影の功労者が「ならここを整える」で応えます。"},good3:{name:"職人",code:"ICSO",reason:"どちらも「自分の基準と深さ」を持って動くタイプとして、お互いの領域を自然に尊重できる組み合わせです。天才肌は独自のプロセスで結果を出し、職人は深い精度で仕上げる。この二人は役割がかぶらず、干渉しすぎることなく、それぞれの領域で本来の力を発揮できます。",role:"天才肌が誰も思いつかない発想と独自のアプローチを担い、職人がそのアイデアを高い精度で形にすることを担います。天才肌が「こういうものを作りたい」と示し、職人が「ならこの精度で仕上げる」で応えます。"},bad1:{name:"指揮官",code:"GCLF",reason:"指揮官は「チーム全体を動かすこと」に責任感を持ちますが、天才肌は「自分のやり方で動くこと」に一貫性を持ちます。指揮官が「こう動いてほしい」と伝えても、天才肌は「自分のやり方のほうが結果が出る」という確信があるため、素直に従わないことがあります。指揮官からすると「なぜチームに合わせないのか」、天才肌からすると「なぜ自分のやり方を制限されるのか」という構造的な衝突が起きやすいです。",role:"うまくいく関わり方：指揮官が「このゴールさえ達成してくれればやり方は任せる」と伝えてみましょう。天才肌の独自性と指揮官のリーダーシップが同じゴールを向いたとき、誰も想像しなかった結果が生まれます。"},bad2:{name:"設計者",code:"GCSO",reason:"設計者は「構造を作ってから動く」タイプですが、天才肌は「なぜかうまくいく自分のやり方」で動くタイプです。設計者からすると「なぜそのプロセスなのか説明してほしい」、天才肌からすると「説明できないけど結果は出る」という根本的なすれ違いが生まれます。設計者は論理的な根拠を求め、天才肌はプロセスの説明が苦手なため、意思決定の場でかみ合わないことがあります。",role:"うまくいく関わり方：設計者が「プロセスは後で一緒に言語化しよう、まず結果を見せてほしい」と伝えてみましょう。天才肌の独自の発想と設計者の構造化力が合わさると、再現性のある唯一無二のやり方が生まれます。"},bad3:{name:"革命家",code:"GHLO",reason:"どちらも「今の当たり前を疑う視点」を持っていますが、天才肌は「自分のやり方で結果を出すこと」、革命家は「場そのものを変えること」に熱量を向けます。同じ場にいると、どちらも「自分のやり方が正しい」という確信を持っているため、方向性が合わないときに主導権がぶつかりやすくなります。",role:"うまくいく関わり方：天才肌と革命家が「どこに向かいたいか」を最初に共有してみましょう。ゴールが一致したとき、天才肌の独自の発想と革命家の変革力が合わさり、誰も想像しなかった変化が生まれます。"}}},
+  "IHSO":{icon:"🌱",name:"原石",sub:"磨かれるのを静かに待っている、本物の才能",desc:"今は光っていないかもしれない。でもそれは「まだ磨かれていないから」です。感情豊かで、誰かを支えたい気持ちがあって、でもまだ本気を出せていない。その三つが揃っているあなたは、正しい環境に出会ったとき、誰より速く成長する人です。今はまだ序章です。",overview:"原石は、まだ磨かれていないだけで、本物の才能を持っている人です。感情が豊かで、誰かを支えたいという純粋な動機があって、でもまだその力を全開にできていない。今は光っていないかもしれない。でもそれは、才能がないからではなく、まだ正しい環境と機会に出会っていないからです。原石が磨かれるのを待っているように、あなたの力はまだ表に出ていないだけです。",analysis:["原石の行動の根底にあるのは、「誰かの役に立ちたい」という純粋な感情です。これは義務感や打算からではなく、もっと深いところから来ている動機です。誰かが困っていると感じたとき、自分にできることはないかと自然に考えてしまう。その感受性の豊かさが、原石の最も大切な核になっています。","熱血型であることは、その動機が感情レベルで動いているということです。論理で「助けるべきだ」と判断するのではなく、感じたから動く。その純粋さは本物ですが、同時に感情が先に動きすぎて、どう行動すればいいかわからなくなることもあります。「何かしたい」という熱さはあるのに、「何をすればいいか」が見えず、結果として動けないまま終わってしまうことがあります。","個人型であることは、一対一の関係や単独の場面で最も力を発揮するということです。原石の場合、大勢の前では自分の感情や力をうまく表現できないことが多いです。しかし一対一になったとき、相手の気持ちに深く寄り添う力が自然と発揮されます。その場面でのあなたの存在感は、自分が思っている以上に相手の心に届いています。","縁の下型と温存型の組み合わせは、支える力を持ちながらもまだそれを出し切れていない状態です。原石の場合、これは能力の問題ではなく、「自分がやっていいのか」という許可の問題であることが多いです。本気を出すことへの躊躇いがあり、その許可を誰かから待ち続けています。しかしその許可は、外から来るものではありません。"],strengths:[{title:"感情の純粋さ",en:"Pure Motivation",body:"打算や計算のない、本物の「誰かのために」という動機が行動の源泉になっている。その純粋さは相手に伝わり、言葉以上の信頼を生むことがある。"},{title:"一対一での共感力",en:"Deep Empathy",body:"大勢の場では目立たないが、一対一になったとき相手の感情に深く寄り添える。その場面でのあなたの存在は、相手にとって大きな意味を持っていることがある。"},{title:"伸びしろの大きさ",en:"Enormous Potential",body:"まだ本気を出していないからこそ、正しい環境に出会ったときの成長速度が他のタイプより圧倒的に速い。今の状態がそのままの実力ではない。"}],weaknesses:[{title:"許可待ちの癖",en:"Waiting for Permission",body:"本気を出すための許可を、無意識に誰かから待ってしまっている。「自分がやっていいのか」という躊躇いが、行動にブレーキをかけ続けている。"},{title:"熱さの持て余し",en:"Misdirected Passion",body:"「何かしたい」という感情は強いのに、「何をすればいいか」が見えずに動けないことがある。エネルギーはあるのに、出口が見つからない状態。"},{title:"自己評価の低さ",en:"Low Self-Recognition",body:"自分の感受性や共感力を「特別なもの」と認識していない。それが当たり前だと思っているため、自分の強みとして活かす発想が生まれにくい。"}],scenes:{school:"文化祭や体育祭の準備で、困っている人を見かけると気づいたら手伝っていた。頼まれたわけでもなく、自然と体が動いていた。でも自分が貢献したという感覚はあまりない。",work:"「やってみませんか」と言われたとき、内心「できるかも」と思いながら「私なんかで大丈夫ですか」と答えてしまった。その後、実際にやってみたらちゃんとできた。",daily:"友人から相談されると、気づいたら長時間話を聞いていた。相手が「ありがとう、楽になった」と言ってくれるが、自分は「大したことしてない」と思っている。"},compat:{good1:{name:"解放者",code:"GHLF",reason:"解放者の「全力で動く姿」が、原石の「本気を出す許可」を自然に与えてくれる組み合わせです。原石はポテンシャルを持ちながらも、「自分がやっていいのか」という躊躇いが行動にブレーキをかけています。解放者が隣で全力を出している姿を見ることで、原石は「これくらいやっていいんだ」という感覚を得やすくなります。",role:"解放者が場の空気を作りチームを動かし、原石がその空気の中で本来の力を発揮し始めます。解放者が「一緒にやろう」と引っ張り、原石が「やってみる」で応えます。"},good2:{name:"先見者",code:"GCLO",reason:"先見者の「未来を読む視点」が、原石の「まだ見えていない自分の可能性」を照らしてくれる組み合わせです。原石は自分の力がまだよく見えていないため、「自分にできるのかな」という不安を抱えやすいです。先見者は原石のポテンシャルを論理的に読み取り、「あなたにはこういう力がある」と言語化することができます。",role:"先見者が原石の可能性と方向性を示し、原石がその方向に向かって本気を出し始めます。先見者が「あなたにはここで力が発揮できる」と示し、原石が「ならやってみる」で動き出します。"},good3:{name:"守護者",code:"GHSO",reason:"どちらも感情が豊かで、誰かのために動きたいという純粋な動機を持つ組み合わせです。守護者は原石の熱さと誠実さを自然に感じ取り、「この人のペースで動いていい」という安心感を与えてくれます。原石にとって「焦らなくていい、あなたのままでいい」と感じられる存在として、守護者は本来の力を引き出してくれる相手です。",role:"守護者が場の感情的な安定と関係の維持を担い、原石がその安心感の中で本来の共感力と誠実さを発揮します。守護者が「ここは任せて」と支え、原石が「ならここをやる」で応えます。"},bad1:{name:"指揮官",code:"GCLF",reason:"指揮官の判断と行動のスピードに、原石がついていけないと感じやすい組み合わせです。原石はまだ「自分がやっていいのか」という許可待ちの状態にあることが多く、指揮官の「決めて動かす」テンポに圧倒されてしまうことがあります。指揮官からすると「なぜもっと積極的に動かないのか」、原石からすると「このスピードについていけない、自分はここにいていいのか」という感覚が積み重なりやすいです。",role:"うまくいく関わり方：指揮官が「ここだけをお願いしたい」と一点だけ明確に示してみましょう。原石は「自分にできること」が具体的に見えたとき、想像以上の誠実さと熱量で応えます。"},bad2:{name:"天才肌",code:"ICLF",reason:"天才肌は「自分のやり方で動くこと」への一貫性が強く、プロセスの説明が苦手なタイプです。原石はまだ自分の力が見えていないため、誰かの行動から「どうすればいいか」を学ぼうとすることがあります。しかし天才肌のやり方は独自すぎて参考にしにくく、原石は「自分にはできない」という方向に向かってしまうことがあります。",role:"うまくいく関わり方：天才肌が「自分はこうやっているけど、あなたはあなたのやり方でいい」と一言添えてみましょう。原石が「自分のやり方でいい」という許可を得たとき、天才肌も想像していなかった力を発揮し始めます。"},bad3:{name:"先駆者",code:"ICLO",reason:"先駆者は「自分の判断軸で静かに進む」という確信ある姿が、原石には「あのくらい確信を持って動けないといけないのか」というプレッシャーになることがあります。先駆者からすると「なぜ自分の方向性が見えないのか」、原石からすると「どう動けばいいかわからない」というすれ違いが生まれやすいです。",role:"うまくいく関わり方：先駆者が「自分も方向性が見えるまでに時間がかかった」と自分の過程を少し見せてみましょう。原石は「あの人にもそういう時期があった」と感じたとき、自分の力を信じて動き始めやすくなります。"}}},
+  "IHSF":{icon:"🎆",name:"縁の下の情熱家",sub:"熱さを内に秘めて、すでに全力で支えている",desc:"あなたはすでに、誰かのために全力を出している。でもその熱さを外に出さないから、気づかれないだけです。縁の下で全力を出し続けられる人間は、本当は少ない。あなたの存在で、確かに誰かが救われています。その力は本物です。もっと誇っていい。",overview:"縁の下の情熱家は、熱い気持ちを内側に秘めながら、すでに全力で誰かを支えている人です。表に出さないだけで、その熱量は本物です。一人で、静かに、しかし誰より本気で動いてきた。その存在がなければ確実に何かが止まっていた場所が、あなたの周りにいくつもあります。それに気づいていないのは、あなただけかもしれません。",analysis:["縁の下の情熱家の行動を支えているのは、「誰かのために本気を出すことへの純粋な喜び」です。見返りを求めているわけではなく、誰かが助かること、場がうまく回ること、誰かが前に進めることに、静かな満足感を感じています。その動機の純粋さが、縁の下の情熱家の行動を長期間持続させる力になっています。","熱血型でありながら、その熱さが表に出ることはほとんどありません。内側では強い感情が動いているのに、外から見ると穏やかで落ち着いた人に映ります。これは感情を抑圧しているのではなく、その熱さを「行動」という形で静かに放出しているからです。言葉や態度ではなく、動きそのものに感情が乗っています。","個人型と縁の下型の組み合わせは、一人で支える側に徹するということです。縁の下の情熱家は、誰かに見られていなくても、評価されなくても、やるべきことをやります。その姿勢は非常に誠実ですが、同時に「誰にも気づかれない」という状況を自分で作り出してしまってもいます。","全開型であることは、すでにその力を全力で使っているということです。つまり、休む間もなく誰かのために動き続けている状態です。縁の下の情熱家の場合、この消耗は特に見えにくいです。感情を外に出さないため、周囲から見ると疲れているように見えない。しかし内側では、静かに限界に近づいていることがあります。"],strengths:[{title:"静かな本気",en:"Silent Dedication",body:"表に出さないだけで、やることの質と熱量は本物。言葉や態度ではなく、行動そのものにその誠実さが現れている。"},{title:"長期的な継続力",en:"Long-Term Commitment",body:"見返りを求めない動機で動いているため、評価されなくても続けられる。その持続力が、長期的に見たとき最も大きな信頼につながっている。"},{title:"一対一での深い関わり",en:"Deep One-on-One Connection",body:"個人型であるため、一対一の関係で深く関わる力がある。その場面での誠実さと熱量が、相手の心に長く残ることがある。"}],weaknesses:[{title:"熱さの溜め込みすぎ",en:"Bottled Emotions",body:"感情を内側に溜め続けるため、ある日突然限界を迎えることがある。周囲から見ると突然のように見えるが、本人の中では長い時間をかけて蓄積されてきたものが溢れた状態。"},{title:"貢献の不可視化",en:"Invisible Effort",body:"一人で静かに動いているため、何をしたかが周囲に伝わらない。チームがうまくいっていても、その貢献が評価される機会がほとんどない。"},{title:"自分のための行動が苦手",en:"Self-Last Mentality",body:"誰かのために動くことは自然にできるのに、自分のために同じ熱量を使うことへの抵抗感がある。結果として、自分の成長や欲求が後回しになりやすい。"}],scenes:{school:"部活で目立たないポジションを、誰よりも本気でやっていた。レギュラーでもなく、表彰されるわけでもなく、でも自分の中では全力だった。",work:"誰も見ていない細かい仕事を、手を抜かずにやってきた。「なんでそこまでやるの？」と言われることがあるが、手を抜く理由が見つからないだけ。",daily:"感謝されなくても、また気づいたら誰かのために動いていた。「もうやらない」と思ったことはあるけれど、結局やってしまう。それが自分でも不思議なくらい自然なことになっている。"},compat:{good1:{name:"先見者",code:"GCLO",reason:"先見者の「未来を読む視点」と、縁の下の情熱家の「今を誠実に支える力」が自然に役割分担できる組み合わせです。先見者は中長期の方向性を示しますが、それを日々の行動に変換する部分でもたつくことがあります。縁の下の情熱家はその変換を自然にやってしまう人なので、先見者が「見えている未来」を口にするだけで、縁の下の情熱家が誠実に動き始めます。",role:"先見者が中長期の方向性と課題を示し、縁の下の情熱家が今日やるべきことを誠実に動き続けます。先見者が「この先こうなる」と示し、縁の下の情熱家が「ならここをやる」で応えます。"},good2:{name:"革命家",code:"GHLO",reason:"革命家の「場を変えたい」という熱さと、縁の下の情熱家の「誰かのために動きたい」という熱さが、根っこの部分で共鳴する組み合わせです。革命家が場を動かすとき、縁の下の情熱家がその変化の中で取り残される人を静かに拾っていきます。変化の速さと誰も置いていかない誠実さが両立することで、変化が確かな形として根付いていきます。",role:"革命家が変化の方向性と推進を担い、縁の下の情熱家が変化の中で生まれる細かなフォローと関係の維持を担います。革命家が「前へ」と動かし、縁の下の情熱家が「全員で」を実現します。"},good3:{name:"孤高の達人",code:"ICSF",reason:"どちらも静かに・一人で・本気で動くタイプとして、お互いの存在を自然に尊重できる組み合わせです。孤高の達人は実力で、縁の下の情熱家は誠実さで、それぞれ異なる形でチームを支えます。表立って主張し合うことがないため、役割がかぶらず、お互いの領域を自然に尊重できます。",role:"孤高の達人が専門性と精度を担い、縁の下の情熱家が誠実さと継続的なサポートを担います。孤高の達人が「質」を担保し、縁の下の情熱家が「関係」を担保します。"},bad1:{name:"指揮官",code:"GCLF",reason:"どちらも全力で動くタイプですが、縁の下の情熱家は「縁の下で支える」、指揮官は「先頭に立って引っ張る」という方向性の違いがあります。指揮官は動きが速く判断が明確なため、縁の下の情熱家のペースや確認のプロセスを「遅い」と感じることがあります。縁の下の情熱家は、指揮官の「決めてから動く」スタイルに対して「もう少し確認してから」という感覚を持ちやすく、小さな摩擦が積み重なりやすいです。",role:"うまくいく関わり方：縁の下の情熱家が「ここまでは任せる、ここだけ確認させてほしい」と境界を言葉にしてみましょう。指揮官の決断力と縁の下の情熱家の誠実な実行力が合わさると、速くて確かなチームになります。"},bad2:{name:"天才肌",code:"ICLF",reason:"縁の下の情熱家はチームの関係性と誠実さを大切にしますが、天才肌は自分のやり方と結果を優先します。縁の下の情熱家が「チームのために合わせてほしい」と感じても、天才肌には「なぜ自分のやり方を変える必要があるのか」という感覚が先に来ます。縁の下の情熱家が傷つきながらも黙って支え続け、天才肌は気づかないまま、という消耗パターンに陥りやすいです。",role:"うまくいく関わり方：縁の下の情熱家が「あなたのやり方は尊重する、ただここだけ共有してほしい」と一点だけ伝えてみましょう。天才肌の独自性と縁の下の情熱家の誠実な支えが同じ方向を向いたとき、チームとして確かな結果が生まれます。"},bad3:{name:"設計者",code:"GCSO",reason:"設計者は論理と構造で動きますが、縁の下の情熱家は感情と誠実さで動きます。設計者からすると「なぜそうするのか根拠を示してほしい」、縁の下の情熱家からすると「なんとなくそうすべきだと感じるから」という答えになりやすく、意思決定の場でかみ合わないことがあります。縁の下の情熱家は設計者の言葉が冷たく感じられることがあり、設計者は縁の下の情熱家の判断に論拠が見えにくいと感じることがあります。",role:"うまくいく関わり方：設計者が「あなたの感覚を教えてほしい、それを一緒に言語化しよう」と歩み寄ってみましょう。縁の下の情熱家の感情的な誠実さと設計者の論理的な構造化力が合わさると、根拠のある誠実なチームが生まれます。"}}},
+  "IHLO":{icon:"🔮",name:"規格外",sub:"今の環境が、あなたに追いついていないだけ",desc:"あなたは今の環境に合っていないだけです。一人で動き、感情で決断し、先頭に立つ力を持ちながら、まだ本気を出していない。その組み合わせは、正しい場所に出会ったとき爆発的な力になります。「自分はなんか違う」という感覚は正しい。あなたはまだ本当の場所に立っていないだけです。",overview:"規格外は、今いる環境が自分に追いついていないだけの人です。一人で動き、感情で判断し、先頭に立つ力を持ちながら、まだその力を全開にできていない。「なんか自分は違う」という感覚がずっとあるなら、それは正しいです。あなたは今の場所に収まりきらないだけであって、力がないわけではありません。正しい場所に出会ったとき、その意味が初めてわかります。",analysis:["規格外の最も根本的な特徴は、「今いる環境との慢性的なずれ」です。クラス、職場、コミュニティ、どこにいても「なんか違う」という感覚が抜けない。これは環境への不満ではなく、もっと深いところにある感覚です。自分の思考のスピード、感情の動き方、物事の見え方が、周囲とどこかずれている。そのずれが積み重なると、「自分はおかしいのかもしれない」という方向に向かってしまうことがあります。しかしそのずれは、欠陥ではなく規格外であることの証明です。","熱血型であることは、その「違う」という感覚が感情レベルで来るということです。論理的に「ここは自分に合っていない」と分析するのではなく、体や感情が先に「違う」と反応しています。その感覚は鋭く、ほとんどの場合で正しいのですが、感情ベースであるがゆえに「何がどう違うのか」を言語化することが難しいです。","個人型と先頭型の組み合わせは、一人で前に出る力を持つということです。規格外の場合、これは集団のリーダーになりたいのではなく、自分の判断で動きたいという意志の強さとして現れます。誰かの指示を待つのではなく、自分が正しいと思う方向に動く。その独立性が、今の環境では「扱いにくい」と映ることがあります。","温存型であることは、まだ本気を出していないということです。規格外の場合、これは「本気を出せる場所がまだ見つかっていない」という意味合いが強いです。今の環境では、自分の力を全開にする意味を見出せていない。しかしそれは、力がないのではなく、その力に見合った場所にまだいないということです。"],strengths:[{title:"環境を超える適応力",en:"Transcendent Adaptability",body:"どこにいても「違う」と感じながらも、その場で動き続けられる。完全に合わない環境でもゼロにはならない粘り強さが、どんな状況でも生き残る力になっている。"},{title:"感情と行動の連動",en:"Emotion-Action Sync",body:"「これだ」と感じたとき、迷わず動ける。その判断の速さと感情の純粋さが、正しい場所に出会ったとき爆発的な力になる。"},{title:"独自の視点",en:"Outside Perspective",body:"どこにいても少し外側から物事を見ているため、内側にいる人間には見えない景色が見えている。その視点は、正しい場所で使われたとき唯一無二の強みになる。"}],weaknesses:[{title:"居場所のなさ",en:"Sense of Not Belonging",body:"どこにいても「なんか違う」という感覚が抜けず、完全に馴染める場所が見つからないことがある。その慢性的なずれが、自己否定に向かってしまうことがある。"},{title:"言語化の難しさ",en:"Hard to Explain the Difference",body:"「違う」という感覚は確かにあるのに、何がどう違うのかを説明できない。その説明できなさが、周囲との断絶をさらに深めることがある。"},{title:"本気を出す場所の見つけにくさ",en:"No Stage Yet",body:"力はあるのに、それを全開にできる環境に出会えていない状態が続くと、だんだん「自分には力がないのかもしれない」という方向に思考が向いてしまう。"}],scenes:{school:"クラスの空気が、なぜか自分だけ違う感じがずっとしていた。浮いているわけでも、嫌われているわけでもないのに、どこか馴染みきれない感覚があった。",work:"「なんで自分ここにいるんだろう」と思いながら、でも誰より仕事を丁寧にやっていた。評価されているかどうかより、自分の基準を満たせているかどうかが気になっていた。",daily:"「普通」の基準が周りとずれている気がする。みんなが当たり前にやっていることへの違和感と、自分が当たり前にやっていることへの周囲の反応が、いつもどこかかみ合わない。"},compat:{good1:{name:"解放者",code:"GHLF",reason:"規格外の「今の環境に収まりきらない独自性」と、解放者の「全力で前に進む推進力」が自然に共鳴する組み合わせです。規格外はまだ本気を出せる場所に出会えていないことが多いですが、解放者が全力で動く姿を見ることで「ここなら出していい」という感覚を得やすくなります。解放者にとっても、規格外が本気を出し始めたときのエネルギーは、チームに新たな次元の力をもたらします。",role:"解放者が場の空気を作りチームを動かし、規格外がその空気の中で今まで出せなかった本来の力を発揮し始めます。解放者が「一緒にやろう」と引っ張り、規格外が「ならここで出す」で応えます。"},good2:{name:"先見者",code:"GCLO",reason:"先見者の「未来を読む視点」が、規格外の「今の環境との慢性的なずれ」に意味を与えてくれる組み合わせです。規格外は「なんか自分は違う」という感覚を持ち続けていますが、先見者はその「違い」が何なのかを論理的に読み取り、言語化することができます。規格外にとって「自分のずれが欠陥ではなく可能性だ」と感じられる、数少ない相手です。",role:"先見者が規格外の独自性の意味と方向性を言語化して示し、規格外がその方向に向かって本来の力を解放し始めます。先見者が「あなたのずれはここで活きる」と示し、規格外が「ならここで出す」で動き出します。"},good3:{name:"革命家",code:"GHLO",reason:"どちらも「今の当たり前に違和感を持つ」という感覚を共有できる、数少ない組み合わせです。規格外は「自分が環境に合っていない」という感覚を持ち、革命家は「この環境そのものがおかしい」という視点を持ちます。二人がいると「違和感を持っていたのは自分だけじゃなかった」という安心感が生まれ、お互いの独自性が自然に引き出されます。",role:"革命家が「何を変えるか」の問題提起と推進を担い、規格外が「なぜそれがおかしいのか」という外側からの視点と根拠を担います。革命家が「ここを変えよう」と動き、規格外が「そもそもこういう問題がある」と深みを加えます。"},bad1:{name:"影の功労者",code:"GCSF",reason:"影の功労者はチームが機能することへの責任感で動きますが、規格外は既存の役割構造そのものに馴染まないタイプです。影の功労者が「この役割をお願いしたい」と伝えても、規格外には「なぜその役割がそもそも必要なのか」という疑問が先に来ることがあります。影の功労者からすると「なぜ動いてくれないのか」、規格外からすると「なぜそのやり方前提なのか」という互いへの違和感が積み重なりやすいです。",role:"うまくいく関わり方：影の功労者が役割ではなく「あなたにしかできないことがある」という形で伝えてみましょう。規格外は「自分にしかできないこと」という文脈で動き始めたとき、誰も想像しなかった貢献をします。"},bad2:{name:"設計者",code:"GCSO",reason:"設計者は「既存の構造を最適化する」タイプですが、規格外は「その構造そのものが自分に合っていない」という感覚を持っています。設計者がいくら丁寧に構造を示しても、規格外にはその構造の前提が「なんか違う」と感じられることがあります。設計者からすると「なぜ構造に沿って動かないのか」、規格外からすると「その構造が自分には合わない」という根本的なすれ違いが生まれやすいです。",role:"うまくいく関わり方：設計者が構造を示す前に「あなたから見てこの状況どう見える？」と先に聞いてみましょう。規格外の外側からの視点と設計者の構造化力が合わさると、前提から作り直した精度の高い設計が生まれます。"},bad3:{name:"指揮官",code:"GCLF",reason:"指揮官は「判断して動かして結果を出す」というサイクルが速い人ですが、規格外はそのサイクルの前提に馴染めないことがあります。指揮官からすると「なぜ動かないのか」、規格外からすると「なぜそのやり方前提で動く必要があるのか」という根本的なすれ違いが起きやすいです。指揮官の速さと規格外の独自性は、方向が合えば爆発的な力になりますが、合わないと消耗が速くなります。",role:"うまくいく関わり方：指揮官が「あなたのやり方でやっていい、ただこのゴールだけ共有したい」と伝えてみましょう。規格外がゴールだけを共有された状態で動き始めたとき、指揮官も想像しなかったやり方で結果を出します。"}}},
+  "IHLF":{icon:"🌅",name:"夜明け前の実力者",sub:"今が一番暗い。だから次は、確実に明るくなる",desc:"今、自分の力がわからなくて当然です。でもここまで読んでくれたあなたには、「もっとなれる」という感覚が確かにある。その感覚は嘘じゃない。一人で感情と向き合い、先頭に立つ覚悟を持ちながら、全力で走ってきた。夜明け前が一番暗いように、今がどん底なら次は上がるだけです。",overview:"夜明け前の実力者は、一人で感情と向き合い、諦めずにここまで来た人です。今、自分の力がわからなくて当然です。全力で動いているのに結果が見えない、頑張っているのに評価されない、そういう時期の中にいるかもしれない。でもここまで読んでくれたあなたには、「もっとなれる」という感覚が確かにあるはずです。その感覚は嘘じゃない。夜明け前が一番暗いように、今がどん底なら次は上がるだけです。",analysis:["夜明け前の実力者の最大の特徴は、「全力で動いているのに、その力がまだ外に伝わっていない」という状態です。サボっているわけでも、諦めているわけでもない。むしろ誰より本気で動いている。それなのに結果や評価がついてこない時期というのは、確かに存在します。その時期を「自分には才能がない」という証拠だと解釈してしまうのが、夜明け前の実力者が最も陥りやすい罠です。","熱血型であることは、感情が行動の源泉になっているということです。夜明け前の実力者の場合、この感情エネルギーは非常に強いです。諦めたくない、もっとできるはず、という感覚が、論理的な判断を超えて動き続けさせています。それは弱さではなく、最も本質的な強さです。感情が動き続けている限り、行動が止まりません。","個人型であることは、一人で向き合う力があるということです。夜明け前の実力者は、誰かに助けてもらいながら進んできたのではなく、自分の内側と向き合いながらここまで来ています。その孤独な時間の積み重ねが、他の人には出せない深さと誠実さを育てています。一人で戦い続けた経験は、必ず力になっています。","先頭型と全開型の組み合わせは、前に出る意志を持ちながらすでに全力で動いているということです。夜明け前の実力者の場合、その全力がまだ正しい場所に届いていないだけです。力の向け先と環境が噛み合ったとき、今まで積み上げてきたすべてが一気に形になります。それは突然のように見えますが、ここまでの時間がすべて準備になっていたのです。"],strengths:[{title:"諦めない継続力",en:"Unbreakable Persistence",body:"結果が出ない時期でも、感情と意志で動き続けられる。その継続の積み重ねが、正しい場所に出会ったときの爆発力の源になっている。"},{title:"一人で向き合う誠実さ",en:"Honest Self-Confrontation",body:"誰かに頼るのではなく、自分の内側と正直に向き合いながら進んできた。その誠実さが、行動の質と深さに現れている。"},{title:"全力で動ける熱量",en:"Full-Throttle Passion",body:"すでに本気を出している。その事実は、どんな結果が出ていなくても変わらない。全力を出し続けられること自体が、多くの人にはない力です。"}],weaknesses:[{title:"自己評価の不安定さ",en:"Unstable Self-Worth",body:"結果が出ない時期に、自分の力への疑いが強くなりやすい。「本当に自分には力があるのか」という問いが、行動にブレーキをかけることがある。"},{title:"消耗への無自覚",en:"Unaware of Depletion",body:"全力で動き続けているため、疲れていることに気づきにくい。「まだいける」と思い続けて、ある日突然動けなくなることがある。"},{title:"孤独になりすぎる傾向",en:"Excessive Solitude",body:"一人で向き合う力があるがゆえに、誰かに頼ることへの抵抗感が強い。その孤独が、本来必要なサポートを遠ざけてしまうことがある。"}],scenes:{school:"うまくいかない時期でも、やめなかった。続けている理由を聞かれると「なんとなく」としか答えられなかったけれど、やめる気にもなれなかった。",work:"評価されていないのに、仕事を丁寧にやってしまう。手を抜けばいいとわかっているのに、自分の基準がそれを許さない。その誠実さが、いつか誰かの目に留まる。",daily:"「まだ自分の本番じゃない」という感覚がずっとある。根拠はないけれど、今はまだ準備の時間だという確信が、どこかにある。その感覚は、正しいです。"},compat:{good1:{name:"設計者",code:"GCSO",reason:"夜明け前の実力者の「全力で動き続ける熱量と誠実さ」を、設計者が静かに構造化してくれる組み合わせです。夜明け前の実力者はすでに全力で動いていますが、その力がどこに向かっているのかが見えにくい状態にあることがあります。設計者はその動きを観察し、「あなたの力はここで活きている」と構造として言語化することができます。",role:"設計者が夜明け前の実力者の動きを構造化し方向性を示し、夜明け前の実力者がその方向に向かって全力で動き続けます。設計者が「あなたの力はここで活きる」と示し、夜明け前の実力者が「ならそこで出す」で応えます。"},good2:{name:"守護者",code:"GHSO",reason:"どちらも感情を内側に秘めながら、誰かのために本気で動くタイプとして、お互いの誠実さを自然に感じ取れる組み合わせです。夜明け前の実力者は「まだ自分の本番じゃない」という感覚を持ち続けていますが、守護者はその誠実さと熱量を言葉にならない部分で受け取ることができます。夜明け前の実力者にとって「今の自分のままでいい」と感じられる、数少ない相手です。",role:"夜明け前の実力者が全力で動き続けることを担い、守護者がその周囲との関係調整と感情的な安定を担います。夜明け前の実力者が「ここで出す」と動き、守護者が「その間、周りは任せて」で応えます。"},good3:{name:"先見者",code:"GCLO",reason:"先見者の「未来を読む視点」が、夜明け前の実力者の「今がどん底でも諦めない力」に方向性を与えてくれる組み合わせです。夜明け前の実力者は全力で動いているのに結果が見えない時期にいることがありますが、先見者はその努力が「いつ・どこで形になるか」を読み取ることができます。夜明け前の実力者にとって「自分の努力が無駄じゃないと言ってくれる人」として、先見者は非常に大きな存在になります。",role:"先見者が夜明け前の実力者の努力が活きる方向性と時期を示し、夜明け前の実力者がその方向に向かって全力で動き続けます。先見者が「あなたの力はここで形になる」と示し、夜明け前の実力者が「ならそこまで走る」で応えます。"},bad1:{name:"天才肌",code:"ICLF",reason:"夜明け前の実力者は「全力で動き続けること」に誠実さを持ちますが、天才肌は「自分のやり方で動くこと」に一貫性を持ちます。夜明け前の実力者からすると「なぜそのやり方なのかわからない」、天才肌からすると「なぜ自分のやり方を説明しなければいけないのか」という根本的なすれ違いが生まれます。夜明け前の実力者が「どうすればいいか」を学ぼうとしても、天才肌のやり方は独自すぎて参考にしにくく、夜明け前の実力者が「自分にはできない」という方向に向かってしまうことがあります。",role:"うまくいく関わり方：天才肌が「自分はこうやっているけど、あなたはあなたのやり方でいい」と一言添えてみましょう。夜明け前の実力者が「自分のやり方でいい」という許可を得たとき、天才肌も想像していなかった誠実さと熱量で動き始めます。"},bad2:{name:"先駆者",code:"ICLO",reason:"先駆者は「自分の判断軸で静かに進む」タイプですが、夜明け前の実力者は「全力で動いているのに方向が見えない」という状態にあることがあります。先駆者の「自分のやり方で進む」という確信ある姿が、夜明け前の実力者には「あのくらい確信を持って動けないといけないのか」というプレッシャーになることがあります。",role:"うまくいく関わり方：先駆者が「自分も方向性が見えるまでに時間がかかった」と自分の過程を少し見せてみましょう。夜明け前の実力者は「あの人にもそういう時期があった」と感じたとき、自分の全力を信じて動き続けやすくなります。"},bad3:{name:"起爆剤",code:"GHSF",reason:"夜明け前の実力者は「今がどん底でも、誠実に全力で積み上げ続ける」タイプですが、起爆剤は「感じたらすぐ動く」という熱量で動くタイプです。夜明け前の実力者からすると「なぜそんなに見切り発車で動くのか」、起爆剤からすると「なぜそんなに慎重に積み上げるのか」というテンポの違いが摩擦になります。夜明け前の実力者の「誠実に積み上げる」という軸と、起爆剤の「感じたら動く」という軸は、方向が合わないと互いの動き方を否定し合う形になりやすいです。",role:"うまくいく関わり方：起爆剤が「あなたが積み上げてきたものを、自分が前に出して動かす」という役割分担を先に伝えてみましょう。夜明け前の実力者の誠実な積み上げと起爆剤の推進力が合わさると、根拠のある熱量を持ったチームになります。"}}}
 };
 
 const AXIS_LABELS=[
@@ -424,13 +532,86 @@ function startLoad(){
 function showResult(){
   const{key,pct}=resData;
   const tp=TYPES[key]||TYPES['IHLF'];
+
   document.getElementById('resnick').textContent=`${nick} さんの診断結果`;
   document.getElementById('rescode').textContent=key;
   document.getElementById('resico').textContent=tp.icon;
   document.getElementById('resname').textContent=tp.name;
   document.getElementById('ressub').textContent=tp.sub;
   document.getElementById('resdesc').textContent=tp.desc;
+
+  // 詳細分析
+  document.getElementById('det-overview').textContent=tp.overview||'';
+  document.getElementById('det-body').innerHTML=(tp.analysis||[]).map(p=>`<p class="analysis-para">${p}</p>`).join('');
+
+  // 強み・弱み
+  document.getElementById('det-strengths').innerHTML=(tp.strengths||[]).map(s=>
+    `<div class="sw-item">
+      <div class="sw-item-hd">
+        <span class="sw-item-name">${s.title}</span>
+        <span class="sw-item-en">${s.en}</span>
+      </div>
+      <p class="sw-item-body">${s.body}</p>
+    </div>`
+  ).join('');
+  document.getElementById('det-weaknesses').innerHTML=(tp.weaknesses||[]).map(w=>
+    `<div class="sw-item">
+      <div class="sw-item-hd">
+        <span class="sw-item-name">${w.title}</span>
+        <span class="sw-item-en">${w.en}</span>
+      </div>
+      <p class="sw-item-body">${w.body}</p>
+    </div>`
+  ).join('');
+
+  // もっと見るリセット
+  document.getElementById('det-body').classList.remove('open');
+  document.getElementById('btn-more').classList.remove('open');
+  document.getElementById('btn-more-txt').textContent='もっと見る';
+
+  // 社会あるある
+  document.getElementById('det-school').textContent=tp.scenes.school;
+  document.getElementById('det-work').textContent=tp.scenes.work;
+  document.getElementById('det-daily').textContent=tp.scenes.daily;
+
+  // 相性診断（得意1位のみ無料）
+  const g1=tp.compat.good1;
+  document.getElementById('compat-good-1').innerHTML=`
+    <div class="compat-rank">✨ 得意な相性 1位</div>
+    <div class="compat-name">${g1.name}</div>
+    <div class="compat-code">${g1.code}</div>
+    <div class="compat-reason">${g1.reason}</div>
+    <div class="compat-role-lbl">ROLE DIVISION</div>
+    <div class="compat-role">${g1.role}</div>
+  `;
+
+  // 相性診断（得意2位・3位）
+  const mkGood=(d,rank)=>`
+    <div class="compat-rank">✨ 得意な相性 ${rank}位</div>
+    <div class="compat-name">${d.name}</div>
+    <div class="compat-code">${d.code}</div>
+    <div class="compat-reason">${d.reason}</div>
+    <div class="compat-role-lbl">ROLE DIVISION</div>
+    <div class="compat-role">${d.role}</div>
+  `;
+  document.getElementById('compat-good-2').innerHTML=mkGood(tp.compat.good2,2);
+  document.getElementById('compat-good-3').innerHTML=mkGood(tp.compat.good3,3);
+
+  // 相性診断（苦手1〜3位）
+  const mkBad=(d,rank)=>`
+    <div class="compat-rank bad-rank">😓 苦手な相性 ${rank}位</div>
+    <div class="compat-name">${d.name}</div>
+    <div class="compat-code">${d.code}</div>
+    <div class="compat-reason">${d.reason}</div>
+    <div class="compat-role-lbl bad-role-lbl">APPROACH</div>
+    <div class="compat-role">${d.role}</div>
+  `;
+  document.getElementById('compat-bad-1').innerHTML=mkBad(tp.compat.bad1,1);
+  document.getElementById('compat-bad-2').innerHTML=mkBad(tp.compat.bad2,2);
+  document.getElementById('compat-bad-3').innerHTML=mkBad(tp.compat.bad3,3);
+
   showScr('scr-res');
+
   setTimeout(()=>{
     pct.forEach((p,i)=>{
       const isH=p>=50;
@@ -439,6 +620,15 @@ function showResult(){
       document.getElementById(`b${i}b`).textContent=`${AXIS_LABELS[i][1]} ${isH?100-p:p}%`;
     });
   },150);
+}
+
+function toggleMore(){
+  const body=document.getElementById('det-body');
+  const btn=document.getElementById('btn-more');
+  const txt=document.getElementById('btn-more-txt');
+  const isOpen=body.classList.toggle('open');
+  btn.classList.toggle('open',isOpen);
+  txt.textContent=isOpen?'閉じる':'もっと見る';
 }
 
 function buildText(){
